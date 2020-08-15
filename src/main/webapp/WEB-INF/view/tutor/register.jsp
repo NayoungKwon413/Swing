@@ -70,15 +70,38 @@ button:hover {
 	opacity: 0.85;
 }
 </style>
-<script type="text/javascript" src="path/to/jQuery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-$("#price").on("propertychange change keyup paste", function() {
-    var currentVal = $(this).val();
-	$("#time").val() = currentVal;
-
+$(document).ready(function(){
+	var price = 0;
+	var time = 0;
+	var totaltime = 0;
+	
+	$("#price").on("propertychange change keyup paste input", function() {
+    	price = $(this).val();
+    	cal(price,time,totaltime);
+	});
+	
+	$("#time").on("propertychange change keyup paste input", function() {
+    	time = $(this).val();
+    	cal(price,time,totaltime);
+	});
+	
+	$("#totaltime").on("propertychange change keyup paste input", function() {
+    	totaltime = $(this).val();
+    	cal(price,time,totaltime);
+	});
 });
-</script>
 
+function cal(price, time, totaltime){
+	document.getElementById("cal").textContent = price + "원 X " + time + "시간 X " + totaltime + "회";
+	if(price!=0 && time!=0 && totaltime!=0) {
+		var totalprice = price * time * totaltime;
+		document.getElementById("totalprice").textContent = "총 " + totalprice + "원";
+	}
+	
+}
+</script>
 </head>
 <body>
 <section id="team" class="team">
@@ -166,13 +189,13 @@ $("#price").on("propertychange change keyup paste", function() {
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">수업형태-</div>
-                <input type="radio" name="type" id="type1" value="1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
+                <input type="radio" name="type" id="type1" value="1" checked="checked" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
                 <!-- 다회차 클릭시 밑에 회차정보 갯수만큼 뜸 -->
                 <input type="radio" name="type" id="type2" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
         </div>
 		<div class="form-group">
 			<div class="title">참여인원-</div>
-                <input type="radio" name="maxtutee" id="maxtutee1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
+                <input type="radio" name="maxtutee" id="maxtutee1" checked="checked" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
                 <!-- 그룹 클릭시 인원 선택 뜸 -->
                 <input type="radio" name="maxtutee" id="maxtutee2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">그룹수업
 		</div>
@@ -205,7 +228,7 @@ $("#price").on("propertychange change keyup paste", function() {
 	    <div class="form-group">
 	    	<div class="title">시간당 가격-</div>
 			<div class="form-row">
-				<input type="text" class="form-cont" name="price" id="price" placeholder="ex)30000" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+				<input type="text" class="form-cont" name="price" id="price" placeholder="ex)30000" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" value="">
 				원
                 <div class="validate"></div>
 			</div>
@@ -230,8 +253,8 @@ $("#price").on("propertychange change keyup paste", function() {
 			<div class="title">총 가격-</div>
                 <div class="costbox">
                 <div style="padding: 30px;">
-					<p>0원 X 0시간 X 0회</p>
-					<p style="text-align: right; color:#f70a0a; font-weight: 700;">총 0원</p>
+                	<p id="cal">0원 X 0시간 X 0회</p>
+                	<p id="totalprice" style="text-align: right;">총 0원</p>
 					<p style="text-align: right;">연결 수수료 0원</p>
 				</div>
 				</div>
@@ -260,7 +283,7 @@ $("#price").on("propertychange change keyup paste", function() {
                 <textarea class="form-cont" name="classintro" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="수업 소개"></textarea>
                 <div class="validate"></div>
             <div class="title">수업레벨-</div>
-            	<input type="radio" name="level" id="level1" value="1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">입문자
+            	<input type="radio" name="level" id="level1" value="1" checked="checked" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">입문자
                 <input type="radio" name="level" id="level2" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">초/중급자          
                 <input type="radio" name="level" id="level3" value="3" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">상급자                      
                 <div class="validate"></div>
