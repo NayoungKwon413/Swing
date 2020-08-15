@@ -70,6 +70,15 @@ button:hover {
 	opacity: 0.85;
 }
 </style>
+<script type="text/javascript" src="path/to/jQuery.js"></script>
+<script>
+$("#price").on("propertychange change keyup paste", function() {
+    var currentVal = $(this).val();
+	$("#time").val() = currentVal;
+
+});
+</script>
+
 </head>
 <body>
 <section id="team" class="team">
@@ -85,6 +94,7 @@ button:hover {
      </div>
  </section>
 <section id="tutor-regi" class="tutor-regi">
+<form method="post" action="userEntry.shop" enctype="multipart/form-data">
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3">
@@ -109,20 +119,21 @@ button:hover {
                 </div>
             </div>
 			<div class="title">별명-</div>
-                <input type="text" class="form-cont" name="subject" id="subject" placeholder="별명" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <input type="text" class="form-cont" name="nickname" id="nickname" placeholder="별명" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
         </div>
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">학력-</div>
-                <input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)스윙대학교" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <input type="text" class="form-cont" name="school" id="school" placeholder="ex)스윙대학교" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
-                <input type="email" class="form-cont" name="email" id="email" placeholder="ex)스윙학과" data-rule="email" data-msg="Please enter a valid email">
+                <input type="text" class="form-cont" name="major" id="major" placeholder="ex)스윙학과" data-rule="email" data-msg="Please enter a valid email">
                 <div class="validate"></div>
         </div>
 		<div class="form-group">
 			<div class="title">자격증-</div>
-                <input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)토익900" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <input type="text" class="form-cont" name="lctitle" id="lctitle" placeholder="ex)토익900" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <input type="file" name="lcfile">
                 <div class="validate"></div>
                 <button type="submit">업로드</button>
 		</div>
@@ -144,24 +155,26 @@ button:hover {
 	    <!-- 기본정보 -->
 	    <div class="form-group">
 	    	<div class="title">지역-</div>
-				<input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)서울" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+				<input type="text" class="form-cont" name="location1" id="location1" placeholder="ex)서울" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
-                <input type="email" class="form-cont" name="email" id="email" placeholder="ex)금천구" data-rule="email" data-msg="Please enter a valid email">
+                <input type="text" class="form-cont" name="location2" id="location2" placeholder="ex)금천구" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
 			<div class="title">카테고리-</div>
-                <input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)핸드메이드" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <input type="text" class="form-cont" name="category" id="category" placeholder="ex)핸드메이드" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
         </div>
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">수업형태-</div>
-                <input type="radio" name="subject1" id="subject1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
-                <input type="radio" name="subject1" id="subject1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
+                <input type="radio" name="type" id="type1" value="1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
+                <!-- 다회차 클릭시 밑에 회차정보 갯수만큼 뜸 -->
+                <input type="radio" name="type" id="type2" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
         </div>
 		<div class="form-group">
 			<div class="title">참여인원-</div>
-                <input type="radio" name="subject2" id="subject2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
-                <input type="radio" name="subject2" id="subject2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">그룹수업
+                <input type="radio" name="maxtutee" id="maxtutee1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
+                <!-- 그룹 클릭시 인원 선택 뜸 -->
+                <input type="radio" name="maxtutee" id="maxtutee2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">그룹수업
 		</div>
 		<div class="form-group">
 			<div class="title">수업제목-</div>
@@ -192,13 +205,13 @@ button:hover {
 	    <div class="form-group">
 	    	<div class="title">시간당 가격-</div>
 			<div class="form-row">
-				<input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)30000" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+				<input type="text" class="form-cont" name="price" id="price" placeholder="ex)30000" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
 				원
                 <div class="validate"></div>
 			</div>
 			<div class="title">1회당 수업 시간-</div>
             <div class="form-row">
-				<input type="text" class="form-cont" name="subject" id="subject" placeholder="1회당 수업시간을 선택하세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+				<input type="text" class="form-cont" name="time" id="time" placeholder="1회당 수업시간을 선택하세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
 				시간
                 <div class="validate"></div>
 			</div>
@@ -206,8 +219,9 @@ button:hover {
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">총 수업횟수-</div>
+			<!-- 원데이 클래스는 1회 / 다회차 수업은 n회 선택 가능 (최대 회차수는?) -->
             <div class="form-row">
-				<input type="text" class="form-cont" name="subject" id="subject" placeholder="ex)1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+				<input type="text" class="form-cont" name="totaltime" id="totaltime" placeholder="ex)1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
 				회
                 <div class="validate"></div>
 			</div>
@@ -239,11 +253,16 @@ button:hover {
 	    <div class="col-lg-8 mt-5 mt-lg-0">
 	    <!-- 기본정보 -->
 	    <div class="form-group">
-	    	<div class="title">튜티소개-</div>
-				<textarea class="form-cont" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="튜터 소개"></textarea>
+	    	<div class="title">튜터소개-</div>
+				<textarea class="form-cont" name="tutorintro" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="튜터 소개"></textarea>
 	            <div class="validate"></div>
 			<div class="title">수업소개-</div>
-                <textarea class="form-cont" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="수업 소개"></textarea>
+                <textarea class="form-cont" name="classintro" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="수업 소개"></textarea>
+                <div class="validate"></div>
+            <div class="title">수업레벨-</div>
+            	<input type="radio" name="level" id="level1" value="1" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">입문자
+                <input type="radio" name="level" id="level2" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">초/중급자          
+                <input type="radio" name="level" id="level3" value="3" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">상급자                      
                 <div class="validate"></div>
         </div>
 		<div class="form-group">
@@ -259,6 +278,7 @@ button:hover {
 	<hr> 
 	<div class="row" style="float: center;"><button type="submit">미리보기</button><button type="submit">임시저장</button><button type="submit">승인요청</button></div>
 </div>
+</form>
 </section>
 </body>
 </html>
