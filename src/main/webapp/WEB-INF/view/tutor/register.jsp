@@ -72,10 +72,60 @@ button:hover {
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+// 각 입력칸 자료형에 맞는 유효성 검증 필요
+// numclass, numtutee : 다회차, 그룹일 떄 2이상 입력 유효성 검증 필요
+// 코드 더 줄일 수 있는지 검색
+
 $(document).ready(function(){
 	var price = 0;
 	var time = 0;
 	var totaltime = 0;
+	$("#numtutee").hide();
+	$("#numclass").hide();
+	
+	$('input[name="maxtutee"]').change(function() {
+	    // 모든 radio를 순회한다.
+	    $('input[name="maxtutee"]').each(function() {
+	        var value = $(this).val();            
+	        var checked = $(this).prop('checked');  
+	        // jQuery 1.6 이상 (jQuery 1.6 미만에는 prop()가 없음, checked, selected, disabled는 꼭 prop()를 써야함)
+	        // jQuery 1.6 미만 (jQuery 1.6 이상에서는 checked, undefined로 return됨)
+	 
+	        if(value==1){
+	        	if(checked){
+	        		$("#numtutee").hide();
+		        	$("#numtutee").val(1);
+	        	}
+	        }else if(value==2){
+				if(checked){
+					$("#numtutee").val(0);
+					$("#numtutee").show();
+	        	}
+	        }
+	    });
+	});
+	
+	$('input[name="type"]').change(function() {
+	    // 모든 radio를 순회한다.
+	    $('input[name="type"]').each(function() {
+	        var value = $(this).val();            
+	        var checked = $(this).prop('checked');  
+	        // jQuery 1.6 이상 (jQuery 1.6 미만에는 prop()가 없음, checked, selected, disabled는 꼭 prop()를 써야함)
+	        // jQuery 1.6 미만 (jQuery 1.6 이상에서는 checked, undefined로 return됨)
+	 
+	        if(value==1){
+	        	if(checked){
+	        		$("#numclass").hide();
+		        	$("#numclass").val(1);
+	        	}
+	        }else if(value==2){
+				if(checked){
+					$("#numclass").val(0); 
+					$("#numclass").show();
+	        	}
+	        }
+	    });
+	});
 	
 	$("#price").on("propertychange change keyup paste input", function() {
     	price = $(this).val();
@@ -189,15 +239,17 @@ function cal(price, time, totaltime){
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">수업형태-</div>
-                <input type="radio" name="type" id="type1" value="1" checked="checked" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
+                <input type="radio" name="type" value="1" checked data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
                 <!-- 다회차 클릭시 밑에 회차정보 갯수만큼 뜸 -->
-                <input type="radio" name="type" id="type2" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
+                <input type="radio" name="type" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
+        		<input type="text" class="form-cont" name="numclass" id="numclass" value="1" />회
         </div>
 		<div class="form-group">
 			<div class="title">참여인원-</div>
-                <input type="radio" name="maxtutee" id="maxtutee1" checked="checked" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
+                <input type="radio" name="maxtutee" value="1" checked data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">1:1
                 <!-- 그룹 클릭시 인원 선택 뜸 -->
-                <input type="radio" name="maxtutee" id="maxtutee2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">그룹수업
+                <input type="radio" name="maxtutee" value="2" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">그룹수업
+                <input type="text" class="form-cont" name="numtutee" id="numtutee" value="1" />명
 		</div>
 		<div class="form-group">
 			<div class="title">수업제목-</div>
