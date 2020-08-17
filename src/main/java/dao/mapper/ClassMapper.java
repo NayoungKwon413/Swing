@@ -3,9 +3,11 @@ package dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import logic.Class;
+import logic.User;
 
 public interface ClassMapper {
 
@@ -42,6 +44,11 @@ public interface ClassMapper {
 			"<if test='sorted==2'> ORDER BY (SELECT AVG(star) FROM review WHERE classid=class.classid) desc limit #{startrow},#{limit}</if>",
 			"</script>"})
 	List<Class> select(Map<String, Object> param);
-
+	
+	// 수업 등록
+	@Insert("insert into class "
+			+ " (userid,pass,name,email,file) "
+			+ " values(#{userid},#{pass},#{name},#{email},#{file})")
+	void insert(Class clas);
 
 }

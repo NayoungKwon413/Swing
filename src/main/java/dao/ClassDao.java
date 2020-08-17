@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.ClassMapper;
+import dao.mapper.UserMapper;
 import logic.Class;
+import logic.User;
 
 @Repository
 public class ClassDao {
@@ -51,5 +53,10 @@ public class ClassDao {
 		param.put("sorted", sorted);
 		param.put("cate", cate);
 		return template.getMapper(ClassMapper.class).select(param);
+	}
+	
+	// 수업 등록
+	public void insert(Class clas) {
+		template.getMapper(ClassMapper.class).insert(clas);
 	}
 }

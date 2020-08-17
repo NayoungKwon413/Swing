@@ -73,7 +73,7 @@ button:hover {
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 // 각 입력칸 자료형에 맞는 유효성 검증 필요
-// numclass, numtutee : 다회차, 그룹일 떄 2이상 입력 유효성 검증 필요
+// numclass, numtutee : 다회차, 그룹일 떄 2이상 입력 유효성 검증 필요 , 최대 수 얼마?
 // 코드 더 줄일 수 있는지 검색
 
 $(document).ready(function(){
@@ -167,7 +167,7 @@ function cal(price, time, totaltime){
      </div>
  </section>
 <section id="tutor-regi" class="tutor-regi">
-<form method="post" action="userEntry.shop" enctype="multipart/form-data">
+<form method="post" action="classEntry.shop" enctype="multipart/form-data">
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3">
@@ -306,8 +306,9 @@ function cal(price, time, totaltime){
                 <div class="costbox">
                 <div style="padding: 30px;">
                 	<p id="cal">0원 X 0시간 X 0회</p>
-                	<p id="totalprice" style="text-align: right;">총 0원</p>
+                	<p id="cal2" style="text-align: right;">총 0원</p>
 					<p style="text-align: right;">연결 수수료 0원</p>
+					<input type="hidden" name="totalprice" />
 				</div>
 				</div>
 		</div>

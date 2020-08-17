@@ -8,11 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
 import logic.Course;
+import logic.License;
 import logic.ShopService;
 import logic.User;
 
@@ -40,6 +43,16 @@ public class TutorController {
 		mav.addObject("c",c);
 		mav.addObject("applynum",applylist.size());
 		mav.addObject("applylist",applylist);
+		return mav;
+	}
+	
+	// 수업 등록 
+	// 1.유저 정보 update 2. 자격증 정보 insert 3. 수업 정보 insert
+	// @RequestParam Map<String,Object> map
+	@PostMapping("classEntry")
+	public ModelAndView classEntry(User user, License license, Class clas) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(map);
 		return mav;
 	}
 }
