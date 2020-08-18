@@ -46,6 +46,11 @@ public class TutorController {
 		return mav;
 	}
 	
+	@GetMapping("register")
+	public ModelAndView register(HttpSession session) {
+		
+	}
+	
 	/* 수업 등록 
 	 1.유저 정보 update 2. 자격증 정보 insert 3. 수업 정보 insert
 	 @RequestParam Map<String,Object> map
