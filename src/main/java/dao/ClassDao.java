@@ -59,4 +59,10 @@ public class ClassDao {
 	public void insert(Class clas) {
 		template.getMapper(ClassMapper.class).insert(clas);
 	}
+
+	public int checkclass(String userid) {
+		param.clear();
+		param.put("userid",userid);
+		return template.getMapper(ClassMapper.class).checkclass(param);
+	}
 }
