@@ -129,6 +129,20 @@ public class ShopService {
 	public int getReviewcnt(Integer classid) {
 		return reviewDao.cnt(classid);
 	}
+	
+	//
+	public int checkClass(String userid) {
+		return classDao.checkclass(userid);
+	}
+
+	public void userUpdate2(User user) {
+		userDao.update2(user);
+		
+	}
+
+	public void classInsert(Class clas) {
+		classDao.insert(clas);
+	}
 
 	
 }
