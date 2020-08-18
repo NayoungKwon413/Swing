@@ -202,6 +202,7 @@ function cal(price, time, totaltime){
                 <div class="validate"></div>
                 <input type="text" class="form-cont" name="major" id="major" placeholder="ex)스윙학과" data-rule="email" data-msg="Please enter a valid email">
                 <div class="validate"></div>
+                <input type="hidden" name="edufile" />
         </div>
 		<div class="form-group">
 			<div class="title">자격증-</div>
