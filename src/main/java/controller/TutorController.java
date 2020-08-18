@@ -64,7 +64,8 @@ public class TutorController {
 		System.out.println(classid);
 		
 		if(classid > 0) {
-			
+			Class clas = service.getClass(classid);
+			mav.addObject("clas",clas);
 		}else {
 			
 		}
