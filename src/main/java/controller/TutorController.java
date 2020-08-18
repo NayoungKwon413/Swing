@@ -53,14 +53,14 @@ public class TutorController {
 	public ModelAndView register(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
-		String userid = loginUser.getUserid();
+		String userid = "amy"; //loginUser.getUserid();
 		User user = service.getUser(userid);
 		License license = service.getLicense(userid).get(0);
 		
 		mav.addObject("license", license);
 		mav.addObject("user",user);
 		
-		int classid = service.checkClass("amy");
+		int classid = service.checkClass(userid);
 		System.out.println(classid);
 		
 		if(classid > 0) {
