@@ -54,7 +54,7 @@ public class TutorController {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		
-		int classid = service.checkClass(loginUser.getUserid());
+		int classid = service.checkClass("amy");
 		System.out.println(classid);
 		
 		if(classid > 0) {
