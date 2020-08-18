@@ -55,19 +55,20 @@ public class TutorController {
 		User loginUser = (User)session.getAttribute("loginUser");
 		String userid = loginUser.getUserid();
 		User user = service.getUser(userid);
-		License licnes = service.getLicense(userid);
+		License license = service.getLicense(userid).get(0);
 		
-		mav.addObject("", attributeValue)
+		mav.addObject("license", license);
+		mav.addObject("user",user);
 		
 		int classid = service.checkClass("amy");
 		System.out.println(classid);
 		
 		if(classid > 0) {
-			return mav;
+			
 		}else {
-			return mav;
+			
 		}
-		
+		return mav;
 	}
 	
 	/* 수업 등록 
