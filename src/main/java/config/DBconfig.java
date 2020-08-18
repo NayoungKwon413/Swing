@@ -23,7 +23,7 @@ public class DBconfig {
 			ds.setDriverClass("org.mariadb.jdbc.Driver");
 			ds.setJdbcUrl("jdbc:mariadb://192.168.1.6:3306/test");
 			ds.setUser("root");
-			ds.setPassword("1234");
+			ds.setPassword("8912");
 			ds.setMaxPoolSize(20); //최대 연결 객체의 갯수
 			ds.setMinPoolSize(3);  //최소 연결 객체의 갯수
 			ds.setInitialPoolSize(5); //초기의 연결 객체의 갯수
