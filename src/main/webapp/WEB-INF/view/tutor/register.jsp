@@ -198,6 +198,11 @@ function cal(price, time, totaltime){
 		<div class="form-group">
 		<!-- 인증 -->
 			<div class="title">학력-</div>
+				<select name="edulevel">
+					<option value="1">고등학교</option>
+					<option value="2">대학교</option>
+					<option value="3">대학원</option>
+				</select>
                 <input type="text" class="form-cont" name="school" id="school" placeholder="ex)스윙대학교" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
                 <div class="validate"></div>
                 <input type="text" class="form-cont" name="major" id="major" placeholder="ex)스윙학과" data-rule="email" data-msg="Please enter a valid email">
