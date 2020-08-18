@@ -47,8 +47,11 @@ public interface ClassMapper {
 	
 	// 수업 등록
 	@Insert("insert into class "
-			+ " (userid,pass,name,email,file) "
-			+ " values(#{userid},#{pass},#{name},#{email},#{file})")
+			+ " (userid,location1,location2,category,type,maxtutee,subject,coverimg,price,time,totaltime,totalprice,tutorintro,classintro,level,readcnt,state,regdate) "
+			+ " values(#{userid},#{location1},#{location2},#{category},#{type},#{maxtutee},#{subject},#{coverimg},#{price},#{time},#{totaltime},#{totalprice},#{tutorintro},#{classintro},#{level},0,#{state},#{regdate})")
 	void insert(Class clas);
+
+	@Select("select classid from class where userid=#{userid} and state=1")
+	int checkclass(Map<String, Object> param);
 
 }
