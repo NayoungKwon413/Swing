@@ -53,6 +53,7 @@ public class TutorController {
 	public ModelAndView register(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
+		
 		int classid = service.checkClass(loginUser.getUserid());
 		System.out.println(classid);
 		
