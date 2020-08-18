@@ -30,4 +30,8 @@ public interface UserMapper {
 	
 	@Delete("")
 	void delete(Map<String, Object> param);
+	//
+	@Update("update user set nickname=#{nickname}, "
+			+" school=#{school}, major=#{major},file=#{file} where userid=#{userid}")
+	void update2(User user);
 }
