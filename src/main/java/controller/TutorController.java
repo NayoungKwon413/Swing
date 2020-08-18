@@ -90,6 +90,8 @@ public class TutorController {
 		/* 2. 자격증 정보 insert
 		 * 
 		 */
+		license.setUserid(userid);
+		service.licenseInsert(license);
 		
 		/* 3. 수업 정보 insert
 		 * : classid 설정, userid 설정 필요
