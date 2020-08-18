@@ -21,8 +21,8 @@ public class DBconfig {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		try {
 			ds.setDriverClass("org.mariadb.jdbc.Driver");
-			ds.setJdbcUrl("jdbc:mariadb://192.168.0.171:3306/swing");
-			ds.setUser("scott");
+			ds.setJdbcUrl("jdbc:mariadb://192.168.1.6:3306/test");
+			ds.setUser("root");
 			ds.setPassword("1234");
 			ds.setMaxPoolSize(20); //최대 연결 객체의 갯수
 			ds.setMinPoolSize(3);  //최소 연결 객체의 갯수
