@@ -2,7 +2,7 @@ package logic;
 
 public class License {
 	private int lcno;
-	private int userid;
+	private String userid;
 	private String lctitle;
 	private String lcfile;
 	
@@ -13,10 +13,10 @@ public class License {
 	public void setLcno(int lcno) {
 		this.lcno = lcno;
 	}
-	public int getUserid() {
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public String getLctitle() {
