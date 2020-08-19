@@ -52,8 +52,9 @@ public class TutorController {
 	@RequestMapping("register")
 	public ModelAndView register(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User loginUser = (User)session.getAttribute("loginUser");
+		//User loginUser = (User)session.getAttribute("loginUser");
 		String userid = "amy"; //loginUser.getUserid();
+		try {
 		User user = service.getUser(userid);
 		License license = service.getLicense(userid).get(0);
 		
@@ -68,6 +69,9 @@ public class TutorController {
 			mav.addObject("clas",clas);
 		}else {
 			
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return mav;
 	}
