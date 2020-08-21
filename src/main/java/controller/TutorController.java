@@ -182,11 +182,14 @@ public class TutorController {
 			try {
 				int cidtemp = service.checkClass(loginUser.getUserid());
 				System.out.println("등록진행중수업확인"+cidtemp);
-				mav.setViewName("/alert");
-				mav.addObject("msg","등록진행 중인 수업이 있습니다.");
-				mav.addObject("url", "register.shop?cid="+cidtemp); 
-			}catch(NullPointerException e) {
-				System.out.println("등록진행중 수업 없음");
+				if(cidtemp!=0) {
+					mav.setViewName("/alert");
+					mav.addObject("msg","등록진행 중인 수업이 있습니다.");
+					mav.addObject("url", "register.shop?cid="+cidtemp); 
+				}
+			}catch(Exception e) {
+				System.out.println("예외처리");
+				e.printStackTrace();
 			}
 		}
 		// 반려목록,등록진행중목록 -> user,license userid 불러와  class=cid 인 객체 불러와
