@@ -155,6 +155,14 @@ $(document).ready(function(){
 	$("#totaltime").on("propertychange change keyup paste input", function() {
     	totaltime = $(this).val();
     	cal(price,time,totaltime);
+    	var cnt = 0;
+    	for(i=1;i<totaltime+1){
+    		var form = "<p>"+i+"회차</p>"
+    	    	+ "<input type='text' class='form-cont' name='subject' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
+    	        + "<input type='text' class='form-cont' name='email' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
+    	    $("<div>").attr("class","seq"+cnt).html(form).appendTo("#seqlist");
+    	}
+    	
 	});
 });
 
@@ -426,7 +434,7 @@ function cal(price, time, totaltime){
                 <input type="radio" name="level" id="level3" value="3" <c:if test="${clas.level eq 3}"> checked="checked" </c:if> data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">상급자                      
                 <div class="validate"></div>
         </div>
-		<div class="form-group">
+		<div class="form-group" id="seqlist" >
 		<!-- 인증 -->
 		<!-- 	<div class="title">1회차-</div>
                 <input type="text" class="form-cont" name="subject" id="subject" placeholder="수업 제목" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
