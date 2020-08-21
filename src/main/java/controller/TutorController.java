@@ -169,45 +169,88 @@ public class TutorController {
 	
 	/* 수업 등록 페이지 접근시 작성 중인 수업 정보가 있는지 확인
 	 * 
-	 */ 
+	 */
 	@RequestMapping("register")
-	public ModelAndView register(HttpSession session, HttpServletRequest request,String cid) {
+	public ModelAndView register(Integer cid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(request.getServletContext().getRealPath("/"));
 		User loginUser = (User)session.getAttribute("loginUser");
-		String userid = loginUser.getUserid();
-		User user = service.getUser(userid);
 		License license = new License();
-		try {
-			license = service.getLicense(userid).get(0);
-		}catch(IndexOutOfBoundsException e) {
-		}
 		Class clas = new Class();
+		System.out.println("받은 cid:"+cid);
+		// cid없이 새 등록 -> user,license 는 userid 꺼 불러와 class빈 객체 등록
 		
-		int classid = 0;
-		if( service.classTemp(userid) != null) {
-			classid = service.classTemp(userid);
-			clas = service.getClass(classid);
-		};
-		
-		System.out.println(user.toString());
-		System.out.println(license.toString());
-		System.out.println(clas.toString());
+		// 반려목록,등록진행중목록 -> user,license userid 불러와  class=cid 인 객체 불러와
+		if(cid!=null) {
+			clas = service.getClass(cid);
+			mav.addObject("cid",cid);
+			System.out.println("전달된 cid:"+cid);
+		}
 		
 		mav.addObject("license", license);
-		mav.addObject("user",user);
+		mav.addObject("user",loginUser);
 		mav.addObject("clas",clas);
-		mav.addObject("cid",classid);
+		System.out.println("전달된 user:"+loginUser.toString());
+		System.out.println("전달된 class:"+clas.toString());
 		
 		return mav;
 	}
+	
+//	@RequestMapping("registher")
+//	public ModelAndView register(HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		User loginUser = (User)session.getAttribute("loginUser");
+//		License license = new License();
+//		Class clas = new Class();
+//		
+//		mav.addObject("license", license);
+//		mav.addObject("user",loginUser);
+//		mav.addObject("clas",clas);
+//		System.out.println("전달된 user:"+loginUser.toString());
+//		System.out.println("전달된 class:"+clas.toString());
+//		return mav;
+//	}
+//	@RequestMapping("register")
+//	public ModelAndView register(HttpSession session, String cid) {
+//		
+//		// 반려목록,등록진행중목록 -> user,license userid 불러와  class=cid 인 객체 불러와
+//		// cid없이 새 등록 -> user,license 는 userid 꺼 불러와 class빈 객체 등록
+//		
+//		ModelAndView mav = new ModelAndView();
+//		User loginUser = (User)session.getAttribute("loginUser");
+//		String userid = loginUser.getUserid();
+//
+//		User user = service.getUser(userid);
+//		License license = new License();
+//		try {
+//			license = service.getLicense(userid).get(0);
+//		}catch(IndexOutOfBoundsException e) {
+//		}
+//		Class clas = new Class();
+//		
+//		int classid = 0;
+//		if( service.classTemp(userid) != null) {
+//			classid = service.classTemp(userid);
+//			clas = service.getClass(classid);
+//		};
+//		
+//		System.out.println(user.toString());
+//		System.out.println(license.toString());
+//		System.out.println(clas.toString());
+//		
+//		mav.addObject("license", license);
+//		mav.addObject("user",user);
+//		mav.addObject("clas",clas);
+//		mav.addObject("cid",classid);
+//		
+//		return mav;
+//	}
 	
 	/* 수업 등록 
 	 1.유저 정보 update 2. 자격증 정보 insert 3. 수업 정보 insert
 	 @RequestParam Map<String,Object> map
 	*/
 	@PostMapping("classEntry")
-	public ModelAndView classEntry(User user, License license, Class clas, String button, Integer cid, Integer numtutee, HttpServletRequest request, HttpSession session) {
+	public ModelAndView classEntry(User user, License license, Class clas, String button, Integer cid, Integer numtutee, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
 		User loginUser = (User)session.getAttribute("loginUser");
@@ -216,42 +259,7 @@ public class TutorController {
 		license.setUserid(userid);
 		clas.setUserid(userid);
 		clas.setTotalprice(clas.getPrice()*clas.getTime()*clas.getTotaltime());
-		System.out.println("getFile1"+user.getFile());
-		System.out.println("getFileurl1.length"+user.getFileurl().length());
-		if(user.getFileurl().length()>0) {
-	    	String path = request.getServletContext().getRealPath("/")+"user/save/";
-		    File f = new File(path);
-		    if(!f.exists()){
-	    	f.mkdirs();
-				    }
-				String str = user.getFileurl();
-				byte[] imagedata = java.util.Base64.getDecoder().decode(str.substring(str.indexOf(",") + 1));
-				BufferedImage bi = null;
-				try {
-					bi = ImageIO.read(new ByteArrayInputStream(imagedata));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				int width = bi.getWidth();
-				int height = bi.getHeight();
-				BufferedImage thumb = new BufferedImage
-						(width,height,BufferedImage.TYPE_INT_RGB);
-				Graphics2D g = thumb.createGraphics();
-				g.drawImage(bi,0,0,width,height,null);
-				f = new File(path+user.getUserid()+"_"+user.getFile());
-				try {
-					ImageIO.write(thumb,"png",f);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				user.setFileurl("");
-	    }
-		System.out.println("getFile2"+user.getFile());
-		System.out.println("getFileurl2"+user.getFileurl());
-
+			
 		if(button.equals("미리보기")) {
 			// 새창 열림
 			return mav;
@@ -268,8 +276,9 @@ public class TutorController {
 			license.setLcno(++cnt);
 			service.licenseInsert(license);
 			
-			if(cid == 0) { // 새로 만들어지는 수업이라면 class insert
+			if(cid == null) { // 새로 만들어지는 수업이라면 class insert
 				int cnt2 = service.classCnt();
+				System.out.println(cnt2);
 				cid = cnt2 + 1;
 				clas.setClassid(cnt2+1);
 				service.classInsert(clas);
@@ -290,7 +299,7 @@ public class TutorController {
 			
 			mav.setViewName("/alert");
 			mav.addObject("msg","임시저장 되었습니다.");
-			mav.addObject("url", "register.shop"); 
+			mav.addObject("url", "register.shop?cid="+cid); 
 			return mav;
 			
 		}else if(button.equals("승인요청")) {
@@ -328,7 +337,7 @@ public class TutorController {
 			
 			mav.setViewName("/alert");
 			mav.addObject("msg","승인요청 되었습니다.");
-			mav.addObject("url","register.shop");
+			mav.addObject("url","my.shop");
 			return mav;
 		}
 		return mav;
