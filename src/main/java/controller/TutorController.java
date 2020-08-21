@@ -178,7 +178,10 @@ public class TutorController {
 		Class clas = new Class();
 		System.out.println("받은 cid:"+cid);
 		// cid없이 새 등록 -> user,license 는 userid 꺼 불러와 class빈 객체 등록
-		
+		if(cid==null) {
+			int cidtemp = service.checkClass(loginUser.getUserid());
+			System.out.println(cidtemp);
+		}
 		// 반려목록,등록진행중목록 -> user,license userid 불러와  class=cid 인 객체 불러와
 		if(cid!=null) {
 			clas = service.getClass(cid);
