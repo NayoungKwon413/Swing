@@ -235,19 +235,6 @@ public class ShopService {
 		return reviewDao.cnt(classid);
 	}
 	
-	//
-	public int checkClass(String userid) {
-		return classDao.checkclass(userid);
-	}
-
-	public void userUpdate2(User user) {
-		userDao.update2(user);
-		
-	}
-
-	public void classInsert(Class clas) {
-		classDao.insert(clas);
-	}
 
 	public void addChat(Chatting chatting) {
 		int maxtalk = chattingDao.maxtalk(chatting.getRoomno());
@@ -292,6 +279,10 @@ public class ShopService {
 	}
 	
 	// tutor : yhl
+	//
+	public int checkClass(String userid) {
+		return classDao.checkclass(userid);
+	}
 	public void userUpdate2(User user) {
 		userDao.update2(user);
 		
