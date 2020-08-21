@@ -36,9 +36,28 @@ public class UserDao {
 		template.getMapper(UserMapper.class).delete(param);
 	}
 
+	public List<User> list(int pageNum, int limit, String column, String find) {
+		param.clear();
+		param.put("start",(pageNum-1)*limit);
+		param.put("limit",limit);
+		if(column != null) {
+			String[] cols = column.split(",");
+			param.put("col1", cols[0]);
+			if(cols.length>1) {
+				param.put("col2", cols[1]);
+				if(cols.length>2) {
+					param.put("col3", cols[2]);
+				}
+			}
+		}
+		param.put("find",find);
+		return template.getMapper(UserMapper.class).select_(param);
+	}
+
 	public List<User> list() {
 		return template.getMapper(UserMapper.class).select(null);
 	}
+	
 	//
 	public void update2(User user) {
 		template.getMapper(UserMapper.class).update2(user);

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>실시간톡메인</title>
+<link href="${path}/assets/css/talk.css" rel="stylesheet">
 <c:set var="port" value="${pageContext.request.localPort}"/>
 <c:set var="server" value="${pageContext.request.serverName}"/>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
@@ -13,49 +14,133 @@
 <script type="text/javascript">
 	$(function(){
 		var ws = new WebSocket("ws://${server}:${port}${path}/chatting.shop");
+		var jsonArray = new Array();
+		var TotalJson = new Array();
+		var finalObj = new Object();
 		//socket 연결시
 		ws.onopen=function(){
 			$("#chatStatus").text("info:connection opened")
-			$("input[name=chatInput]").on("keydown",function(evt){
+			$("#message").on("keydown",function(evt){
 				if(evt.keyCode==13){ //enter key 코드 값
-					var msg = $("input[name=chatInput]").val();
-					ws.send(msg); //서버로 입력된 내용 전송
-					$("input[name=chatInput]").val("");
+					var msg = $("#message").val();
+					var json=new Object();
+					json.message = msg;
+					json.date = new Date();
+					jsonArray.push(json);
+					ws.send(JSON.stringify(json));
+					//alert(JSON.stringify(jsonArray))
+					$("#message").val("");//서버로 입력된 내용 전송
 				}
 			})
 		}
 		//서버에서 메세지 수신한 경우
 		ws.onmessage = function(event){
 			//event.data: 서버에서 보내 준 메세지
-			$("textarea").eq(0).prepend(event.data+"\n");
+			console.log(event.data);
+			var obj = JSON.parse(event.data);
+			var sessionid = obj.sessionid;
+			var message = obj.message;
+			var profile = obj.profile;
+			var date = obj.date;
+			var name = obj.name;
+			var current_session=$('#sessionuserid').val();
+			console.log('current session id:'+current_session);
+			if(sessionid==current_session){ //내가 보낸 message
+				var printHTML = "<dl class='my'><dt>"+
+				"<div class='profile' style='background-image:url'/swing/assets/img/"
+				+profile+"'></div><div class='name'>"+name+"</div></dt>"+
+				"<dd class='blo'>"+message+
+				"<span class='date'>"+date+"</span></dd></dl>"
+				$(".content").append(printHTML);
+			}else{ //상대방 메시지
+				var printHTML = "<dl class='other'><dt>"+
+				"<div class='profile' style='background-image:url'/swing/assets/img/"
+				+profile+"'></div><div class='name'>"+name+"</div></dt>"+
+				"<dd class='blo'>"+message+
+				"<span class='date'>"+date+"</span></dd></dl>"
+				$(".content").append(printHTML);
+			}
+//			console.log('chatting data:'+data);
 		}
 		//socket 닫혔을시
 		ws.onclose = function(event){
 			$("#chatStatus").text("info:connection close");
 		}
+		$(window).bind("beforeunload",function(){
+			var obj = {
+					talk:jsonArray
+			}
+			$.ajax("${path}/talk/talkClose.shop?roomno=${param.roomno}&classid=${param.classid}&TotalJson="+encodeURI(JSON.stringify(obj)),{
+				success:function(data){
+					console.log(data);
+				}
+			})
+		});
+		$('#btn_list').click(function(){
+			var obj2 = {
+					talk:jsonArray
+			}
+			$.ajax("${path}/talk/talkClose.shop?roomno=${param.roomno}&classid=${param.classid}&TotalJson="+encodeURI(JSON.stringify(obj2)),{
+				success:function(data){
+					console.log(data);
+					location.href="main.shop?userid=${sessionuser.userid}&type=tutee"
+				}
+			})			
+		})
 	})
 </script>  
 </head>
 <body>
 <h1 class="qna_title">
 	튜터님과의 대화
-	<a href="" class="btn_list">목록</a>
+	<div id="btn_list" class="btn_list">목록</div>
 </h1>
-<div id="qna_view" class="qna_view" style="height:474px;">
+<div id="qna_view" class="qna_view" style="height: 400px;overflow-y: scroll;">
 	<form method="POST" id="" enctype="multipart/form-data">
 		<div class="content">
-			
+			<div class="info">
+				수업일정과 강의 내용에 대해 문의해보세요.<br>
+				(연락처 문의 또는 직접 알려주는 것은 불가)
+			</div>
+			<c:if test="${chat!=null}">
+				<c:forEach items="${chat}" var="ch">
+					<c:if test="${ch.userid==sessionuser.userid}">
+						<dl class="my">
+							<dt>
+								<div class="profile" style="background-image:url'${ch.file}'">
+								</div>
+								<div class="name">${ch.name}</div>
+							</dt>
+							<dd class="blo">
+								${ch.chat}
+								<span class="date">${ch.chatdate}</span>
+							</dd>
+						</dl>
+					</c:if>
+					<c:if test="${ch.userid!=sessionuser.userid}">
+						<dl class="other">
+							<dt>
+								<div class="profile" style="background-image:url'${ch.file}'">
+								</div>
+								<div class="name">${ch.name}</div>
+							</dt>
+							<dd class="blo">
+								${ch.chat}
+								<span class="date">${ch.chatdate}</span>
+							</dd>			
+						</dl>
+					</c:if>
+				</c:forEach>
+			</c:if>
 		</div>
-		<input type="hidden" id="Id" name="Id" value="">
+		<!-- 리스트 끝 -->
+		<input type="hidden" id="sessionuserid" name="seuserid" value="${sessionuser.userid}">
 	</form>
 </div>
 <div class="q_write">
 	<textarea id="message" name="Message"></textarea>
-	<a href="#" onclick="message();" class="qwbtn">전송</a>
+	<a href="#" onclick="" id="qwbtn" class="qwbtn">전송</a>
 </div>
 <p>
-<div id="chatStatus"></div>
-<textarea name="chatMsg" rows="15" cols="40"></textarea><br>
-메시지 입력: <input type="text" name="chatInput">
 </body>
 </html>

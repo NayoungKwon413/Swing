@@ -22,5 +22,19 @@ public class LicenseDao {
 		param.put("userid", userid);
 		return template.getMapper(LicenseMapper.class).select(param);
 	}
+	//
+	public void insert(License license) {
+		template.getMapper(LicenseMapper.class).insert(license);
+	}
+
+	public License selectOne(String userid) {
+		param.clear();
+		param.put("userid", userid);
+		return  template.getMapper(LicenseMapper.class).selectone(param);
+	}
+
+	public int count() {
+		return template.getMapper(LicenseMapper.class).count();
+	}
 
 }

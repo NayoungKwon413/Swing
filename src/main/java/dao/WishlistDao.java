@@ -30,7 +30,7 @@ public class WishlistDao {
 		return template.getMapper(WishlistMapper.class).select(userid);
 	}
 
-	public int star(Integer classid) {
+	public double star(Integer classid) {
 		return template.getMapper(WishlistMapper.class).star(classid);
 	}
 

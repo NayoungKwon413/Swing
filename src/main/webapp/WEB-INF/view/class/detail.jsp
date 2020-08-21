@@ -10,7 +10,7 @@
 <link href="${path}/assets/css/classdetail.css" rel="stylesheet">
 <style>
 	section {
-    height: 160em;
+    height: 200em;
 	}
 </style>
 </head>
@@ -34,7 +34,8 @@
 							</c:if>
 									<div class="top">
 										<div class="timedetail">
-											<fmt:formatDate value="${info.date}" var="date" pattern="MM.dd (E)"/>
+											<fmt:parseDate var="infodate" value="${info.date}" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${infodate}" var="date" pattern="MM.dd (E)"/>
 											<div class="indate">${date}</div>
 											<fmt:parseDate value="${info.starttime}" var="starttime" pattern="HH:mm:ss"/>
 											<fmt:formatDate value="${starttime}" var="start" pattern="HH:mm"/>
@@ -73,7 +74,7 @@
 				</div>
 			</div>
 			<!-- 여기까지 날짜,시간,장소 정보 -->
-			<a onclick="" class="btn_talk">실시간 톡</a>
+			<a onclick="window.open('${path}/talk/newchat.shop?classid=${param.classid}','','width=500,height=650')" class="btn_talk">실시간 톡</a>
 			<div class="btn_payment">
 				<a href="check.shop?classid=${param.classid}">
 					<span class="btntxt" id="checkbt">수업 신청하기</span>
@@ -138,7 +139,13 @@
 				</div>
 				<div class="class_title">
 					<div class="title">${cls.subject}</div>
-					<a id="wishBtn" class="bnt_wishlist"><img id="heart" src="${path}/assets/img/icon/heart.png">찜하기</a>
+					<a id="wishBtn" class="bnt_wishlist">
+					<c:if test="${cls.wish==0}">
+					<img id="heart" src="${path}/assets/img/icon/heart.png">찜하기</a>
+					</c:if>
+					<c:if test="${cls.wish==1}">
+					<img id="heart" src="${path}/assets/img/icon/heart_on.png">찜하기</a>
+					</c:if>
 					<div class="info">
 						<a class="starimg">
 							<input type="hidden" id="Avg" value="${cls.staravg}">
@@ -164,7 +171,7 @@
 					<div class="info">
 						<ul>
 							<li class="ar" id="regionAll">
-								<img src="${path}/assets/img/icon/marker.png">
+								<img src="${path}/assets/img/icon/marker2.png">
 								${cls.location2}</li>
 							<li class="hu">
 								<img src="${path}/assets/img/icon/clock.png" style="margin: 0 1.2em;">
@@ -212,11 +219,11 @@
 			</div>
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
-					<h1>리뷰(${cls.reviewcnt})</h1>
+					<h1>리뷰(${fn:length(review)} )</h1>
 					<a href="javascript:reviewPop()"class="btn_st" id="btn-write-review">리뷰쓰기</a>
 					<script>
 						function reviewPop(){
-							window.open('review.shop','','width=500,height=600,menubar=no,status=no,toolbar=no')
+							window.open('review.shop?classid=${param.classid}','','width=500,height=600,menubar=no,status=no,toolbar=no')
 						}
 					</script>
 					<div class="review_box">
@@ -233,12 +240,14 @@
 						   <span class="star star_right"></span>
 						
 						   <span class="star star_left"></span>
-						   <span class="star star_right"></span> <p>${cls.staravg}</p>
+						   <span class="star star_right"></span> 
+						   <fmt:formatNumber value="${cls.staravg}" var="staravg" pattern=".0"/>
+						   <p>${staravg}</p>
 					</div>
 					<script type="text/javascript">
 						$(function(){
 							var idx = $('#Avg').val()/0.5;
-							for(var i=0; i<=idx; i++){
+							for(var i=0; i<idx; i++){
 								$(".star").eq(i).addClass("on");
 								$(".review_box .star").eq(i).addClass("on");
 							}
@@ -249,16 +258,15 @@
 							<div id="innerReviewDiv">
 								<c:if test="${cls.reviewcnt==0}">등록된 리뷰가 없습니다.</c:if>
 								<c:if test="${cls.reviewcnt!=0}">
-									<c:set value="0" var="i"/>
 									<c:forEach items="${review}" var="re" varStatus="status">
 										<li>
 											<div class="review">
 												<div class="profilebox">
 													<div class="profile">
-														<img alt="" src="../user/save/${reUser[i].userid}_${reUser[i].file}">
+														<img alt="" src="../user/save/${re.userid}_${re.file}">
 													</div>
 													<div class="name">
-														${reUser[i].name}
+														${re.name}
 													</div>
 												</div>
 												<div class="review_content">
@@ -270,7 +278,6 @@
 												</div>
 											</div>
 										</li>
-										<c:set var="i" value="${i+1}"/>
 									</c:forEach>
 								</c:if>
 							</div>

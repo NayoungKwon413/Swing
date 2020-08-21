@@ -29,4 +29,15 @@ public class TuteeAspect {
 		Object ret = joinPoint.proceed();
 		return ret;
 	}
+	@Around
+	("execution(* controller.Tutee*.*(..)) && args(id,..,session)")
+	public Object TuteeAdminCheck(ProceedingJoinPoint joinPoint,HttpSession session, String id) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser==null) {
+			throw new LoginException("로그인 후 조회 가능합니다.","../user/login.shop");
+		}else if(!loginUser.getUserid().equals("admin") && !loginUser.getUserid().equals(id)) {
+			throw new LoginException("본인 정보만 조회 가능합니다","../class/main.shop");
+		}
+		return joinPoint.proceed();
+	}
 }

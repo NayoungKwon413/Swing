@@ -20,15 +20,26 @@ public class Class {
 	private String classintro;
 	private int level;
 	private int readcnt;
-	private int state;
+	private double state;
 	private Date regdate;
 	//참여인원수
 	private int totaltutee;
 	//클래스 리뷰 평점, 갯수
-	private int staravg;
+	private double staravg;
 	private int reviewcnt;
 	
-	// getter, setter, toString
+	// tutor my.jsp 에 join을 통해 가져온 정보
+	private String nickname;
+	private String name;
+	private Date date;
+	
+	//tutor 프로필 img
+	private String file;
+	
+	//wish여부 check
+	private int wish;
+	
+	// getter, setter
 	public int getClassid() {
 		return classid;
 	}
@@ -131,10 +142,10 @@ public class Class {
 	public void setReadcnt(int readcnt) {
 		this.readcnt = readcnt;
 	}
-	public int getState() {
+	public double getState() {
 		return state;
 	}
-	public void setState(int state) {
+	public void setState(double state) {
 		this.state = state;
 	}
 	public Date getRegdate() {
@@ -144,6 +155,25 @@ public class Class {
 		this.regdate = regdate;
 	}
 	
+	// tutor my.jsp 에 join을 통해 가져온 정보의 setter, getter
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	public int getTotaltutee() {
 		return totaltutee;
 	}
@@ -151,10 +181,10 @@ public class Class {
 		this.totaltutee = totaltutee;
 	}
 	
-	public int getStaravg() {
+	public double getStaravg() {
 		return staravg;
 	}
-	public void setStaravg(int staravg) {
+	public void setStaravg(double staravg) {
 		this.staravg = staravg;
 	}
 	public int getReviewcnt() {
@@ -163,12 +193,28 @@ public class Class {
 	public void setReviewcnt(int reviewcnt) {
 		this.reviewcnt = reviewcnt;
 	}
+	
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public int getWish() {
+		return wish;
+	}
+	public void setWish(int wish) {
+		this.wish = wish;
+	}
 	@Override
 	public String toString() {
 		return "Class [classid=" + classid + ", userid=" + userid + ", location1=" + location1 + ", location2="
 				+ location2 + ", category=" + category + ", type=" + type + ", maxtutee=" + maxtutee + ", subject="
 				+ subject + ", coverimg=" + coverimg + ", price=" + price + ", time=" + time + ", totaltime="
 				+ totaltime + ", totalprice=" + totalprice + ", tutorintro=" + tutorintro + ", classintro=" + classintro
-				+ ", level=" + level + ", readcnt=" + readcnt + ", state=" + state + ", regdate=" + regdate + "]";
+				+ ", level=" + level + ", readcnt=" + readcnt + ", state=" + state + ", regdate=" + regdate
+				+ ", nickname=" + nickname + ", name=" + name + ", date=" + date + "]";
 	}
+	
+
 }

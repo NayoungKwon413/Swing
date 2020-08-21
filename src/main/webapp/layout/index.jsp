@@ -54,7 +54,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <a href="${path}/class/main.shop" class="logo mr-auto"><img src="${path}/assets/img/logo.png" alt="" class="img-fluid"></a>
+      <a href="${path}/class/main.shop" class="logo mr-auto"><img src="${path}/assets/img/icon/ci3.png" alt="" class="img-fluid"></a>
       <!-- Uncomment below if you prefer to use text as a logo -->
       <!-- <h1 class="logo mr-auto"><a href="index.html">Butterfly</a></h1> -->
 
@@ -68,8 +68,8 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
           <c:if test="${!empty sessionScope.loginUser}">
           <c:if test="${sessionScope.loginUser.userid=='admin'}">
           <li><a href="${path}/admin/userlist.shop">회원목록</a></li>
-          <li><a href="${path}/admin/classlist.shop">수업목록</a></li>
-          <li><a href="${path}/admin/applylist.shop">수업신청목록</a></li>
+          <li><a href="${path}/admin/classlist.shop?get=0">수업목록</a></li>
+          <li><a href="${path}/admin/applylist.shop?get=0">수업신청목록</a></li>
           <li><a href="${path}/admin/chart.shop">수익조회</a></li>
           <li class="drop-down"><a href="">${sessionScope.loginUser.userid}님의 마이 페이지</a>
             <ul>
@@ -85,10 +85,10 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
               <li><a href="${path}/tutor/register.shop">튜터 등록</a></li>
               <li><a href="${path}/tutor/my.shop">승인 상태</a></li>
               <li><a href="${path}/tutor/result.shop">내 수업</a></li>
-              <li><a href="${path}/tutor/applylist.shop">수업 신청 목록</a></li>
+              <li><a href="${path}/tutor/outcome.shop">수업 성과</a></li>
             </ul>
           </li>
-          <li><a href="${path}/talk/main.shop">실시간톡</a></li>
+          <li><a href="" onclick="window.open('${path}/talk/main.shop?userid=${sessionScope.loginUser.userid}&type=tutee','','width=500, height=650');">실시간톡</a></li>
           <li><a href="${path}/tutee/classlist.shop?userid=${sessionScope.loginUser.userid}&state=1">수강목록</a></li>
           <li><a href="${path}/tutee/wishlist.shop">위시리스트</a></li>
           <li class="drop-down"><a href="">${sessionScope.loginUser.userid}님의 마이 페이지</a>

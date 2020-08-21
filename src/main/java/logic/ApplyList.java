@@ -1,18 +1,14 @@
 package logic;
 
+import java.util.Date;
+
 public class ApplyList {
-	private int applyno;
 	private String userid;
 	private int classid;
 	private int classno;
-	
+	private Date applydate;
+
 	// getter, setter, toString
-	public int getApplyno() {
-		return applyno;
-	}
-	public void setApplyno(int applyno) {
-		this.applyno = applyno;
-	}
 	public String getUserid() {
 		return userid;
 	}
@@ -31,9 +27,15 @@ public class ApplyList {
 	public void setClassno(int classno) {
 		this.classno = classno;
 	}
-
+	public Date getApplydate() {
+		return applydate;
+	}
+	public void setApplydate(Date applydate) {
+		this.applydate = applydate;
+	}
 	@Override
 	public String toString() {
-		return "ApplyList [applyno=" + applyno + ", userid=" + userid + ", classid=" + classid + ", classno=" + classno + "]";
+		return "ApplyList [userid=" + userid + ", classid=" + classid + ", classno=" + classno + ", applydate="
+				+ applydate + "]";
 	}
 }

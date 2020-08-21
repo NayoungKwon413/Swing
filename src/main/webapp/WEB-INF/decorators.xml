@@ -8,9 +8,9 @@
 		<pattern>/talk/*</pattern>
 	</decorator>
 	<excludes>
-		<pattern>/class/review*</pattern>
+		<pattern>/admin/reason*</pattern>
 		<pattern>/board/imgupload*</pattern>
-		<pattern>/admin/graph*</pattern>
 		<pattern>/ajax/*</pattern>
+		<pattern>/class/review*</pattern>
 	</excludes>
 </decorators>

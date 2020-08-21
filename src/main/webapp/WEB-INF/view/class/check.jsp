@@ -46,12 +46,12 @@
 									<div class="top">
 										<label><input type="hidden" class="no" value="${info.classno}"></label>
 										<div class="text">
-											<fmt:formatDate value="${info.date}" var="date" pattern="MM.dd (E)"/>
+											<%--<fmt:formatDate value="${info.date}" var="date" pattern="MM.dd (E)"/>--%>
 											<fmt:parseDate value="${info.starttime}" var="starttime" pattern="HH:mm:ss"/>
 											<fmt:formatDate value="${starttime}" var="start" pattern="HH:mm"/>
 											<fmt:parseDate value="${info.endtime}" var="endtime" pattern="HH:mm:ss"/>
 											<fmt:formatDate value="${endtime}" var="end" pattern="HH:mm"/>
-											${date} ${start}~${end}
+											${info.date} ${start}~${end}
 											<span>|</span>
 											<font>${cls.location2}</font>
 										</div>

@@ -70,7 +70,7 @@ hr{
  </section>
 <section id="tutor-regi" class="tutor-regi">
 <div class="container">
-	<form:form modelAttribute="user" method="post" action="join.shop">
+	<form:form modelAttribute="user" method="post" action="updateExcute.shop">
 	<div class="row">
 			<div class="col-lg-3">
 		        <div class="info">
@@ -87,10 +87,23 @@ hr{
 		    <div class="form-group">
 		    	<div class="title">프로필-</div>
 				<div style="margin: 30px 0">
-					<img class="upf_b button" src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
-	                <div class="upf" id="picture-cover" style="background-image:url('save/${user.userid}_${user.file}')">
-	                	<input type="hidden" id="ProfileThumbnailUrl" value="//img.taling.me/Content/Uploads/Profile/106bb03ba39eaf53e3243d4cc2f6575fd0328e49.jpg">
-	                    <input type="file" id="picture" name="picture" style="width:150px;height:130px;opacity:0;">
+					<img class="upf_b button"  src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
+	                <div class="upf" id="picture-cover"  style="background-image:url('save/${user.userid}_${user.file}')">
+	                    <form:input path="" type="file"  style="width:150px;height:130px;opacity:0;" accept="image/*" onchange="setThumbnail(event);" value=""/>
+	                    <form:input path="file" type="hidden" id="file1" name="file1" value=""/>
+                        <form:input path="fileurl" type="hidden" id="fileurl" name="fileurl"/>
+		    <script> 
+		    function setThumbnail(event) { 
+				var reader = new FileReader(); 
+				reader.onload = function(event) {
+					document.getElementById("picture-cover").style.backgroundImage="url("+reader.result+")";
+		            document.getElementById("fileurl").value= reader.result;
+	            }; 
+	            reader.readAsDataURL(event.target.files[0]); 
+	            var fname =event.target.files[0].name;
+	            document.getElementById("file1").value= fname;
+            }
+	        </script>
 	                </div>
 	            </div>
 	        </div>
@@ -120,7 +133,7 @@ hr{
 	                <div class="validate"></div>
 	        </div>
 			<hr> 
-            <a href="update.shop?id=${user.userid}">수정완료</a>
+            <button type="submit">수정완료</button>
           	<c:if test="${sessionScope.loginUser.userid!='admin'}">
             <a href="delete.shop?id=${user.userid}">회원탈퇴</a>
             </c:if>

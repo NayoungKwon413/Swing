@@ -36,4 +36,5 @@ public class ReviewDao {
 		param.clear();
 		param.put("classid", classid);
 		return template.getMapper(ReviewMapper.class).cnt(classid);
-	}}
+	}
+}

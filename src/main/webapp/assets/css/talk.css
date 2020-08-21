@@ -52,8 +52,200 @@
     background: #fff;
     color: #49b5e7;
 }
+
 #pop_qna .qna_cont {
     width: 100%;
-    height: 570px;
+    height: 440px;
     overflow-y: scroll;
+}
+#pop_qna .qna_cont .qna_list {
+    display: block;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 5px;
+    overflow: hidden;
+    position: relative;
+}
+#pop_qna .qna_cont .qna_list .profile {
+    width: 20%;
+    float: left;
+    text-align: center;
+    padding-right: 1%;
+}
+#pop_qna .qna_cont .qna_list .profileimg {
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}
+#pop_qna .qna_cont .qna_list .name {
+    color: #000;
+    font-size: 12px;
+}
+#pop_qna .qna_cont .qna_list .qtxt {
+    width: 70%;
+    float: left;
+    line-height: 150%;
+}
+#pop_qna .qna_cont .qna_list .qtxt h2 {
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+#pop_qna .qna_cont .qna_list .qtxt .q_intxt {
+    font-size: 12px;
+    line-height: 150%;
+    color: #666;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+#pop_qna .newtalk{display: inline-block;float: right;padding: 0  5px;margin-right: 1em;background-color: #FFBF00;color: white;border-radius: 20px;}
+#pop_qna .qna_cont .qna_list .qtxt .date {
+    font-size: 11px;
+    color: #999;
+}
+/*detail.shop*/
+.qna_title {
+    padding: 15px 0;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative;
+}
+.qna_title .btn_list {
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    padding: 7px 15px 7px 15px;
+    border: 1px solid #e0e0e0;
+    line-height: 100%;
+    font-size: 14px;
+    color: #2962ff;
+    transition: all 0.3s ease 0s;
+    border-radius: 5px;
+}
+#pop_qna .qna_view {
+    width: 100%;
+    height: 510px;
+    overflow-y: scroll;
+}
+#pop_qna .qna_view .content {
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+}
+.qna_view .content .info{
+	border: 1px solid #999;
+    border-radius: 10px;
+    margin: 0 7%;
+    padding: 5px 10px;
+    text-align: center;
+    line-height: 150%;
+    font-size: 12px;
+}
+.qna_view .content dl.my {
+    padding: 10px 20px;
+    display: block;
+    overflow: hidden;
+}
+.qna_view .content dl.my dt {
+    width: 20%;
+    float: right;
+    text-align: center;
+}
+.qna_view .content dl dt .profile {
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}
+.qna_view .content dl.my .blo {
+    word-break: break-all;
+    width: 60%;
+    float: right;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    background: #feeaf1;
+    margin-right: 20px;
+    line-height: 150%;
+    letter-spacing: 0;
+}
+.qna_view .content dl.my .date {
+    float: right;
+    font-size: 12px;
+    color: #999;
+}
+.qna_view .content dl.my .blo:after {
+    left: 100%;
+    top: 20px;
+    border: solid transparent;
+    content: " ";
+    position: absolute;
+    border-left-color: #feeaf1;
+    border-width: 10px;
+    margin-top: -10px;
+}
+.qna_view .content dl.other {
+    padding: 10px 20px;
+    display: block;
+    overflow: hidden;
+}
+.qna_view .content dl.other dt {
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+.qna_view .content dl.other .blo {
+    width: 60%;
+    float: left;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    background: #f2f2f2;
+    margin-left: 20px;
+    line-height: 150%;
+    letter-spacing: 0;
+}
+.qna_view .content dl.other .date {
+    float: right;
+    font-size: 12px;
+    color: #999;
+}
+.qna_view .content dl.other .blo:after {
+    right: 100%;
+    top: 20px;
+    border: solid transparent;
+    content: " ";
+    position: absolute;
+    border-right-color: #f2f2f2;
+    border-width: 10px;
+    margin-top: -10px;
+}
+.q_write {
+    position: relative;
+    width: 100%;
+    background: #f0f2f4;
+    overflow: hidden;
+    bottom: 0;
+}
+ .q_write textarea {
+    float: left;
+    width: 88%;
+    background: #f0f2f4;
+    height: 38px;
+    border: none;
+    resize: n;
+}
+ .q_write a.qwbtn {
+    width: 10%;
+    float: left;
+    display: block;
 }

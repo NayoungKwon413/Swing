@@ -11,6 +11,14 @@ public class Review {
 	private String content;
 	private double star;
 	private Date regdate;	
+	//user name, file
+	private String name; 
+	private String file;
+	//tutor outcome.jsp 에 join을 통해 가져온 정보
+	private String subject;
+	private double avgstar;
+	private int rank;
+	
 	// getter, setter, toString
 
 	public int getReviewno() {
@@ -61,9 +69,39 @@ public class Review {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
 		return "Review [reviewno=" + reviewno + ", userid=" + userid + ", classid=" + classid + ", classno=" + classno
 				+ ", classseq=" + classseq + ", content=" + content + ", star=" + star + ", regdate=" + regdate + "]";
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public double getAvgstar() {
+		return avgstar;
+	}
+	public void setAvgstar(double avgstar) {
+		this.avgstar = avgstar;
+	}
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 }

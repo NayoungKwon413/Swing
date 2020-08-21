@@ -79,77 +79,128 @@ div#calc_point {
 }
 </style>
 <script type="text/javascript">
-$(".star").on('click',function(){
-    var idx = $(this).index();
-    $(".star").removeClass("on");
-      for(var i=0; i<=idx; i++){
-         $(".star").eq(i).addClass("on");
-    }
-     var point = (idx+1)*0.5;
-     $("#calc_point").html(point);
-  });
+$(function(){
+	$(".star").on('click',function(){
+		var idx = $(this).index();
+		$(".star").removeClass("on");
+		for(var i=0; i<=idx; i++){
+			$(".star").eq(i).addClass("on");
+		}
+		var point = (idx+1)*0.5;
+		$("#calc_point").html(point);
+	});
+  
+	$(".classbody").on("click", function(){ 
+		var idx= $(".classbody").index(this);    <%-- 클래스의 인덱스를 가져와 사용하는 방법 --%>
+		$(".infotable:eq("+idx+")").toggle();
+	});
+
+});
 </script>
 </head>
 <body>
 <section id="team" class="team">
       <div class="container">
           <div style="text-align: right;">
-           <a href="#"><h2>내수업 목록</h2></a>
-          <a href="#" class="select">수업진행중(13)</a>&nbsp;|
-          <a href="#">수업완료(11)</a>&nbsp;|
-          <a href="#services">수업성과(2)</a>
+          <a href="result.shop"><h2>내 수업 목록</h2></a>
+          <c:choose>
+          	<c:when test="${param.state == 5}">
+          		<a href="result.shop">전체보기</a>&nbsp;|         		
+         		<a href="result.shop?state=5" class="select">수업진행중</a>&nbsp;|
+          		<a href="result.shop?state=6">수업완료</a>&nbsp;
+          	</c:when>
+          	<c:when test="${param.state == 6}">
+          		<a href="result.shop">전체보기</a>&nbsp;|
+         		<a href="result.shop?state=5" >수업진행중</a>&nbsp;|
+          		<a href="result.shop?state=6" class="select">수업완료</a>&nbsp;
+          	</c:when>
+          	<c:otherwise>
+          		<a href="result.shop" class="select">전체보기</a>&nbsp;|
+         		<a href="result.shop?state=5">수업진행중</a>&nbsp;|
+          		<a href="result.shop?state=6">수업완료</a>&nbsp;
+          	</c:otherwise>
+          </c:choose>
           <hr style="margin-top: 15px;">
           </div>
-          <div class="row bg-gray">
-         <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="team-item wow fadeInRight animated" data-wow-delay="0.2s" style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;"
-            onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
+          
+         <div class="row bg-gray">
+         <c:if test="${classcount > 0}">
+         
+         <div class="col-lg-12 col-md-12 col-xs-12">            
+         <c:forEach items="${classlist}" var="cl" varStatus="stat">
+         <input type="hidden" name="classid" value="${cl.classid}">
+            <div class="classbody team-item wow fadeInRight animated" data-wow-delay="0.2s" 
+            	style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s; cursor:pointer;">
                <div class="team-img">
                   <img class="img-fluid" src="${path}/assets/img/team/team-3.jpg" alt="">
                </div>
                <div class="contetn">
                   <div class="info-text">
-                     <h3><a href="#">핸드메이드 강좌</a></h3>
-                     <p>이다빈(USER1)</p>
-                     <p>[수업시작일] 2020-09-15</p>
-                     <p>[위치] 서울시 금천구</p>
-                  </div>
+                     <h3><a href="#">${cl.subject}</a></h3>
+                     <p>${cl.nickname}(${cl.userid})</p>
+                     <p>[수업시작일] <fmt:formatDate value="${cl.date}" pattern="yyyy-MM-dd" /></p>
+                     <p>[위치] ${cl.location1} ${cl.location2}</p>
+                  </div>                  
                   <div class="detail">
-                  	<button>상세보기</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-                  	<button>튜티리스트조회</button>
+                  	<input type="button" value="수업추가하기" onclick="location.href='register-class.shop?classid=${cl.classid}'">&nbsp;&nbsp;
+                  	<input type="button" value="수업상세보기" onclick="location.href='../class/detail.shop?classid=${cl.classid}'">&nbsp;&nbsp;
+<%--                <button onclick="location.href='register-class.shop?classid=${cl.classid}'">수업 추가하기</button>&nbsp;&nbsp;
+                  	<button onclick="location.href='../class/detail.shop?classid=${cl.classid}'">상세보기</button>&nbsp;&nbsp;    --%>
                   </div>
                </div>
-            </div>
-            <div>
+            </div>            
+            <div class="infotable" style="display:none">
             	<table class="table table-hover">
-            	<tr><th>차수-회차</th><th>장소</th><th>날짜</th><th>시작시간</th><th>끝나는시간</th><th>수업진행상태</th><th>신청튜티리스트</th></tr>
-            	<tr><td>1차수-1회차</td><td>구디아카데미</td><td>2020-08-07</td><td>11:00</td><td>12:00</td><td><label class="badge badge-info">완료</label></td><td><button onclick="location.href='applylist.shop'">조회</button></td></tr>
-            	<tr><td>1차수-2회차</td><td>구디아카데미</td><td>2020-08-07</td><td>11:00</td><td>12:00</td><td><label class="badge badge-info">완료</label></td><td><button onclick="location.href='applylist.shop'">조회</button></td></tr>
-            	<tr><td>1차수-3회차</td><td>구디아카데미</td><td>2020-08-07</td><td>11:00</td><td>12:00</td><td><label class="badge badge-warning">진행</label></td><td><button onclick="location.href='applylist.shop'">조회</button></td></tr>
+            	<tr><th>차수-회차</th><th>장소</th><th>날짜</th><th>시작시간</th><th>끝나는시간</th><th>수업진행상태</th><th>신청튜티리스트</th></tr>            	
+            	<c:forEach items="${classinfolist}" var="info" varStatus="stat2">     	
+            	<c:if test="${cl.classid == info.classid}">
+	           	<fmt:parseDate value="${info.starttime}" pattern="HH:mm" var="starttime" />
+            	<fmt:parseDate value="${info.endtime}" pattern="HH:mm" var="endtime" />        
+            	<fmt:formatDate value="${starttime}" pattern="HH:mm" var="starttime" />
+            	<fmt:formatDate value="${endtime}" pattern="HH:mm" var="endtime" />
+            	<tr><td>${info.classno}차수-${info.classseq}회차</td><td>${info.place}</td><td>${info.date}</td><td>${starttime}</td><td>${endtime}</td>
+            		<td>
+            		<c:if test="${info.date > today}">
+            		<label class="badge badge-warning">진행예정</label></c:if>
+            		<c:if test="${info.date == today}">
+            		<label class="badge badge-warning">진행</label></c:if>
+            		<c:if test="${info.date < today}">
+            		<label class="badge badge-info">완료</label></c:if>
+            		</td>
+            		<td><button onclick="location.href='applylist.shop?classid=${info.classid}&classno=${info.classno}'">조회</button></td></tr>
+            	</c:if>
+            	</c:forEach>                       	 	
             	</table>
             </div>
+         </c:forEach>   
          </div>
+         
+<%--
          <div class="col-lg-12 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
             <div class="team-item wow fadeInRight animated" data-wow-delay="0.4s" style="visibility: visible;-webkit-animation-delay: 0.4s; -moz-animation-delay: 0.4s; animation-delay: 0.4s;">
                <div class="team-img">
                   <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-5.jpg" alt="">
                </div>
-               <div class="contetn">
+               <div class="content">
                   <div class="info-text">
                      <h3><a href="#">핸드메이드 강좌</a></h3>
                      <p>이다빈(USER1)</p>
                      <p>[수업시작일] 2020-09-15</p>
                      <p>[위치] 서울시 금천구</p>
                   </div>
+                   <div class="detail">
+                  	<button onclick="location.href='../class/detail.shop'">상세보기</button>&nbsp;&nbsp;
+                  </div>
                </div>
             </div>
          </div>
+ 
          <div class="col-lg-12 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
             <div class="team-item wow fadeInRight animated" data-wow-delay="0.6s" style="visibility: visible;-webkit-animation-delay: 0.6s; -moz-animation-delay: 0.6s; animation-delay: 0.6s;">
                <div class="team-img">
                   <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-7.jpg" alt="">
                </div>
-               <div class="contetn">
+               <div class="content">
                   <div class="info-text">
                   <h3><a href="#">핸드메이드 강좌</a></h3>
                   <p>이다빈(USER1)</p>
@@ -164,7 +215,7 @@ $(".star").on('click',function(){
                <div class="team-img">
                   <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-1.jpg" alt="">
                </div>
-               <div class="contetn">
+               <div class="content">
                   <div class="info-text">
                      <h3><a href="#">핸드메이드 강좌</a></h3>
                      <p>이다빈(USER1)</p>
@@ -174,76 +225,15 @@ $(".star").on('click',function(){
                </div>
             </div>
          </div>
+--%>
+      </c:if>
+      <c:if test="${classcount == 0}">
+         	<div style="font-align:center;">
+         	<p>승인완료된 수업이 없습니다.</p>
+         	</div>
+      </c:if>
       </div>
    </div>
 </section>
-<section id="services" class="services section-bg">
-      <div class="container">
-      <a id="grade" href="#"><h2>내 수업 성과</h2></a>
-        <div class="row justify-content-center">
-          <div class="col-lg-6 col-md-6" data-wow-delay="0.1s">
-            <div class="icon-box">
-            	그래프넣기
-              <h4 class="title">수업 조회수 및 신청수</h4>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6" data-wow-delay="0.1s">
-          <div class="icon-box">
-            <div class="review_point">
-            <span class="star star_left"></span>
-             <span class="star star_right"></span>
-         
-             <span class="star star_left"></span>
-             <span class="star star_right"></span>
-         
-             <span class="star star_left"></span>
-             <span class="star star_right"></span>
-         
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
-         
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
-         </div>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-      	<div class="col-lg-12 col-md-6" data-wow-delay="0.1s">
-	      	<div class="icon-box">
-		      	<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-6">
-					<div class="achievement__item">
-					<img src="${path}/assets/img/icon/won.png" alt="" class="img-fluid1">
-					<h2 class="achieve-counter">50,000원</h2>
-					<p>이번달 결제 금액</p>
-					</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6">
-					<div class="achievement__item">
-					<img src="${path}/assets/img/icon/won.png" alt="" class="img-fluid1">
-					<h2 class="achieve-counter">20,000원</h2>
-					<p>지난달 결제 금액</p>
-					</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6">
-					<div class="achievement__item">
-					<img src="${path}/assets/img/icon/Money.png" alt="" class="img-fluid1">
-					<h2 class="achieve-counter">70,000원</h2>
-					<p>누적 금액</p>
-					</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6">
-					<div class="achievement__item">
-					<img src="${path}/assets/img/icon/rev3.png" alt="" class="img-fluid1">
-					<h2 class="achieve-counter">20.84%</h2>
-					<p>전월대비 상승률</p>
-					</div>
-					</div>
-			  	</div>
-	        </div>
-      	</div>
-      </div>
-    </section>
 </body>
 </html>

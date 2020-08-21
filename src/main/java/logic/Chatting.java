@@ -9,6 +9,14 @@ public class Chatting {
 	private int classid;
 	private String chat;
 	private Date chatdate;
+	private int readcheck;
+	//클래스 제목
+	private String subject;
+	//user 프로필사진, 이름
+	private String file;
+	private String name;
+	//새로운 메시지
+	private int newtalk;
 	
 	// getter, setter, toString
 	public int getRoomno() {
@@ -46,6 +54,37 @@ public class Chatting {
 	}
 	public void setChatdate(Date chatdate) {
 		this.chatdate = chatdate;
+	}
+	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getNewtalk() {
+		return newtalk;
+	}
+	public void setNewtalk(int newtalk) {
+		this.newtalk = newtalk;
+	}
+	public int getReadcheck() {
+		return readcheck;
+	}
+	public void setReadcheck(int readcheck) {
+		this.readcheck = readcheck;
 	}
 	@Override
 	public String toString() {

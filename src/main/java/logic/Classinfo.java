@@ -1,18 +1,17 @@
 package logic;
 
-import java.util.Date;
 
 public class Classinfo {
 	private int classid; // 수업 아이디
 	private int classno; // 수업 차수 
 	private int classseq; // 수업 회차
-	private Date date;
+	private String date;
 	private String starttime;
 	private String endtime;
 	private String place;
 	private String title;
 	private String curri;
-	
+
 	// getter, setter, toString
 	public int getClassid() {
 		return classid;
@@ -32,10 +31,10 @@ public class Classinfo {
 	public void setClassseq(int classseq) {
 		this.classseq = classseq;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getStarttime() {
@@ -68,6 +67,7 @@ public class Classinfo {
 	public void setCurri(String curri) {
 		this.curri = curri;
 	}
+	
 	@Override
 	public String toString() {
 		return "Classinfo [classid=" + classid + ", classno=" + classno + ", classseq=" + classseq + ", date=" + date

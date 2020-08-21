@@ -33,10 +33,32 @@ public class ClassController {
 	private ShopService service;
 	
 	@RequestMapping("*") //  /index.shop 요청시 호출되는 메서드
-	public ModelAndView classForm() {
+	public ModelAndView classForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		int type=1;
+		List<Class> hotlist = service.mainlist(type);
+		type=2;
+		List<Class> latestlist = service.mainlist(type);
+		User user = (User)session.getAttribute("loginUser");
+		if(user!=null) {
+			WishList wish = new WishList();
+			for(Class c : hotlist) {
+				wish.setUserid(user.getUserid());
+				wish.setClassid(c.getClassid());
+				c.setWish(service.checkwish(wish));
+			}
+			for(Class c : latestlist) {
+				wish.setUserid(user.getUserid());
+				wish.setClassid(c.getClassid());
+				c.setWish(service.checkwish(wish));
+			}
+		}
+		System.out.println(hotlist.get(0).getWish());
+		mav.addObject("hotlist", hotlist);
+		mav.addObject("latestlist", latestlist);
 		return mav;
 	}
+	
 	@GetMapping("review")
 	public String form(Model model) {
 		model.addAttribute(new Review());
@@ -44,11 +66,14 @@ public class ClassController {
 	}
 	
 	@PostMapping("review")
-	public ModelAndView review(Review review, HttpSession session) {
+	public ModelAndView review(Review review,Integer classid,  HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-//		User loginUser = (User)session.getAttribute("loginUser");
-//		review.setUserid(loginUser.getUserid());
-		review.setUserid("hong");
+		User loginUser = (User)session.getAttribute("loginUser");
+		System.out.println("classid=" + classid);
+		ApplyList apply = service.getapply(classid,loginUser.getUserid());
+		review.setUserid(loginUser.getUserid());
+		review.setClassno(apply.getClassno());
+//		review.setUserid("hong");
 		try {
 			service.reviewWrite(review);
 			mav.setViewName("redirect:detail.shop");
@@ -61,33 +86,36 @@ public class ClassController {
 	}
 	
 	@GetMapping("detail")
-	public ModelAndView detail(Integer classid) {
+	public ModelAndView detail(Integer classid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Class cls = service.getClass(classid);
 			cls.setStaravg(service.getStar(classid));
+//			System.out.println(cls.getStaravg());
 			cls.setReviewcnt(service.getReviewcnt(classid));
+			User user = (User)session.getAttribute("loginUser");
+			if(user!=null) {
+				WishList wish = new WishList();
+				wish.setUserid(user.getUserid());
+				wish.setClassid(classid);
+				cls.setWish(service.checkwish(wish));
+			}
 			User tutor = service.getUser(cls.getUserid());
 			List<Classinfo> clsinfo = service.getClassInfo(classid);
 			List<Review> review = service.getReview(classid);
-			List<User> reUser = new ArrayList<>();
 			List<License> license = service.getLicense(cls.getUserid());
-			double sum = 0;
-			for(Review re : review) {
-				reUser.add(service.getUser(re.getUserid()));
-			}
+//			double sum = 0;
 			mav.addObject("cls",cls);
 			mav.addObject("tutor",tutor);
 			mav.addObject("clsinfo", clsinfo);
 			mav.addObject("review",review);
-			mav.addObject("reUser",reUser);
 			mav.addObject("license",license);
-//			mav.addObject("user",user);
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return mav;
 	}
+	
 	@RequestMapping("check")
 	public ModelAndView check(Integer classid) {
 		ModelAndView mav = new ModelAndView();
@@ -103,6 +131,7 @@ public class ClassController {
 		}
 		return mav;
 	}
+	
 	@RequestMapping("apply")
 	public ModelAndView apply(Integer classid,Integer classno,HttpSession session) {
 		ModelAndView mav = new ModelAndView();

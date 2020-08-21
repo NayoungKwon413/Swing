@@ -161,7 +161,7 @@ mark::after {
 .score {
     position: relative;
     padding-left: 29px;
-    background: url(https://front-img.taling.me/Content/app3/images/icon_review.png) no-repeat 12px center;
+    background: url('/swing/assets/img/icon/star_on.png') no-repeat 12px center
     background-size: 12px;
 }
 .score::before {
@@ -178,13 +178,12 @@ mark::after {
 }
 .item_lst .t3 .btn_wish {
     position: absolute;
-    right: 0;
+    right: 5%;
     top: 95%;
     display: block;
-    width: 21px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     margin-top: -10px;
-    background-image: url(https://front-img.taling.me/Content/app3/images/icon_wish_black.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 21px 19px;

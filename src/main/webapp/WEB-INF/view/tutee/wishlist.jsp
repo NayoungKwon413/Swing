@@ -12,6 +12,15 @@ function delwish(userid,classid) {
 	location.href="wishDelete.shop?userid="+userid+"&classid="+classid
 	alert("위시리스트에서 삭제되었습니다.");
 }
+
+$(function(){
+	for(var n=0; n< ${wishnum}; n++){
+		var idx = $('#Avg'+n).val()/0.5;
+		for(var i=0; i<idx; i++){
+			$(".star"+n).eq(i).addClass("on");
+		}
+	}
+})
 </script>
 </head>
 <body>
@@ -40,11 +49,23 @@ function delwish(userid,classid) {
 						<font>${wish.location2}</font>
 					</div>
 					<div class="price">
-						<font class="class-start">
-							<c:forEach begin="1" end="5" varStatus="vs">
-								<c:if test="${vs.current<=wish.star}">★</c:if>
-								<c:if test="${vs.current>wish.star}">☆</c:if>
-							</c:forEach></font>
+						<a class="starimg">
+							<input type="hidden" id="Avg${status.index}" value="${wish.star}">
+							<span class="star star${status.index} star_left"></span>
+						    <span class="star star${status.index} star_right"></span>
+						
+						    <span class="star star${status.index} star_left"></span>
+						    <span class="star star${status.index} star_right"></span>
+						
+						    <span class="star star${status.index} star_left"></span>
+						    <span class="star star${status.index} star_right"></span>
+						
+						   <span class="star star${status.index} star_left"></span>
+						   <span class="star star${status.index} star_right"></span>
+
+						   <span class="star star${status.index} star_left"></span>
+						   <span class="star star${status.index} star_right"></span>
+						</a><font>(${wish.reviewnum})</font>
 						<font>\</font>
 						<fmt:formatNumber value="${wish.totalprice}" type="currency"/>
 					</div>

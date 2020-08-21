@@ -33,6 +33,7 @@ public class UserEntryController {
 	@RequestMapping("*")
 	public String userEntryForm(Model model) {
 		//email 복호화
+		System.out.println("userEntryForm");
 		model.addAttribute(new User());
 		return null;
 	}
@@ -55,31 +56,25 @@ public class UserEntryController {
 			String email = CipherUtil.encrypt(user.getEmail(), userid.substring(0,16));
 			
 			user.setEmail(email);*/
-			if(user.getFile().length()>0) {
+		    if(user.getFileurl().length()>0) {
 				String path = request.getServletContext().getRealPath("/")+"user/save/";
+				System.out.println("path:"+path);
 				try {
 					    File f = new File(path);
 					    if(!f.exists()){
 					    	f.mkdirs(); //폴더 생성됨
 					    }
 					String str = user.getFileurl();
-					//BufferedImage bi = ImageIO.read(new URLDataSource(user.getFileurl()));
 					byte[] imagedata = java.util.Base64.getDecoder().decode(str.substring(str.indexOf(",") + 1));
 					BufferedImage bi = ImageIO.read(new ByteArrayInputStream(imagedata));
-					//ImageIO.write(bufferedImage, "png", new File("img.png"));
 					
 					int width = bi.getWidth();
 					int height = bi.getHeight();
-					//thumb: 빈이미지. 도화지
 					BufferedImage thumb = new BufferedImage
 							(width,height,BufferedImage.TYPE_INT_RGB);
-					//g: 그리기 도구
 					Graphics2D g = thumb.createGraphics();
-					// 그림 그리기
-					// thumb : 이미지 그려짐
 					g.drawImage(bi,0,0,width,height,null);
 					f = new File(path+user.getUserid()+"_"+user.getFile());
-					// thumb 이미지 f 파일로 저장
 					ImageIO.write(thumb,"png",f);
 					user.setFileurl("");
 					
@@ -150,73 +145,50 @@ public class UserEntryController {
 	}
 	
 	@PostMapping("updateExcute")
-	   public ModelAndView update(@Valid User user,BindingResult bresult,HttpServletRequest request,HttpSession session){
-	      ModelAndView mav = new ModelAndView();
-	      User loginUser = (User)session.getAttribute("loginUser");
-	      if(bresult.hasErrors()) {
-	         bresult.reject("error.input.user");
-	         return mav;
-	      }
-	      String password = null;
-	      if(user.getFile().length()>0) {
-				String path = request.getServletContext().getRealPath("/")+"user/save/";
-				try {
-					    File f = new File(path);
-					    if(!f.exists()){
-					    	f.mkdirs(); //폴더 생성됨
+	public ModelAndView update(@Valid User user,BindingResult bresult,HttpServletRequest request,HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		System.out.println(user);
+	    User loginUser = (User)session.getAttribute("loginUser");
+	    if(bresult.hasErrors()) {
+	       bresult.reject("error.input.user");
+	       //return mav;
+	    }
+	    String password = null;
+		try {
+
+		    if(user.getFileurl().length()>0) {
+		    	String path = request.getServletContext().getRealPath("/")+"user/save/";
+			    File f = new File(path);
+			    if(!f.exists()){
+		    	f.mkdirs();
 					    }
 					String str = user.getFileurl();
-					//BufferedImage bi = ImageIO.read(new URLDataSource(user.getFileurl()));
 					byte[] imagedata = java.util.Base64.getDecoder().decode(str.substring(str.indexOf(",") + 1));
 					BufferedImage bi = ImageIO.read(new ByteArrayInputStream(imagedata));
-					//ImageIO.write(bufferedImage, "png", new File("img.png"));
 					
 					int width = bi.getWidth();
 					int height = bi.getHeight();
-					//thumb: 빈이미지. 도화지
 					BufferedImage thumb = new BufferedImage
 							(width,height,BufferedImage.TYPE_INT_RGB);
-					//g: 그리기 도구
 					Graphics2D g = thumb.createGraphics();
-					// 그림 그리기
-					// thumb : 이미지 그려짐
 					g.drawImage(bi,0,0,width,height,null);
 					f = new File(path+user.getUserid()+"_"+user.getFile());
-					// thumb 이미지 f 파일로 저장
 					ImageIO.write(thumb,"png",f);
 					user.setFileurl("");
+		    }
 					
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
-			}
-	      try {
-	         /*password = CipherUtil.makehash(user.getPassword());
-	         if(!password.equals(loginUser.getPassword())) {
-	            bresult.reject("error.login.password");
-	            return mav;
-	         }*/
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      //로그인한 정보의 비밀번호와 입력된 비밀번호 검증
-	      try {
-	        /* String userid = CipherUtil.makehash(user.getUserid());
-	         String email = CipherUtil.encrypt(user.getEmail(),userid.substring(0,16));
-	         user.setEmail(email);
-	         service.userUpdate(user);
-	         mav.setViewName("redirect:mypage.shop?id="+user.getUserid());
-	         if(loginUser.getUserid().equals(user.getUserid())) {
-	            user.setEmail(CipherUtil.decrypt(email, userid.substring(0, 16)));
-	            user.setPassword(CipherUtil.makehash(user.getPassword()));
-	            session.setAttribute("loginUser", user);
-	         }*/
-		     service.userUpdate(user);
-	         session.setAttribute("loginUser", user);
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	         bresult.reject("error.user.update");
-	      }
+		finally {
+
+		      service.userUpdate(user);
+			  mav.setViewName("redirect:info.shop?id="+user.getUserid());
+		      session.setAttribute("loginUser", user);
+		}
+	      service.userUpdate(user);
+		  mav.setViewName("redirect:info.shop?id="+user.getUserid());
+	      session.setAttribute("loginUser", user);
 	      return mav;
 	   }
 	

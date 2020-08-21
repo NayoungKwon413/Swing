@@ -51,6 +51,7 @@ public class TuteeController {
 			w.setStartdate(service.getStartDate(w.getClassid())); // 수업시작일
 			w.setParticinum(service.getParticiNum(w.getClassid())); // 참여인원
 			w.setStar(service.getStar(w.getClassid())); // 리뷰별점
+			w.setReviewnum(service.getReviewcnt(w.getClassid())); // 리뷰갯수
 		}
 		int wishnum = wishlist.size();
 
@@ -81,8 +82,10 @@ public class TuteeController {
 			Date now = new Date();
 			List<Course> classlist = new ArrayList<Course>();
 			for (Course c : list) {
+				c.setStar(service.getStar(c.getClassid()));
+				c.setreviewnum(service.getReviewcnt(c.getClassid()));
 				if (state == 1) {
-					c.setClassseq(service.getCurseq(userid,c.getApplyno()));
+					c.setClassseq(service.getCurseq(userid,c.getClassid(),c.getClassno()));
 					if (c.getEnddate().after(now)) {
 						classlist.add(c);
 					}
@@ -94,6 +97,7 @@ public class TuteeController {
 			}
 			int classnum = classlist.size();
 			mav.addObject("state", state);
+			mav.addObject("userid", userid);
 			mav.addObject("classlist", classlist);
 			mav.addObject("classnum", classnum);
 		} catch (Exception e) {

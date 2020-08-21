@@ -28,7 +28,7 @@
 			<div class="success">
 				<h1>결제가 완료되었습니다.</h1>
 			</div>
-			<div id="nextButton" class="next button" onclick="location.href='../tutee/classlist.shop?id=${sessionScope.loginUser.userid}'">수업신청목록</div>
+			<div id="nextButton" class="next button" onclick="location.href='classlist.shop'">수업목록</div>
 		</div>
 	</div>
 </section>

@@ -1,3 +1,4 @@
+
 package logic;
 
 public class User {
@@ -6,7 +7,7 @@ public class User {
 	private String name;
 	private String email;
 	private String file;
-	private String kbn;
+	private int kbn;
 	private String nickname;
 	private int edulevel;
 	private String school;
@@ -45,10 +46,10 @@ public class User {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public String getKbn() {
+	public int getKbn() {
 		return kbn;
 	}
-	public void setKbn(String kbn) {
+	public void setKbn(int kbn) {
 		this.kbn = kbn;
 	}
 	public String getNickname() {
@@ -94,4 +95,5 @@ public class User {
 				+ ", major=" + major + ", edufile=" + edufile + ", fileurl=" + fileurl + "]";
 	}
 }
+
 

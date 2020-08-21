@@ -31,4 +31,38 @@ public class ClassInfoDao {
 		return template.getMapper(ClassInfoMapper.class).date(param); 
 	}
 
+	public int maxnum(Integer classid) {
+		return template.getMapper(ClassInfoMapper.class).maxnum(classid);
+	}
+	
+	public void register(Classinfo classinfo) {
+		template.getMapper(ClassInfoMapper.class).register(classinfo);
+	}
+	
+	public void firstRegister(Classinfo ci) {
+		template.getMapper(ClassInfoMapper.class).firstRegister(ci);
+	}
+
+	public Classinfo selectOne(Integer classid, int classno, int classseq) {
+		param.clear();
+		param.put("classid", classid);
+		param.put("classno", classno);
+		param.put("classseq", classseq);
+		return template.getMapper(ClassInfoMapper.class).selectOne(param);
+	}
+
+	public List<Classinfo> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Classinfo> listByState(int seqstate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Classinfo> listById(String userid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
