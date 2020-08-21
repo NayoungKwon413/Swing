@@ -179,8 +179,15 @@ public class TutorController {
 		System.out.println("받은 cid:"+cid);
 		// cid없이 새 등록 -> user,license 는 userid 꺼 불러와 class빈 객체 등록
 		if(cid==null) {
-			int cidtemp = service.checkClass(loginUser.getUserid());
-			System.out.println(cidtemp);
+			try {
+				int cidtemp = service.checkClass(loginUser.getUserid());
+				System.out.println("등록진행중수업확인"+cidtemp);
+				mav.setViewName("/alert");
+				mav.addObject("msg","등록진행 중인 수업이 있습니다.");
+				mav.addObject("url", "register.shop?cid="+cidtemp); 
+			}catch(NullPointerException e) {
+				System.out.println("등록진행중 수업 없음");
+			}
 		}
 		// 반려목록,등록진행중목록 -> user,license userid 불러와  class=cid 인 객체 불러와
 		if(cid!=null) {
