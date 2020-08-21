@@ -263,10 +263,55 @@ function cal(price, time, totaltime){
 	    <!-- 기본정보 -->
 	    <div class="form-group">
 	    	<div class="title">지역-</div>
-				<input type="text" class="form-cont" name="location1" id="location1" value="${clas.location1}" placeholder="ex)서울" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+	    		<select id="location1" name="location1">
+	    			<option value="">지역</option>
+					<option value="서울" <c:if test="${clas.location1 eq '서울'}">selected="selected"</c:if>>서울</option>
+					<option value="경기" <c:if test="${clas.location1 eq '경기'}">selected="selected"</c:if>>경기</option>
+					<option value="인천" <c:if test="${clas.location1 eq '인천'}">selected="selected"</c:if>>인천</option>
+	    		</select>
                 <div class="validate"></div>
-                <input type="text" class="form-cont" name="location2" id="location2" value="${clas.location2}" placeholder="ex)금천구" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                <select id="location2" name="location2">
+                	<option value="">지역을 선택하세요</option>
+                	<option value="1">test1</option>
+                	<option value="2">test2</option>
+                </select>
                 <div class="validate"></div>
+            <script>
+            $(function(){
+				$('#location1').change(function(){
+					var area = $(this).val();
+					var msg = "";
+					if(area=='서울'){
+						msg = "<select id='location2'>"+
+							"<option value='강남'>강남</option>"+
+							"<option value='건대'>건대</option>"+
+							"<option value='잠실'>잠실</option>"+
+							"<option value='종로'>종로</option>"+
+							"<option value='홍대'>홍대</option>"+
+							"</select>";
+					}else if(area=='경기'){
+						msg = "<select id='location2'>"+
+						"<option value='분당'>분당</option>"+
+						"<option value='부천'>부천</option>"+
+						"<option value='수원'>수원</option>"+
+						"<option value='안산'>안산</option>"+
+						"<option value='안양'>안양</option>"+
+						"<option value='일산'>일산</option>"+
+						"</select>";
+					}else if(area=='인천'){
+						msg = "<select id='location2'>"+
+						"<option value='부평'>부평</option>"+
+						"<option value='송도'>송도</option>"+
+						"</select>"
+					}else{
+						msg="<select id='area'>"+
+							"<option value=''>지역을 선택하세요</option>"+
+							"</select>";
+					}
+					$("#location2").html(msg);
+				})
+			})
+            </script>
 			<div class="title">카테고리-</div>
 				<select name="category">
 					<option value="1" <c:if test="${clas.category eq 1}">selected="selected"</c:if>>요리/베이킹</option>
