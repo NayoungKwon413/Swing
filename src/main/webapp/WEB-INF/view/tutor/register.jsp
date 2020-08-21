@@ -158,9 +158,9 @@ $(document).ready(function(){
     	var cnt = 0;
     	for(i=1;i<totaltime+1){
     		var form = "<p>"+i+"회차</p>"
-    	    	+ "<input type='text' class='form-cont' name='subject' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
-    	        + "<input type='text' class='form-cont' name='email' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
-    	    $("<div>").attr("class","seq"+cnt).html(form).appendTo("#seqlist");
+    	    	+ "<input type='text' class='form-cont' name='title' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
+    	        + "<input type='text' class='form-cont' name='curri' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
+    	    $("<div>").attr("class","seq"+i).html(form).appendTo("#seqlist");
     	}
     	
 	});
