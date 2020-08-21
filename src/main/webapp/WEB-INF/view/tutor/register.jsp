@@ -127,15 +127,16 @@ $(document).ready(function(){
 	 
 	        if(value==1){
 	        	if(checked){
-	        		$("#numclass").hide();
-		        	$("#numclass").val(1);
 		        	$("#totaltime").val(1);
 			 		$("#totaltime").attr('readonly',true)
+			 		$('#seqlist').empty();
+			 		var form = "<p>1회차</p>"
+	    	    	+ "<input type='text' class='form-cont' name='title' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
+	    	        + "<input type='text' class='form-cont' name='curri' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
+	    	    	$("<div>").attr("class","seq1").html(form).appendTo("#seqlist");
 	        	}
 	        }else if(value==2){
 				if(checked){
-					$("#numclass").val(0); 
-					$("#numclass").show();
 					$("#totaltime").attr('readonly',false);
 	        	}
 	        }
@@ -155,15 +156,22 @@ $(document).ready(function(){
 	$("#totaltime").on("propertychange change keyup paste input", function() {
     	totaltime = $(this).val();
     	cal(price,time,totaltime);
-    	var cnt = 0;
-    	for(i=1;i<totaltime+1){
+	});
+	
+	$("#totaltime").on("change", function() {
+		var classeq = $(this).val();
+		var max = ++classeq
+		console.log("classeq:"+classeq);
+    	$('#seqlist').empty();
+    	for(i=1;i<max;i++){
+    		console.log("회차:"+i);
     		var form = "<p>"+i+"회차</p>"
     	    	+ "<input type='text' class='form-cont' name='title' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
     	        + "<input type='text' class='form-cont' name='curri' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
     	    $("<div>").attr("class","seq"+i).html(form).appendTo("#seqlist");
     	}
-    	
 	});
+	
 });
 
 function cal(price, time, totaltime){
@@ -336,7 +344,6 @@ function cal(price, time, totaltime){
                 <input type="radio" name="type" value="1" <c:if test="${clas.type eq 1}"> checked="checked" </c:if> data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">원데이 클래스
                 <!-- 다회차 클릭시 밑에 회차정보 갯수만큼 뜸 -->
                 <input type="radio" name="type" value="2" <c:if test="${clas.type eq 2}"> checked="checked" </c:if> data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">다회차 수업
-        		<!-- <input type="text" class="form-cont" name="numclass" id="numclass" value="1" />회 -->
         </div>
 		<div class="form-group">
 			<div class="title">참여인원-</div>
