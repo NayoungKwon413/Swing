@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.awt.Graphics2D;
@@ -13,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -263,7 +265,7 @@ public class TutorController {
 	 @RequestParam Map<String,Object> map
 	*/
 	@PostMapping("classEntry")
-	public ModelAndView classEntry(User user, License license, Class clas, String button, Integer cid, Integer numtutee, HttpSession session) {
+	public ModelAndView classEntry(User user, License license, Class clas, @RequestParam(name="title") List<String> titlelist,@RequestParam(name="curri") List<String> currilist, String button, Integer cid, Integer numtutee, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
 		User loginUser = (User)session.getAttribute("loginUser");
@@ -272,7 +274,9 @@ public class TutorController {
 		license.setUserid(userid);
 		clas.setUserid(userid);
 		clas.setTotalprice(clas.getPrice()*clas.getTime()*clas.getTotaltime());
-			
+		List<Classinfo> clasinfo = new ArrayList()<Classinfo>();
+		System.out.println(titlelist.toString());
+		System.out.println(currilist.toString());
 		if(button.equals("미리보기")) {
 			// 새창 열림
 			return mav;
