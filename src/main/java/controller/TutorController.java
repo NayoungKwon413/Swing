@@ -279,6 +279,7 @@ public class TutorController {
 		System.out.println("회차내용정보"+currilist.toString());
 		for(int i=0;i<titlelist.size();i++) {
 			Classinfo temp = new Classinfo();
+			temp.setClassseq(i+1);
 			temp.setTitle(titlelist.get(i));
 			temp.setCurri(currilist.get(i));
 			clasinfo.add(temp);
@@ -300,7 +301,7 @@ public class TutorController {
 			license.setLcno(++cnt);
 			service.licenseInsert(license);
 			
-			if(cid == null) { // 새로 만들어지는 수업이라면 class insert
+			if(cid == null) { // 새로 만들어지는 수업이라면 class insert,classinfo insert
 				int cnt2 = service.classCnt();
 				System.out.println(cnt2);
 				cid = cnt2 + 1;
@@ -310,7 +311,7 @@ public class TutorController {
 				//cid = service.classTemp(userid);
 				//license.setClassid(cid);
 				//service.licenseInsert(license);
-			}else { // 원래 임시저장된 수업이라면 class update
+			}else { // 원래 임시저장된 수업이라면 class update,classinfo delete 후 insert
 				clas.setClassid(cid);
 				service.classUpdate(clas);
 				//license.setClassid(cid);
