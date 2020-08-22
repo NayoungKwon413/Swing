@@ -274,9 +274,16 @@ public class TutorController {
 		license.setUserid(userid);
 		clas.setUserid(userid);
 		clas.setTotalprice(clas.getPrice()*clas.getTime()*clas.getTotaltime());
-		List<Classinfo> clasinfo = new ArrayList()<Classinfo>();
-		System.out.println(titlelist.toString());
-		System.out.println(currilist.toString());
+		List<Classinfo> clasinfo = new ArrayList<Classinfo>();
+		System.out.println("회차제목정보:"+titlelist.toString());
+		System.out.println("회차내용정보"+currilist.toString());
+		for(int i=0;i<titlelist.size();i++) {
+			Classinfo temp = new Classinfo();
+			temp.setTitle(titlelist.get(i));
+			temp.setCurri(currilist.get(i));
+			clasinfo.add(temp);
+		}
+		System.out.println("모든회차정보:"+clasinfo.toString());
 		if(button.equals("미리보기")) {
 			// 새창 열림
 			return mav;
