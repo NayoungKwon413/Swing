@@ -366,7 +366,7 @@ public class TutorController {
 			return mav;
 		}
 		return mav;
-			
+		// 유저이미지,자격증 이미지, 수업 커버이미지	
 //		/* 1. 유저 정보 update
 //		 * : 회원가입시 file 과 겹치는데 어떻게?
 //		 *   학력 (edulevel) 은 뭐야?
