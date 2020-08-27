@@ -4,10 +4,10 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!-- width:500 height:650 설정 -->
 <!DOCTYPE html>
-<html>
+<html>  
 <head>
 <meta charset="UTF-8">
-<title>실시간톡상세</title>
+<title>실시간톡메인_튜터</title>
 <link href="${path}/assets/css/talk.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 </head>
@@ -16,17 +16,18 @@
 	<div id="pop_qna">
 		<div class="q_tab">
 			<ul>
-				<li><a href="">수강생</a>
+				<li><a href="#">수강생</a>
 					<c:if test="${cnt>0}">
 						<div class="newtalk" style="position: relative; right: 4em; margin: 0;">N</div>
 					</c:if>
 				</li>
-				<li><a href="">튜터</a></li>
+				<li><a href="mainTutor.shop?userid=${param.userid}">튜터</a></li>
 			</ul>
 		</div>
 		<!-- 리스트 시작 -->
 		<div class="qna_cont">
 			<div class="qna_list">
+			<c:if test="${chat==null}">문의가 없습니다.</c:if>
 			<c:if test="${chat!=null}">
 				<c:forEach items="${chat}" var="ch">
 					<a href="detail.shop?roomno=${ch.roomno}&classid=${ch.classid}&newtalk=${ch.newtalk}">

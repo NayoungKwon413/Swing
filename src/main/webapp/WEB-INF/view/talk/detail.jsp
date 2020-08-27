@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>실시간톡메인</title>
+<title>실시간톡상세</title>
 <link href="${path}/assets/css/talk.css" rel="stylesheet">
 <c:set var="port" value="${pageContext.request.localPort}"/>
 <c:set var="server" value="${pageContext.request.serverName}"/>
@@ -83,7 +83,7 @@
 			$.ajax("${path}/talk/talkClose.shop?roomno=${param.roomno}&classid=${param.classid}&TotalJson="+encodeURI(JSON.stringify(obj2)),{
 				success:function(data){
 					console.log(data);
-					location.href="main.shop?userid=${sessionuser.userid}&type=tutee"
+					location.href="mainTutee.shop?userid=${sessionuser.userid}"
 				}
 			})			
 		})

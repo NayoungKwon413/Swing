@@ -44,8 +44,17 @@ color: #777777;
             <p></p>
             
 			<form:form modelAttribute="user" method="post" action="login.shop">
-              <form:input path="userid" type="text" name="id" placeholder="아이디"/>
+				<spring:hasBindErrors name="user">
+					<font color="red">
+						<c:forEach items="${errors.globalErrors}" var="error">
+							<spring:message code="${error.code}">
+							</spring:message></c:forEach>
+					</font>
+				</spring:hasBindErrors>
+              <form:input path="userid" type="text" name="userid" placeholder="아이디"/>
+              	<font color="red"><form:errors path="userid"/></font>
               <form:password path="pass" tpye="password" name="pass" placeholder="비밀번호"/>
+              	<font color="red"><form:errors path="pass"/></font>
             <input class="bnt" type="submit" value="로그인">
 			</form:form>
             <div class="div">

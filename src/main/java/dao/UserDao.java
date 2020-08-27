@@ -19,11 +19,28 @@ public class UserDao {
 	public void insert(User user) {
 		template.getMapper(UserMapper.class).insert(user);
 	}
+
+	public int selectTuteeCount() {
+		param.clear();
+		param.put("kbn", 1);
+		return template.getMapper(UserMapper.class).selectCount(param);
+	}
+	public int selectTutorCount() {
+		param.clear();
+		param.put("kbn", 2);
+		return template.getMapper(UserMapper.class).selectCount(param);
+	}
 	
 	public User selectOne(String userid) {
 		param.clear();
 		param.put("userid", userid);
 		return template.getMapper(UserMapper.class).select(param).get(0);
+	}
+
+	public User selectOneByEmail(String email) {
+		param.clear();
+		param.put("email", email);
+		return template.getMapper(UserMapper.class).select2(param).get(0);
 	}
 
 	public void update(User user) {

@@ -88,14 +88,14 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
               <li><a href="${path}/tutor/outcome.shop">수업 성과</a></li>
             </ul>
           </li>
-          <li><a href="" onclick="window.open('${path}/talk/main.shop?userid=${sessionScope.loginUser.userid}&type=tutee','','width=500, height=650');">실시간톡</a></li>
+          <li><a href="" onclick="window.open('${path}/talk/mainTutee.shop?userid=${sessionScope.loginUser.userid}','','width=500, height=650');">실시간톡</a></li>
           <li><a href="${path}/tutee/classlist.shop?userid=${sessionScope.loginUser.userid}&state=1">수강목록</a></li>
           <li><a href="${path}/tutee/wishlist.shop">위시리스트</a></li>
           <li class="drop-down"><a href="">${sessionScope.loginUser.userid}님의 마이 페이지</a>
             <ul>
               <li><a href="${path}/user/info.shop?id=${sessionScope.loginUser.userid}">내 프로필</a></li>
-              <li><a href="${path}/user/password.shop">비밀번호 변경</a></li>
-              <li><a href="${path}/user/delete.shop">회원탈퇴</a></li>
+              <li><a href="${path}/user/password.shop?id=${sessionScope.loginUser.userid}">비밀번호 변경</a></li>
+              <li><a href="${path}/user/delete.shop?id=${sessionScope.loginUser.userid}">회원탈퇴</a></li>
               <li><a href="${path}/user/logout.shop">로그아웃</a></li>
             </ul>
           </li>

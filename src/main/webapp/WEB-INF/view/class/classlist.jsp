@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,6 +17,18 @@
 				    }			     
 			})
 		})
+		/*
+		function listdo(page){
+		      var pageNum = page;
+		      var location1 = ${param.locion1};
+		      var location2 = ${param.loction2};
+		      var type= ${param.type};
+		      var maxtutee = ${param.maxtutee};
+		      
+		      location.href = "classlist.shop?location1="+location1+"&lcoation2="+location2+"&type="+type+
+		      				"&maxtutee="+maxtutee+"&pageNum="+pageNum;
+		     }
+    */
 </script>
 </head>
 <body>
@@ -161,8 +173,12 @@
 							maxtutee="";
 						}
 						//alert(type);
-						location.href="classlist.shop?location1="+location1+"&location2="+location2+
-								"&type="+type+"&maxtutee="+maxtutee;
+						var url = "classlist.shop?location1="+location1+"&location2="+location2+
+						"&type="+type+"&maxtutee="+maxtutee;
+						if(${text!=null}) {
+							url = url+"&text="+document.all.text.value;
+						}
+						location.href = url;
 					})
 				})
 				</script>
@@ -173,8 +189,10 @@
 		<div class="filter_head" style="margin-top:0px;">
 			<div class="sorted">
 				<ul id="sorted">
-					<li><a href="classlist.shop?sorted=1">최신 등록순</a></li>
-					<li><a href="classlist.shop?sorted=2">별점순</a></li>
+					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=1">최신 등록순</a></li>
+					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=2">별점순</a></li>
 				</ul>
 			</div>
 			<div class="num_class">
@@ -183,7 +201,12 @@
 		</div>
 		<div class="class_box">
 			<div class="class">
-			<c:if test='${listcount>0}'><%--등록된 게시물 있음 --%>
+			<c:if test="${listcount>0}"><%--등록된 게시물 있음 --%>
+			
+			<c:if test="${text!=null}">
+			<form:hidden path="text" name="text" value="${text}"/>
+			</c:if>
+			
 				<c:set value="0" var="i"/>
 				<c:forEach items="${classlist}" var="cls" varStatus="status">
 					<c:if test="${status.count%3==2}">
@@ -246,7 +269,22 @@
 					<c:set var="i" value="${i+1}"/>
 				</c:forEach>
 			</c:if>
+			<c:if test="${listcount==0}"> <%-- 등록된 게시물 없음 --%>
+			<p>해당하는 수업이 없습니다.</p>
+			</c:if>
 			</div>
+		      <c:if test="${pageNum<=1}"><img src="../assets/img/icon/back.png"></c:if> 
+		      <c:if test="${pageNum>1}">
+		      	<a href="javascript:listdo('${pageNum-1}')">
+		      	<img src="../assets/img/icon/back.png"></a></c:if>    
+		      <c:forEach var="a" begin="${startpage}" end="${endpage}">
+		      <c:if test="${pageNum==a}"><a>${a}</a></c:if>
+		      <c:if test="${pageNum!=a}">
+		      	<a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${a}">${a}</a></c:if>
+		      </c:forEach> 
+		      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></c:if> 
+		      <c:if test="${pageNum<maxpage}"><a href="javascript:listdo('${pageNum+1}')">
+		      <img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></a></c:if>
 		</div>
 	</div>
 </section>

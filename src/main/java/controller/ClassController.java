@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,31 +37,35 @@ public class ClassController {
 	public ModelAndView classForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int type=1;
-		List<Class> hotlist = service.mainlist(type);
-		type=2;
-		List<Class> latestlist = service.mainlist(type);
-		User user = (User)session.getAttribute("loginUser");
-		if(user!=null) {
-			WishList wish = new WishList();
-			for(Class c : hotlist) {
-				wish.setUserid(user.getUserid());
-				wish.setClassid(c.getClassid());
-				c.setWish(service.checkwish(wish));
+		try {
+			List<Class> hotlist = service.mainlist(type);
+			type=2;
+			List<Class> latestlist = service.mainlist(type);
+			User user = (User)session.getAttribute("loginUser");
+			if(user!=null) {
+				WishList wish = new WishList();
+				for(Class c : hotlist) {
+					wish.setUserid(user.getUserid());
+					wish.setClassid(c.getClassid());
+					c.setWish(service.checkwish(wish));
+				}
+				for(Class c : latestlist) {
+					wish.setUserid(user.getUserid());
+					wish.setClassid(c.getClassid());
+					c.setWish(service.checkwish(wish));
+				}
 			}
-			for(Class c : latestlist) {
-				wish.setUserid(user.getUserid());
-				wish.setClassid(c.getClassid());
-				c.setWish(service.checkwish(wish));
-			}
+//			System.out.println(hotlist.get(0).getWish());
+			mav.addObject("hotlist", hotlist);
+			mav.addObject("latestlist", latestlist);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		System.out.println(hotlist.get(0).getWish());
-		mav.addObject("hotlist", hotlist);
-		mav.addObject("latestlist", latestlist);
 		return mav;
 	}
 	
 	@GetMapping("review")
-	public String form(Model model) {
+	public String form(Model model, Integer classid, HttpSession session) {
 		model.addAttribute(new Review());
 		return null;
 	}
@@ -70,7 +75,7 @@ public class ClassController {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		System.out.println("classid=" + classid);
-		ApplyList apply = service.getapply(classid,loginUser.getUserid());
+		ApplyList apply = service.getapply(classid,1,loginUser.getUserid());
 		review.setUserid(loginUser.getUserid());
 		review.setClassno(apply.getClassno());
 //		review.setUserid("hong");
@@ -181,7 +186,7 @@ public class ClassController {
 	}
 	@RequestMapping("classlist")
 	public ModelAndView classlist(Integer pageNum, String location1, String location2, Integer type, 
-			Integer maxtutee,Integer sorted,Integer cate) {
+			Integer maxtutee,Integer sorted,Integer cate, String text) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum==null||pageNum.toString().equals("")) {
 			pageNum=1;
@@ -204,30 +209,70 @@ public class ClassController {
 		if(maxtutee==null||maxtutee.toString().equals("")) {
 			maxtutee=null;
 		}
-		int limit=15;
-		int listcount = service.classcount(location1,location2,type,maxtutee,cate);
-		List<Class> classlist = service.classList(pageNum,sorted,limit,location1,location2,type,maxtutee,cate);
-		List<User> tutor = new ArrayList<>();
-		for(Class c : classlist) {
-			c.setTotaltutee(service.getParticiNum(c.getClassid()));
-			c.setStaravg(service.getStar(c.getClassid()));
-			c.setReviewcnt(service.getReviewcnt(c.getClassid()));
-			tutor.add(service.getUser(c.getUserid()));
+		if(text==null||text.toString().equals("")) {
+			text=null;
 		}
-		int maxpage = (int)((double)listcount/limit+0.95);
-		int startpage =((int)(pageNum/10.0+0.9)-1)*10+1;
-		int endpage = startpage+9;
-		if(endpage>maxpage) endpage=maxpage;
-		int listno = listcount-(pageNum-1)*limit;
-		mav.addObject("pageNum",pageNum);
-		mav.addObject("maxpage",maxpage);
-		mav.addObject("startpage",startpage);
-		mav.addObject("endpage",endpage);
-		mav.addObject("listcount",listcount);
-		mav.addObject("classlist",classlist);
-		mav.addObject("listno",listno);
-		mav.addObject("tutor",tutor);
+		try {
+			int limit=15;
+			int listcount = service.classcount(location1,location2,type,maxtutee,cate,text);
+			System.out.println(listcount);
+			List<Class> classlist = service.classList(pageNum,sorted,limit,location1,location2,type,maxtutee,cate,text);
+//			System.out.println(classlist.get(0).getSubject());
+			List<User> tutor = new ArrayList<>();
+			for(Class c : classlist) {
+				c.setTotaltutee(service.getParticiNum(c.getClassid()));
+				c.setStaravg(service.getStar(c.getClassid()));
+				c.setReviewcnt(service.getReviewcnt(c.getClassid()));
+				tutor.add(service.getUser(c.getUserid()));
+			}
+			int maxpage = (int)((double)listcount/limit+0.95);
+			int startpage =((int)(pageNum/10.0+0.9)-1)*10+1;
+			int endpage = startpage+9;
+			if(endpage>maxpage) endpage=maxpage;
+			int listno = listcount-(pageNum-1)*limit;
+			mav.addObject("text",text);
+			mav.addObject("pageNum",pageNum);  
+			mav.addObject("maxpage",maxpage);
+			mav.addObject("startpage",startpage);
+			mav.addObject("endpage",endpage);
+			mav.addObject("listcount",listcount);
+			mav.addObject("classlist",classlist);
+			mav.addObject("listno",listno);
+			mav.addObject("tutor",tutor);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
+
+//	@PostMapping("searchlist")
+//	public ModelAndView classlist(String text) {
+//		ModelAndView mav = new ModelAndView();
+//		System.out.println("find:"+text);
+//		
+//		List<Class> classlist = service.searchList(text);
+//		List<User> tutor = new ArrayList<>();
+//		int listcount = classlist.size();
+//		
+//		for(Class c : classlist) {
+//			try {
+//			c.setTotaltutee(service.getParticiNum(c.getClassid()));
+//			c.setStaravg(service.getStar(c.getClassid()));
+//			c.setReviewcnt(service.getReviewcnt(c.getClassid()));
+//			tutor.add(service.getUser(c.getUserid()));
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		System.out.println("searchList:"+classlist);
+//		System.out.println("listcount:"+listcount);
+//
+//		mav.addObject("listcount",listcount);
+//		mav.addObject("classlist",classlist);
+//		mav.addObject("tutor",tutor);
+//		mav.setViewName("redirect:classlist.shop");
+//		return mav;
+//	}
 	
 }

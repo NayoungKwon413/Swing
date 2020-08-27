@@ -35,18 +35,19 @@ public class ClassDao {
 		return template.getMapper(ClassMapper.class).count(param);
 	}
 
-	public int count(String location1, String location2, Integer type, Integer maxtutee,Integer cate) {
+	public int count(String location1, String location2, Integer type, Integer maxtutee,Integer cate,String text) {
 		param.clear();
 		param.put("location1",location1);
 		param.put("location2",location2);
 		param.put("type",type);
 		param.put("maxtutee",maxtutee);
 		param.put("cate", cate);
+		param.put("text", text);
 		return template.getMapper(ClassMapper.class).count(param);
 	}
 
 	public List<Class> list(Integer pageNum, Integer sorted, int limit, String location1, String location2, Integer type,
-			Integer maxtutee,Integer cate) {
+			Integer maxtutee,Integer cate, String text) {
 		param.clear();
 		param.put("startrow",(pageNum-1)*limit);
 		param.put("limit", limit);
@@ -56,6 +57,7 @@ public class ClassDao {
 		param.put("maxtutee",maxtutee);
 		param.put("sorted", sorted);
 		param.put("cate", cate);
+		param.put("text", text);
 		return template.getMapper(ClassMapper.class).select(param);
 	}
 	
@@ -87,7 +89,12 @@ public class ClassDao {
 		}
 
 		public int count2() {
-			return template.getMapper(ClassMapper.class).count2();
+			try {
+				int cnt = template.getMapper(ClassMapper.class).count2();
+				return cnt;
+			}catch(NullPointerException e) {
+				return 0;
+			}
 		}
 		
 		
@@ -95,6 +102,12 @@ public class ClassDao {
 		public List<Class> list() {
 			return template.getMapper(ClassMapper.class).select2(null);
 		}
+
+//		public List<Class> searchlist(String find) {
+//			param.clear();
+//			param.put("find",find);
+//			return template.getMapper(ClassMapper.class).selectSearch(param);
+//		}
 		
 		public List<Class> list(int pageNum, int limit) {
 			param.clear();

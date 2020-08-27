@@ -96,7 +96,7 @@
 			<div class="col-lg-3 col-md-3 col-sm-6">
 			<div class="achievement__item">
 			<img src="${path}/assets/img/icon/rev3.png" alt="" class="img-fluid1">
-			<h2 class="achieve-counter">20.84%</h2>
+			<h2 class="achieve-counter"><fmt:formatNumber value="${(list[1]-pricelist[0]) / pricelist[0] * 100}" pattern="#.##" />%</h2>
 			<p>전월대비 상승률</p>
 			</div>
 			</div>
@@ -158,7 +158,7 @@
                 <div class="card"  style="height: 100%">
                   <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                      <div style="width: 100%">
-	                     <label class="badge badge-info">튜티 랭킹</label>
+	                     <label class="badge badge-info">튜터 랭킹</label>
 	                     <a href="#" style="float: right; margin-right: 10px; font-size: 12px;">전체보기</a>
                      </div>
                      <table class="table table-hover">
@@ -170,7 +170,7 @@
                           <c:if test="${t.rank==3}"><img src="${path}/assets/img/icon/icons8-medal-third-place-30.png"></c:if></td>
                           <td>${t.userid}</td>
                           <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td>
-                          <td>수강목록보기</td>
+                          <td><a href="../tutee/classlist.shop?userid=${t.userid}&state=1"><label class="badge badge-info">수강목록보기</label></a></td>
                         </tr>
                        </c:forEach>
                       </tbody>
@@ -189,7 +189,7 @@
                           <c:if test="${t.rank==3}"><img src="${path}/assets/img/icon/icons8-medal-third-place-30.png"></c:if></td>
                           <td>${t.userid}</td>
                           <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td>
-                          <td>수강목록보기</td>
+                          <td><a href="../tutee/classlist.shop?userid=${t.userid}&state=1"><label class="badge badge-warning">수강목록보기</label></a></td>
                         </tr>
                        </c:forEach>
                       </tbody>

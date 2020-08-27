@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.List;
 
 public class Classinfo {
 	private int classid; // 수업 아이디
@@ -11,6 +12,11 @@ public class Classinfo {
 	private String place;
 	private String title;
 	private String curri;
+
+	//setter, getter
+
+	private List<String> titlelist;
+	private List<String> currilist;
 
 	// getter, setter, toString
 	public int getClassid() {
@@ -68,10 +74,21 @@ public class Classinfo {
 		this.curri = curri;
 	}
 	
+	public List<String> getTitlelist() {
+		return titlelist;
+	}
+	public void setTitlelist(List<String> titlelist) {
+		this.titlelist = titlelist;
+	}
+	public List<String> getCurrilist() {
+		return currilist;
+	}
+	public void setCurrilist(List<String> currilist) {
+		this.currilist = currilist;
+	}
 	@Override
 	public String toString() {
 		return "Classinfo [classid=" + classid + ", classno=" + classno + ", classseq=" + classseq + ", date=" + date
-				+ ", starttime=" + starttime + ", endtime=" + endtime + ", place=" + place + ", title=" + title
-				+ ", curri=" + curri + "]";
+				+ ", starttime=" + starttime + ", endtime=" + endtime + ", place=" + place + ", title=" + title + ", curri=" + curri + "]";
 	}
 }

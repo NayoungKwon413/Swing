@@ -146,34 +146,6 @@ div#calc_point {
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-<%--
-google.charts.load('current', {'packages':['bar']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var data = google.visualization.arrayToDataTable(
-		  [<c:forEach items="${map}" var="m">"${m.value}",</c:forEach>],
-		  );
-  var options = {
-		  chart: {
-			  title : '수업 별 신청 튜티 수(Top 5)'
-		  }
-  };
-  var chart = new google.charts.Bar(document.getElementById('chartarea'));
-  chart.draw(data, google.charts.Bar.convertOptions(options));
-	  
-}
-
-$(".star").on('click',function(){
-    var idx = $(this).index();
-    $(".star").removeClass("on");
-      for(var i=0; i<=idx; i++){
-         $(".star").eq(i).addClass("on");
-    }
-     var point = (idx+1)*0.5;
-     $("#calc_point").html(point);
-  });
---%>
-
 $(function(){
 	var review_point = $('.review_point');
 	$('.review_point').each(function(i,item) {
@@ -184,7 +156,6 @@ $(function(){
 		    }			     
 	})
 })
-
 </script>
 </head>
 <body>

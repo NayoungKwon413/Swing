@@ -70,7 +70,7 @@ hr{
  </section>
 <section id="tutor-regi" class="tutor-regi">
 <div class="container">
-	<form:form modelAttribute="user" method="post" action="updateExcute.shop">
+	<form:form modelAttribute="user" method="post" action="update.shop">
 	<div class="row">
 			<div class="col-lg-3">
 		        <div class="info">
@@ -88,7 +88,7 @@ hr{
 		    	<div class="title">프로필-</div>
 				<div style="margin: 30px 0">
 					<img class="upf_b button"  src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
-	                <div class="upf" id="picture-cover"  style="background-image:url('save/${user.userid}_${user.file}')">
+	                <div class="upf" id="picture-cover"  style="background-image:url('http://${server}:${port}${path}/user/save/${user.userid}_${user.file}')">
 	                    <form:input path="" type="file"  style="width:150px;height:130px;opacity:0;" accept="image/*" onchange="setThumbnail(event);" value=""/>
 	                    <form:input path="file" type="hidden" id="file1" name="file1" value=""/>
                         <form:input path="fileurl" type="hidden" id="fileurl" name="fileurl"/>
@@ -107,30 +107,32 @@ hr{
 	                </div>
 	            </div>
 	        </div>
+	        <spring:hasBindErrors name="user">
+					<font color="red">
+						<c:forEach items="${errors.globalErrors}" var="error">
+							<spring:message code="${error.code}">
+							</spring:message></c:forEach>
+					</font>
+			</spring:hasBindErrors>
 		    <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>아이디-</div>
 					<form:input path="userid" class="form-cont" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" data="${user.userid}"/>
-	                <div class="validate"></div>
+	                <font color="red"><form:errors path="userid"/></font>
 	        </div>
 	        <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>이름-</div>
 	                <form:input path="name" class="form-cont" name="subject" id="subject" placeholder="이름을 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
-	                <div class="validate"></div>
+	                <font color="red"><form:errors path="name"/></font>
 	        </div>
 	        <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>비밀번호-</div>
-	                <form:input path="pass" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
-	                <div class="validate"></div>
-	        </div>
-	        <div class="form-group">
-				<div class="title"><span style="color:#f21616;">*</span>비밀번호 확인-</div>
-	                <input type="text" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 한번 더 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
-	                <div class="validate"></div>
+	                <form:input path="pass" type="password" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
+	                <font color="red"><form:errors path="pass"/></font>
 	        </div>
 	        <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>이메일-</div>
 	                <form:input path="email" class="form-cont" name="subject" id="subject" placeholder="이메일을 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
-	                <div class="validate"></div>
+	                <font color="red"><form:errors path="email"/></font>
 	        </div>
 			<hr> 
             <button type="submit">수정완료</button>

@@ -41,6 +41,33 @@
     transition: 0.3s;
     border-radius: 0 4px 4px 0;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+.checkwork input[type="submit"]{
+    border: none;
+    /* background-color: aquamarine; */
+    /* position: absolute; */
+    top: 0;
+    right: -2px;
+    bottom: 0;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    padding: 5px 20px;
+    background: #c2baba;
+    color: #fff;
+    transition: 0.3s;
+    border-radius: 4px 4px 4px 4px;
+    outline: none;
+}
+.checkwork input[type="submit"]:hover{
+	opacity: 0.8;
+}
+
+span{
+margin: 0px 10px;
+color: #706c6c;
+font-size: 14px;
 }
 </style>
 </head>
@@ -51,14 +78,22 @@
 		f.pageNum.value = page;
 		f.submit();
 	}
+    
+	function allchkbox(allchk){
+      	$(".idchks").prop("checked",allchk.checked)
+    }
+
+	function reasonPop(id){
+			window.open('reason.shop?id='+id+"&type=remove",'','width=500,height=400,menubar=no,status=no,toolbar=no');
+	}
 </script>
 <section id="team" class="team">
       <div class="container">
           <div style="text-align: right;">
           <a href="#info1"><h2>회원 목록</h2></a>
-          <a href="#info1" class="select">전체(${usercount})</a>&nbsp;|
-          <a href="#info2">튜터(2)</a>&nbsp;|
-          <a href="#info3">튜티(1)</a>
+          <span>전체 회원 ${usercount}명</span>
+          <span>튜터 ${tutorcnt}명</span>
+          <span>튜티 ${tuteecnt}명</span>
           <hr style="margin-top: 15px;">
           </div>
           <div class="row">
@@ -79,10 +114,9 @@
 					</div>
 		   </form>
            </div>
-           <div style="width: calc(60% - 15px); text-align: right;">
-              <a href="#info1" class="select">전체선택</a>&nbsp;|
-                <a href="#info2">선택탈퇴</a>&nbsp;|
-                <a href="#info3">선택메일전송</a>
+           <div class="checkwork" style="width: calc(60% - 15px); text-align: right;">
+	           <input type="submit" value="선택탈퇴">
+	           <input type="submit" value="선택메일">
            </div>
         </div>
 		<c:if test="${usercount==0}">
@@ -98,39 +132,29 @@
                           <th colspan="2">회원유형</th>
                           <th>이메일</th>
                           <th colspan="2">회원관리</th>
-                          <th><input class="checkbox" type="checkbox" onchange="allchkbox(this)"></th>
-                          <script>
-                          function allchkbox(allchk){
-                          	$(".idchks").prop("checked",allchk.checked)
-                          }
-                          </script>
+                          <th><input type="checkbox" name="allchk" onchange="allchkbox(this)"></th>
                         </tr>
                       </thead>
                       <tbody>
                       <c:forEach items="${list}" var="user">
                         <tr>
-                          <td><c:if test="${user.file!=null}">
-                          <img style="width:64px; height: 64px; border-radius: 30px 30px 30px 30px;"src="../user/save/${user.userid}_${user.file}">
+                          <td><c:if test="${user.file!=null && !user.file.equals('')}">
+                          <img style="width:64px; height: 64px; border-radius: 30px 30px 30px 30px;"src="http://${server}:${port}${path}/user/save/${user.userid}_${user.file}">
                           </c:if></td>
                           <td>${user.userid}</td>
                           <td>${user.name}</td>
                           <c:if test="${user.kbn=='1'}">
-                          <td><label class="badge badge-info">튜티</label><br><a href="../tutee/classlist.shop?userid=${user.userid}&state=1" class="text-info">수강목록보기</a></td>
+                          <td><label class="badge badge-warning">튜티</label><br><a href="../tutee/classlist.shop?userid=${user.userid}&state=1" class="text-danger">수강목록보기</a></td>
                           <td></td>
                           </c:if>
                           <c:if test="${user.kbn=='2'}">
                           <td></td>
-                          <td><label class="badge badge-warning">튜터</label><br><a href="classlist.shop?get=0&id=${user.userid}" class="text-danger">수강목록보기</a></td>
+                          <td><label class="badge badge-info">튜터</label><br><a href="classlist.shop?get=0&id=${user.userid}" class="text-info">수강목록보기</a></td>
                           </c:if>
                           <td>${user.email}</td>
-                          <td><a href="../user/update.shop?id=${user.userid}">수정</a></td>
-                          <td><a href="reasonPop(${user.userid})">탈퇴</a></td>
-                          <td><input class="checkbox" type="checkbox"></td>
-                          <script>
-							function reasonPop(id){
-									window.open('reason.shop?id='+id+"&classid=",'','width=500,height=400,menubar=no,status=no,toolbar=no');
-							}
-						  </script>
+                          <td><button type="button" onclick="location.href='../user/update.shop?id=${user.userid}'">수정</button></td>
+                          <td><button type="button" onclick="reasonPop('${user.userid}')">탈퇴</button></td>
+                          <td><input type="checkbox" name="idchks" class="idchks" value="${user.userid}"></td>
                         </tr>
                      </c:forEach>
                       </tbody>

@@ -37,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import logic.ShopService;
 import logic.User;
+import util.CipherUtil;
 import logic.Class;
 import logic.Classinfo;
 import logic.Mail;
@@ -58,15 +59,7 @@ public class adminController {
 	public ModelAndView userList(String pageNum, HttpServletRequest request,HttpSession session, String column, String find) {
 		
 		ModelAndView mav = new ModelAndView();
-		try {
-			/*for(User u: userList) {
-				String userid = CipherUtil.makehash(u.getUserid());
-				String email = CipherUtil.decrypt(u.getEmail(),userid.substring(0,16));
-				u.setEmail(email);
-			}*/
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 		int pageNum_=1; //페이지 번호 초기화
 	 	try{
 	 		pageNum_ = Integer.parseInt(request.getParameter("pageNum"));
@@ -82,8 +75,10 @@ public class adminController {
 	 		find = null;
 	 	}
 	 	
+	 	int tutorcnt = service.getTutorCount();
+	 	int tuteecnt = service.getTuteeCount();
 	 	List<User> userList = service.userList();
-		int usercount = userList.size();
+		int usercount = userList.size()+1;
 	 	int limit = 5;
 		userList.clear();
 	 	userList = service.userlist(pageNum_,limit,column,find);
@@ -96,9 +91,20 @@ public class adminController {
 		int endpage = startpage+9;//종료 페이지 번호
 		if(endpage>maxpage)endpage = maxpage;
 		
+	 	for(User u : userList) {
+	 		try {
+	 			String email = CipherUtil.decrypt(u.getEmail(), CipherUtil.makehash().substring(0,16));
+	 			u.setEmail(email);
+	 			
+	 			}catch (Exception e) {
+	 				e.printStackTrace();
+	 			}	
+	 	}
 		mav.addObject("list", userList);
-		mav.addObject("usercount", userList.size());
-		mav.addObject("pageNum", pageNum);
+		mav.addObject("tutorcnt", tutorcnt);
+		mav.addObject("tuteecnt", tuteecnt);
+		mav.addObject("usercount", usercount);
+		mav.addObject("pageNum", pageNum_);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
 		mav.addObject("endpage", endpage);
@@ -243,14 +249,13 @@ ModelAndView mav = new ModelAndView();
 			User user = service.getUser(id);
 			User admin = service.getUser("admin");
 			Mail mail = new Mail();
+			mail.setType("반려");
+			mail.setReason(reason);
 			mail.setRecipient(user.getEmail());
-			mail.setMtype("text/plain; charset=utf-8");
-			mail.setTitle(id+"님 클래스 승인이 반려됨을 알려드립니다.");
-			mail.setContents("사유:"+reason);
 			mail.setNaverid(admin.getEmail());
 			mail.setNaverpw(pass);
 			
-			mailSend(mail);
+			mail.mailSend(mail);
 	
 	        int cid = Integer.parseInt(classid);
 	        service.updateState(cid,3);  
@@ -261,73 +266,7 @@ ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:reason.shop");
 		return mav;
     }
-	
-	private final class MyAuthenticator extends Authenticator {
-		private String id;
-		private String pw;
-		public MyAuthenticator(String id, String pw) {
-			this.id = id;
-			this.pw = pw;
-		}
-		@Override
-		protected PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication(id,pw);
-		}
-	}
-	
-	private void mailSend(Mail mail) {
-		//네이버 메일 전송을 위한 인증 객체
-		MyAuthenticator auth = new MyAuthenticator(mail.getNaverid(), mail.getNaverpw());
-		Properties prop = new Properties();
-		try {
-			FileInputStream fis = new FileInputStream("C:\\Users\\GDJ-24\\git\\Swing\\pp\\src\\main\\resources\\mail.properties");
-			prop.load(fis); //mail.properties의 내용을 Properties(Map)객체로 
-			prop.put("mail.smtp.user",mail.getNaverid());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//메일 전송을 위한 객체
-		Session session = Session.getInstance(prop,auth);
-		//메일의 내용을 저장하기 위한 객체
-		MimeMessage mimeMsg = new MimeMessage(session);
-		try {
-			//보내는 사람 설정
-			mimeMsg.setFrom(new InternetAddress(mail.getNaverid()));
-			List<InternetAddress> addrs = new ArrayList<InternetAddress>();
-			//홍길동 <hong@aaa.bbb>,김삿갓<kim@aaa.bbb>,..
-			String[] emails = mail.getRecipient().split(",");
-			for(String email : emails) {
-				try {
-					
-					addrs.add(new InternetAddress(new String(email.getBytes("utf-8"),"8859_1")));
-				} catch(UnsupportedEncodingException ue) {
-					ue.printStackTrace();
-				}
-			}
-			InternetAddress[] arr= new InternetAddress[emails.length];
-			for(int i=0; i<addrs.size(); i++) {
-				arr[i] = addrs.get(i);
-			}
-			//보낸일자
-			mimeMsg.setSentDate(new Date());
-			//받는사람
-			mimeMsg.setRecipients(Message.RecipientType.TO , arr);
-			//제목
-			mimeMsg.setSubject(mail.getTitle());
-			MimeMultipart multipart = new MimeMultipart();
-			MimeBodyPart message = new MimeBodyPart();
-			
-			message.setContent(mail.getContents(),mail.getMtype());
-			multipart.addBodyPart(message);
-
-			mimeMsg.setContent(multipart);
-			Transport.send(mimeMsg);
-		} catch(MessagingException me) {
-			me.printStackTrace();
-		}
-	}
-	
-	
+		
 
 	@RequestMapping("chart")
 	public ModelAndView chartList(HttpServletRequest request,HttpSession session) {

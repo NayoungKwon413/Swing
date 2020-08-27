@@ -3,6 +3,8 @@ package dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import logic.Classinfo;
@@ -36,4 +38,15 @@ public interface ClassInfoMapper {
 			"AND classno = #{classno} " + 
 			"AND classseq = #{classseq} ")
 	void firstRegister(Classinfo classinfo);	
+	
+	//yhl
+	@Insert("insert into classinfo (classid,classno,classseq,title,curri) values (#{classid},1,#{classseq},#{title},#{curri})")
+		void insert(Classinfo classinfo);
+
+	@Delete("delete from classinfo where classid=#{classid}")
+	void delete(Map<String, Object> param);
+			
+	@Select("select * from classinfo where classid=#{classid}")
+	List<Classinfo> selectall(Map<String, Object> param);
+
 }

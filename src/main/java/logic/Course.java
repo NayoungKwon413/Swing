@@ -4,7 +4,6 @@ import java.util.Date;
 
 /* 조회용 객체 */
 public class Course {
-	private int applyno;
 	private String tutor;
 	private String tutorimg;
 	private int classid;
@@ -21,12 +20,6 @@ public class Course {
 	private int reviewnum;
 	private double star;
 	 
-	public int getApplyno() {
-		return applyno;
-	}
-	public void setApplyno(int applyno) {
-		this.applyno = applyno;
-	}
 	public String getTutor() {
 		return tutor;
 	}
@@ -119,7 +112,7 @@ public class Course {
 	}
 	@Override
 	public String toString() {
-		return "Course [applyno=" + applyno + ", tutor=" + tutor + ", tutorimg=" + tutorimg + ", classid=" + classid
+		return "Course [tutor=" + tutor + ", tutorimg=" + tutorimg + ", classid=" + classid
 				+ ", classno=" + classno + ", classseq=" + classseq + ", subject=" + subject + ", location1="
 				+ location1 + ", place=" + place + ", type=" + type + ", totaltime=" + totaltime + ", totalprice="
 				+ totalprice + ", startdate=" + startdate + ", enddate=" + enddate + ", reviewnum=" + reviewnum

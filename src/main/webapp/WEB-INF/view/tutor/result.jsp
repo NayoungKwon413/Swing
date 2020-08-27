@@ -132,7 +132,7 @@ $(function(){
             <div class="classbody team-item wow fadeInRight animated" data-wow-delay="0.2s" 
             	style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s; cursor:pointer;">
                <div class="team-img">
-                  <img class="img-fluid" src="${path}/assets/img/team/team-3.jpg" alt="">
+                  <img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                </div>
                <div class="contetn">
                   <div class="info-text">
@@ -144,8 +144,6 @@ $(function(){
                   <div class="detail">
                   	<input type="button" value="수업추가하기" onclick="location.href='register-class.shop?classid=${cl.classid}'">&nbsp;&nbsp;
                   	<input type="button" value="수업상세보기" onclick="location.href='../class/detail.shop?classid=${cl.classid}'">&nbsp;&nbsp;
-<%--                <button onclick="location.href='register-class.shop?classid=${cl.classid}'">수업 추가하기</button>&nbsp;&nbsp;
-                  	<button onclick="location.href='../class/detail.shop?classid=${cl.classid}'">상세보기</button>&nbsp;&nbsp;    --%>
                   </div>
                </div>
             </div>            
@@ -174,58 +172,6 @@ $(function(){
             </div>
          </c:forEach>   
          </div>
-         
-<%--
-         <div class="col-lg-12 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
-            <div class="team-item wow fadeInRight animated" data-wow-delay="0.4s" style="visibility: visible;-webkit-animation-delay: 0.4s; -moz-animation-delay: 0.4s; animation-delay: 0.4s;">
-               <div class="team-img">
-                  <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-5.jpg" alt="">
-               </div>
-               <div class="content">
-                  <div class="info-text">
-                     <h3><a href="#">핸드메이드 강좌</a></h3>
-                     <p>이다빈(USER1)</p>
-                     <p>[수업시작일] 2020-09-15</p>
-                     <p>[위치] 서울시 금천구</p>
-                  </div>
-                   <div class="detail">
-                  	<button onclick="location.href='../class/detail.shop'">상세보기</button>&nbsp;&nbsp;
-                  </div>
-               </div>
-            </div>
-         </div>
- 
-         <div class="col-lg-12 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
-            <div class="team-item wow fadeInRight animated" data-wow-delay="0.6s" style="visibility: visible;-webkit-animation-delay: 0.6s; -moz-animation-delay: 0.6s; animation-delay: 0.6s;">
-               <div class="team-img">
-                  <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-7.jpg" alt="">
-               </div>
-               <div class="content">
-                  <div class="info-text">
-                  <h3><a href="#">핸드메이드 강좌</a></h3>
-                  <p>이다빈(USER1)</p>
-                  <p>[수업시작일] 2020-09-15</p>
-                  <p>[위치] 서울시 금천구</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-12 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop'" style="cursor:pointer;">
-            <div class="team-item wow fadeInRight animated" data-wow-delay="0.8s" style="visibility: visible;-webkit-animation-delay: 0.8s; -moz-animation-delay: 0.8s; animation-delay: 0.8s;">
-               <div class="team-img">
-                  <img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-1.jpg" alt="">
-               </div>
-               <div class="content">
-                  <div class="info-text">
-                     <h3><a href="#">핸드메이드 강좌</a></h3>
-                     <p>이다빈(USER1)</p>
-                     <p>[수업시작일] 2020-09-15</p>
-                     <p>[위치] 서울시 금천구</p>
-                  </div>
-               </div>
-            </div>
-         </div>
---%>
       </c:if>
       <c:if test="${classcount == 0}">
          	<div style="font-align:center;">

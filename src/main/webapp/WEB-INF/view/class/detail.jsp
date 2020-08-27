@@ -89,7 +89,7 @@
 		</div>
 		<!-- 상단 이미지 부분 -->
 		<div class="class_img">
-			<img src="${path}/assets/img/${cls.coverimg}">
+			<img src="http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}">
 		</div>
 		<div class="class_d_wrqp">
 			<div id="class_navi" class="class_navi fixedLayer" style="left:0px;">

@@ -71,6 +71,23 @@ input[type="password"]{
 </head>
 <body>
 <div style="padding: 50px 120px; text-align: center;">
+<c:if test="${param.type=='remove'}">
+<h2>탈퇴사유</h2>
+<div class="selectbox">
+    <label for="ex_select">탈퇴사유 선택</label>
+    <select id="ex_select">
+        <option>활동 없음</option>
+        <option>유해 인물</option>
+        <option>사용자 요청</option>
+        <option>기타</option>
+    </select>
+    <form name="f">
+    <input type="password" name="pass" placeholder="이메일 비밀번호를 입력해주세요">
+    <button class="send" type="submit" onclick="sendMail('${param.id}','${param.type}')">전&nbsp;&nbsp;송</button>
+	</form>
+</div>
+</c:if>
+<c:if test="${param.type!='remove'}">
 <h2>반려사유</h2>
 <div class="selectbox">
     <label for="ex_select">반려사유 선택</label>
@@ -85,6 +102,7 @@ input[type="password"]{
     <button class="send" type="submit" onclick="sendMail('${param.id}','${param.classid}')">전&nbsp;&nbsp;송</button>
 	</form>
 </div>
+</c:if>
 </div>
 
 <script type="text/javascript">
@@ -115,7 +133,7 @@ input[type="password"]{
 				console.log("error");
 			}
 		});
-		alert(id+"님에게 메일로 반려사유를 전송하였습니다.");
+		alert(id+"님에게 사유를 전송하였습니다.");
 	    self.close();
 	}	
 </script>

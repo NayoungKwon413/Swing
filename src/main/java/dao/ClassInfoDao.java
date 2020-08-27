@@ -65,4 +65,21 @@ public class ClassInfoDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//yhl
+	public void insert(Classinfo classinfo) {
+		template.getMapper(ClassInfoMapper.class).insert(classinfo);
+	}
+	
+	public void delete(Integer classid) {
+		param.clear();
+		param.put("classid", classid);
+		template.getMapper(ClassInfoMapper.class).delete(param);
+	}
+
+	public List<Classinfo> getclassinfo(Integer classid) {
+		param.clear();
+		param.put("classid",classid);
+		return template.getMapper(ClassInfoMapper.class).selectall(param);
+	}
 }

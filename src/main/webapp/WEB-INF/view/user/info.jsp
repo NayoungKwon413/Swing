@@ -86,7 +86,7 @@ hr{
 		    <div class="form-group">
 		    	<div class="title">프로필-</div>
 				<div style="margin: 30px 0">				
-	                <div class="upf" id="picture-cover" style="background-image:url('save/${user.userid}_${user.file}')">
+	                <div class="upf" id="picture-cover" style="background-image:url('http://${server}:${port}${path}/user/save/${user.userid}_${user.file}')">
 	                </div>
 	            </div>
 	        </div>
@@ -97,10 +97,6 @@ hr{
 	        <div class="form-group">
 				<div class="title">이름-</div>
 	                ${user.name}
-	        </div>
-	        <div class="form-group">
-				<div class="title">비밀번호-</div>
-	                ${user.pass}
 	        </div>
 	        <div class="form-group">
 				<div class="title">이메일-</div>

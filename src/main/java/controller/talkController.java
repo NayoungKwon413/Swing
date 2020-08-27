@@ -36,18 +36,40 @@ public class talkController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	@RequestMapping("main")
-	public ModelAndView main(String userid,String type) {
+	@RequestMapping("mainTutee")
+	public ModelAndView mainTutee(String userid) {
 		ModelAndView mav = new ModelAndView();
 		int cnt=0;
-		if(type.equals("tutee")) {
-			List<Chatting> chat = service.chattutee(userid);
+		int type=0;
+		try {
+			List<Chatting> chat = service.getchat(userid,type);
 			for(Chatting ch : chat) {
 				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
 				cnt+=ch.getNewtalk();
 			}
 			mav.addObject("chat",chat);
 			mav.addObject("cnt",cnt);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return mav;
+	}
+	@RequestMapping("mainTutor")
+	public ModelAndView mainTutor(String userid) {
+		ModelAndView mav = new ModelAndView();
+		int cnt=0;
+		int type=1;
+		try {
+			List<Chatting> chat = service.getchat(userid,type);
+			for(Chatting ch : chat) {
+				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
+				cnt+=ch.getNewtalk();
+			}
+			mav.addObject("chat",chat);
+			mav.addObject("cnt",cnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return mav;
 	}
@@ -60,11 +82,15 @@ public class talkController {
 		}else if(newtalk>0) {
 			service.readchat(roomno);
 		}
-		List<Chatting> chat = service.chatlist(roomno);
+		try {
+			List<Chatting> chat = service.chatlist(roomno);
+			mav.addObject("chat",chat);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("user name:"+ user.getUserid());
 		System.out.println("normal chat page");
 		mav.addObject("sessionuser",user);
-		mav.addObject("chat",chat);
 		return mav;
 	}
 	@ResponseBody
@@ -100,10 +126,19 @@ public class talkController {
 	}
 	  
 	@RequestMapping("newchat")
-	public ModelAndView newchat(String classid) {
+	public ModelAndView newchat(String classid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser");
+		int roomno = 0;
+		try {
+			roomno = service.getroomno(classid,user.getUserid());
+			mav.setViewName("redirect:detail.shop?roomno="+roomno+"&classid="+classid);
+			return mav;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		int max = service.maxroom();
-		int roomno = ++max;
+		roomno = ++max;
 		mav.setViewName("redirect:detail.shop?roomno="+roomno+"&classid="+classid);
 		return mav;
 	}
@@ -112,6 +147,6 @@ public class talkController {
 	public String check(String userid) {
 		int check = service.newtalk(0,userid);
 		return check+"";
-	}
+	}  
 	
 }

@@ -17,7 +17,7 @@ public interface TutorMapper {
 	@Select({"<script>",
 		"select c.classid, c.userid, c.type, c.maxtutee, c.subject, c.coverimg, c.location1, c.location2, c.regdate, c.state, u.name, u.nickname",
 		" from class c join user u on c.userid=u.userid",
-		" where c.userid=#{userid} and u.kbn=2",
+		" where c.userid=#{userid} ",
 		"<if test='state == null'> and c.state <![CDATA[<]]> 5 </if>",
 		"<if test='state != null'> and c.state=#{state} </if> ", 
 		"</script>"})
@@ -26,7 +26,7 @@ public interface TutorMapper {
 	@Select({"<script>",
 		"select c.classid, c.userid, c.subject, c.coverimg, c.location1, c.location2, c.regdate, c.state, u.name, u.nickname, i.date",
 		" from class c join user u on c.userid=u.userid join classinfo i on c.classid=i.classid",
-		" where c.userid=#{userid} and u.kbn=2 and i.classno = 1 and i.classseq = 1",
+		" where c.userid=#{userid} and i.classno = 1 and i.classseq = 1",
 		"<if test='state == null'> and c.state <![CDATA[>]]> 4 </if>",
 		"<if test='state != null'> and c.state=#{state} </if> ",
 		"</script>"})
