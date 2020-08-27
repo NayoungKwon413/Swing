@@ -50,7 +50,9 @@ public interface ApplyListMapper {
 	@Select("select * from applylist where userid=#{userid} and classid=#{classid} and classno=#{classno}")
 	ApplyList selectOne(Map<String, Object> param);
 
-	@Select("select * from applylist where classid=#{classid} and userid=#{userid} ")
-	List<ApplyList> list2(Map<String, Object> param);
+	@Select("SELECT MAX(classno) classno FROM applylist " + 
+			"WHERE userid=#{userid} " + 
+			"AND classid=#{classid}")
+	Integer maxclassno(Map<String, Object> param);
 	
 }

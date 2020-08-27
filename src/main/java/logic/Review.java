@@ -7,7 +7,6 @@ public class Review {
 	private String userid;
 	private int classid;
 	private int classno;
-	private int classseq;
 	private String content;
 	private double star;
 	private Date regdate;	
@@ -45,12 +44,6 @@ public class Review {
 	public void setClassno(int classno) {
 		this.classno = classno;
 	}
-	public int getClassseq() {
-		return classseq;
-	}
-	public void setClassseq(int classseq) {
-		this.classseq = classseq;
-	}
 	public String getContent() {
 		return content;
 	}
@@ -84,7 +77,7 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewno=" + reviewno + ", userid=" + userid + ", classid=" + classid + ", classno=" + classno
-				+ ", classseq=" + classseq + ", content=" + content + ", star=" + star + ", regdate=" + regdate + "]";
+				+ ", content=" + content + ", star=" + star + ", regdate=" + regdate + "]";
 	}
 	public String getSubject() {
 		return subject;

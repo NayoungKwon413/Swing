@@ -435,4 +435,16 @@ public class ShopService {
 	public List<Chatting> getchat(String userid, int type) {
 		return chattingDao.getchat(userid,type);
 	}
+
+	public Integer maxclassno(String userid, Integer classid) {
+		return applylistDao.maxClassno(userid,classid);
+	}
+	
+	public Integer alreadyReview(String userid, Integer classid, Integer classno) {
+		return reviewDao.alreadyReview(userid,classid,classno);
+	}
+
+	public Date enddate(Integer classid, Integer classno) {
+		return classinfoDao.enddate(classid,classno);
+	}
 }

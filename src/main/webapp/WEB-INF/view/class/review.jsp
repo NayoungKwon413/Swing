@@ -61,6 +61,7 @@ $(function(){
 	<%--<form:hidden path="classid"/>--%>
 	<input type="hidden" id="star" name="star" value="">
 	<input type="hidden" id="classid" name="classid" value="${param.classid}">
+	<input type="hidden" id="classno" name="classno" value="${param.classno}">
 	<div class="input">
 		<form:textarea path="content" class="input_content" 
 		cols="1" rows="1" maxlength="150" placeholder="리뷰를 남겨주세요"/>
@@ -75,7 +76,7 @@ $(function(){
 				var params = $("#form").serialize();
 				$.ajax({
 					type:"POST",
-					url:'review.shop?classid=${param.classid}',
+					url:'review.shop?classid=${param.classid}&classno=${param.classno}',
 					data:params,
 					success:function(data){
 						opener.parent.location.reload();

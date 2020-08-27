@@ -1,6 +1,8 @@
 package aop;
 
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -49,12 +51,23 @@ public class TuteeAspect {
 		return joinPoint.proceed();
 	}
 	@Around
-	("execution(* controller.Class*.form(..)) && args(..,classid,session)")
-	public Object reviewCheck(ProceedingJoinPoint joinPoint,Integer classid,HttpSession session) throws Throwable{
+	("execution(* controller.Class*.review*(..)) && args(..,classid,classno,session)")
+	public Object reviewCheck(ProceedingJoinPoint joinPoint,Integer classid, Integer classno, HttpSession session) throws Throwable{
 		User loginUser = (User)session.getAttribute("loginUser");
+		Date now = new Date();
 		
 		if(loginUser==null) {
 			throw new ReviewException("로그인 후 작성 가능합니다.");
+		} else {
+			Date enddate = service.enddate(classid,classno);
+			if(enddate.after(now)) {
+				throw new ReviewException("수강 완료 후 리뷰를 작성해주세요.");
+			}
+			int cnt = service.alreadyReview(loginUser.getUserid(), classid, classno);
+			if(cnt==1) {
+				throw new ReviewException("해당 클래스 리뷰를 이미 작성하셨습니다.");
+			}
+			
 		}
 		return joinPoint.proceed();
 	}

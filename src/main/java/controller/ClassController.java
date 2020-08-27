@@ -65,25 +65,22 @@ public class ClassController {
 	}
 	
 	@GetMapping("review")
-	public String form(Model model, Integer classid, HttpSession session) {
+	public String reviewform(Model model,Integer classid, Integer classno,HttpSession session) {
 		model.addAttribute(new Review());
 		return null;
 	}
 	
 	@PostMapping("review")
-	public ModelAndView review(Review review,Integer classid,  HttpSession session) {
+	public ModelAndView review(Review review,Integer classid, Integer classno, HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
-		System.out.println("classid=" + classid);
-		ApplyList apply = service.getapply(classid,1,loginUser.getUserid());
 		review.setUserid(loginUser.getUserid());
-		review.setClassno(apply.getClassno());
-//		review.setUserid("hong");
 		try {
 			service.reviewWrite(review);
-			mav.setViewName("redirect:detail.shop");
+			System.out.println(review);
+			mav.setViewName("redirect:detail.shop?classid="+classid);
 			System.out.println("등록성공");
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("등록실패");
 		}
@@ -99,22 +96,30 @@ public class ClassController {
 //			System.out.println(cls.getStaravg());
 			cls.setReviewcnt(service.getReviewcnt(classid));
 			User user = (User)session.getAttribute("loginUser");
+			Integer classno=0;
+			
 			if(user!=null) {
 				WishList wish = new WishList();
 				wish.setUserid(user.getUserid());
 				wish.setClassid(classid);
 				cls.setWish(service.checkwish(wish));
+				classno = service.maxclassno(user.getUserid(),classid);
+				if(classno == null) {
+					classno=0;
+				}
 			}
 			User tutor = service.getUser(cls.getUserid());
 			List<Classinfo> clsinfo = service.getClassInfo(classid);
 			List<Review> review = service.getReview(classid);
 			List<License> license = service.getLicense(cls.getUserid());
+			
 //			double sum = 0;
 			mav.addObject("cls",cls);
 			mav.addObject("tutor",tutor);
 			mav.addObject("clsinfo", clsinfo);
 			mav.addObject("review",review);
 			mav.addObject("license",license);
+			mav.addObject("classno",classno);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

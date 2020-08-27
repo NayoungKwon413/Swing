@@ -55,4 +55,12 @@ public class ApplyListDao {
 		return template.getMapper(ApplyListMapper.class).selectOne(param);
 	}
 
+	public Integer maxClassno(String userid, Integer classid) {
+		param.clear();
+		param.put("userid", userid);
+		param.put("classid", classid);
+		return template.getMapper(ApplyListMapper.class).maxclassno(param);
+	}
+
+
 }

@@ -134,7 +134,7 @@ public class UserEntryController {
 
 		mav.setViewName("/alert");
 		mav.addObject("msg",user.getUserid()+"님 회원가입이 완료되었습니다. 로그인후 이용하세요.");
-		mav.addObject("url","/swing/user/main.shop");
+		mav.addObject("url","/swing/class/main.shop");
 		return mav;
 	}
 
