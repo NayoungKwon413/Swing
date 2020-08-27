@@ -354,7 +354,6 @@ function vaildation(kbn){
                 <div class="validate"></div>
                 <input type="text" class="form-cont" name="major" id="major" value="${user.major}" placeholder="ex)스윙학과" data-rule="email" data-msg="Please enter a valid email">
                 <div class="validate"></div>
-                <input type="hidden" id="imgurl3" value="http://${server}:${port}${path}/class/coverimg/${user.edufile}" />
                 <input type="file" name="edufileurl" id="edufileurl" accept="image/*" style="display: none;"/>
                 <button type="button" onclick="document.all.edufileurl.click()" style="width: 130px;">학력증명서 업로드</button>
         </div>
