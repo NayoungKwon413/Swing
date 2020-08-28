@@ -17,6 +17,11 @@
 	}
 </style>
 <script type="text/javascript">
+function delreview(reno) {
+	location.href="reviewDelete.shop?reviewno="+reno
+	alert("리뷰가 삭제되었습니다.");
+}
+
 	$(function(){
 //		var height=$('section').height();
 		var height=$('.class_wrap').height()+50;
@@ -376,7 +381,7 @@
 												<c:if test="${re.userid == sessionScope.loginUser.userid}">
 												<div class="reviewOption">
 													<a href="javascript:reviewPop('reviewEdit.shop?reviewno=${re.reviewno}')">수정</a> |
-													<a href="reviewDelete.shop?reviewno=${re.reviewno}">삭제</a>
+													<a onclick="delreview(${re.reviewno})">삭제</a>
 												</div>
 												</c:if>
 												<div class="review_content">
