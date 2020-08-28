@@ -318,7 +318,7 @@ function vaildation(kbn){
 			<div style="margin: 30px 0">
 				<input type="hidden" id="imgurl1" value="http://${server}:${port}${path}/user/save/${user.userid}_${user.file}"/>
 				<img class="upf_b button"  src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
-                <div class="upf" id="picture-cover" style="background-image: url('http://${imgpath}:${port}${path}/user/save/${user.userid}_${user.file}')">
+                <div class="upf" id="picture-cover" style="background-image: url('http://${server}:${port}${path}/user/save/${user.userid}_${user.file}')">
 	                <input type="file" id="fileurl2" name="fileurl2" style="width:150px;height:130px;opacity:0;" onchange="setThumbnail(event);" value=""/>  
                     <script> 
 		   			 function setThumbnail(event) { 
@@ -492,7 +492,7 @@ function vaildation(kbn){
 		<div class="form-group">
 			<div class="title">커버이미지-</div>
 				<input type="hidden" id="imgurl2" value="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}" />
-				<img id="coverimg" style="width:400px; height:250px; border: 1px c7c7c7; border-radius: 7px; -moz-border-radius: 7px; -khtml-border-radius: 7px; -webkit-border-radius: 7px;" src="http://${imgpath}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}">
+				<img id="coverimg" style="width:400px; height:250px; border: 1px c7c7c7; border-radius: 7px; -moz-border-radius: 7px; -khtml-border-radius: 7px; -webkit-border-radius: 7px;" src="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}">
                 <input type="file" name="coverimgurl" id="coverimgurl" accept="image/*" onchange="setThumbnail2(event);" style="display: none;"/>
                 <button type="button" onclick="document.all.coverimgurl.click()">업로드</button>
 			<script> 
