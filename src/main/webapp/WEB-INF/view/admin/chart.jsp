@@ -115,7 +115,7 @@
                 	var randomColorFactor = function(){
                 		return Math.round(Math.random()*255);
                 	}
-                	//rgb :
+                	//rgb : 
                 	var randomColor = function(opacity){
                 		return "rgba(" + randomColorFactor() + ","
                 					+ randomColorFactor() + ","

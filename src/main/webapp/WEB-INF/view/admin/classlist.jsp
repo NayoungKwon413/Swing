@@ -84,7 +84,7 @@ body {
                      <c:if test="${c.type==2}">그룹</c:if>
                      <span style="color: #ccc8c8; font-size: 12px;">|</span>[레벨]&nbsp;                   
                      <c:if test="${c.level==1}">입문자</c:if>
-                     <c:if test="${c.level==2}">중/상급자</c:if>
+                     <c:if test="${c.level==2}">중/상급자</c:if> 
                      <c:if test="${c.level==3}">고급/숙련자</c:if></p>
                      <p>[위치]&nbsp;${c.location1}&nbsp;${c.location2}</p>
                      <p>${c.time}<span style="color: #ccc8c8; font-size: 12px;">|</span>
