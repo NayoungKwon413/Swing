@@ -120,7 +120,7 @@
                    	 <c:if test="${cl.state == 3}">
                    	 	<div style="float: right;">
                    	 	<input type="button" value="수정" onclick="location.href='../tutor/register.shop?cid=${cl.classid}'">&nbsp;
-                   	 	<input type="button" value="삭제" onclick="deleteCheck(${cl.classid})">
+                   	 	<input type="button" value="삭제" onclick="deleteCheck(${cl.classid})"> 
                    	 	</div>
                    	 </c:if>
                   </div>
