@@ -27,7 +27,7 @@
 					<c:if test="${tutorcnt>0}">
 						<div class="newtalk" style="position: relative; right: 4em; margin: 0;">N</div>
 					</c:if>				
-				</li>
+				</li> 
 			</ul>
 		</div>
 		<!-- 리스트 시작 -->
