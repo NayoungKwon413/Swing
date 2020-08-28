@@ -74,7 +74,7 @@
          	</c:otherwise>
           </c:choose>
           <hr>
-          </div>
+          </div> 
          <div class="row">
          <c:if test="${classcount > 0}">
          <c:forEach var="cl" items="${classlist}">

@@ -134,7 +134,7 @@ $(function(){
                <div class="team-img">
                   <img class="img-fluid" style="width:200px; height:200px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                </div>
-               <div class="contetn">
+               <div class="contetn"> 
                   <div class="info-text">
                      <h3><a href="#">${cl.subject}</a></h3>
                      <p>${cl.nickname}(${cl.userid})</p>
