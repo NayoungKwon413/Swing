@@ -394,7 +394,7 @@
 							      <img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></a></c:if>
 								</div>
 								</c:if>
-							</div>
+							</div> 
 						</ul>
 					</div>
 					<script> 

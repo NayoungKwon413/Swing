@@ -86,6 +86,6 @@ public class EchoHandler extends TextWebSocketHandler implements InitializingBea
 		clients.remove(session);
 	}
 	public void afterPropertiesSet() throws Exception{
-	}
+	} 
 	
 }

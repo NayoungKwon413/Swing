@@ -30,7 +30,7 @@
 				</li>
 
 			</ul>
-		</div>
+		</div> 
 		<!-- 리스트 시작 -->
 		<div class="qna_cont">
 			<div class="qna_list">

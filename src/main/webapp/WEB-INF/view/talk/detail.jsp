@@ -75,7 +75,7 @@
 				success:function(data){
 					console.log(data);
 				}
-			})
+			}) 
 		});*/
 		
 		$('#btn_list').click(function(){

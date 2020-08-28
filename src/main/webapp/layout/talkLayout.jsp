@@ -19,7 +19,7 @@
 		<span>
 			실시간으로 간편하게 문의하세요
 			<span>
-				<div class="close" id="close">x</div>
+				<div class="close" id="close">x</div> 
 			</span>
 		    </span>
 		</div>
