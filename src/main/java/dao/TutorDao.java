@@ -62,13 +62,6 @@ public class TutorDao {
 		template.getMapper(TutorMapper.class).delete(param);
 	}
 
-//	public List<Class> listforConfirm(String userid, Integer state) {
-//		param.clear();
-//		param.put("userid", userid);
-//		param.put("state", state);
-//		return template.getMapper(TutorMapper.class).selectforConfirm(param);
-//	}
-
 	public Date getClassDate(Integer classid) {
 		param.clear();
 		param.put("classid", classid);
@@ -100,10 +93,5 @@ public class TutorDao {
 		param.put("userid", userid);
 		return template.getMapper(TutorMapper.class).getAvgStar(param);
 	}
-
-	
-
-	
-
 	
 }

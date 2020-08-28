@@ -27,7 +27,7 @@
          </div>
          <div class="apply">
             <div class="profile_box">
-               <div class="profile" style="background-image:url('${path}/assets/img/${tutor.file}')"></div>
+               <div class="profile" style="background-image:url('http://${server}:${port}${path}/user/save/${tutor.userid}_${tutor.file}')"></div>
                <p class="triangle-border top gray" style="margin-top:50px; text-align:center;">
                   수업에 오신걸 환영해요!<br>
                   <span>장소, 수업일, 시간</span>을<br>

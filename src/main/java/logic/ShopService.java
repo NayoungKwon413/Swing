@@ -194,9 +194,6 @@ public class ShopService {
 	public List<Review> getAvgStar(String userid) {
 		return tutorDao.avgStar(userid);
 	}
-//   public List<Class> getClassListforConfirm(String userid, Integer state) {
-//      return tutorDao.listforConfirm(userid, state);
-//  }
 
 	public Class getClass(Integer classid) {
 		return classDao.selectOne(classid);

@@ -59,10 +59,10 @@ public class TuteeAspect {
 		if(loginUser==null) {
 			throw new ReviewException("로그인 후 작성 가능합니다.");
 		} else {
-//			Date enddate = service.enddate(classid,classno);
-//			if(enddate.after(now)) {
-//				throw new ReviewException("수강 완료 후 리뷰를 작성해주세요.");
-//			}
+			Date enddate = service.enddate(classid,classno);
+			if(enddate.after(now)) {
+				throw new ReviewException("수강 완료 후 리뷰를 작성해주세요.");
+			}
 			int cnt = service.alreadyReview(loginUser.getUserid(), classid, classno);
 			if(cnt==1) {
 				throw new ReviewException("해당 클래스 리뷰를 이미 작성하셨습니다.");
