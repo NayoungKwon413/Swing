@@ -279,7 +279,7 @@
 					<div class="cert">
 						<ul>
 							<li class="com">${tutor.school}대학교 ${tutor.major}</li>
-							<c:if test="${license!=null}">
+							<c:if test="${fn:length(license)!=0}">
 								<c:forEach items="${license}" var="lc">
 									<li class="com">${lc.lctitle}</li>
 								</c:forEach>

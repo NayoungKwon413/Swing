@@ -77,7 +77,7 @@
 							classno = $(".no:eq("+index+")").val();
 						})
 						$("#nextButton").click(function(){
-							location.href="apply.shop?classid=1&classno="+classno;
+							location.href="apply.shop?classid=${param.classid}&classno="+classno;
 						})
 					})
 				</script>

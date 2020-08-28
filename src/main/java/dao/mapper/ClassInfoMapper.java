@@ -13,7 +13,11 @@ import logic.Course;
 
 public interface ClassInfoMapper {
 
-	@Select("select * from classinfo where classid=#{classid} and date>now()")
+//	@Select("select * from classinfo where classid=#{classid} and date>now() group by classno")
+	@Select("SELECT info.classid, info.classno, info.classseq, info.date,info.starttime,info.endtime,info.place,info.title,info.curri,info.seqstate, ifnull(a.cnt,0) from classinfo info " + 
+			"left outer JOIN (SELECT classid, classno, COUNT(*) AS cnt FROM applylist WHERE classid=#{classid} GROUP BY classno) as a ON a.classno = info.classno AND a.classid=info.classid " + 
+			"left outer join class c ON c.classid=info.classid " + 
+			"WHERE info.classseq=1 and info.classid=#{classid} AND ifnull(a.cnt,0)<c.maxtutee AND DATE>NOW()")
 	List<Classinfo> select(Map<String, Object> param);
 
 	@Select("select * from classinfo where classid=#{classid} and classno=#{classno} and classseq=#{classseq}")

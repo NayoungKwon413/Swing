@@ -139,7 +139,9 @@
       							<div class="t3">
       								<span class="num">${cls.totaltutee}명 참여</span>
       								 <fmt:formatNumber value="${cls.staravg}" var="staravg" pattern=".0"/>
-      								<span class="score">${staravg}(${cls.reviewcnt})</span>
+      								<span class="score">
+      									<img alt="" src="/swing/assets/img/icon/star_on.png" style="width:15px;">
+      								${staravg}(${cls.reviewcnt})</span>
       								<a href="javascript:wish(${cls.classid})" class="btn_wish">
       								<c:if test="${cls.wish==0}">
       									<img id="heart" class="heart" src="${path}/assets/img/icon/heart.png" style="width: 25px;"></a>
