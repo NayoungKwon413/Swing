@@ -132,7 +132,7 @@ $(function(){
             <div class="classbody team-item wow fadeInRight animated" data-wow-delay="0.2s"  
             	style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s; cursor:pointer;">
                <div class="team-img">
-                  <img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  <img class="img-fluid" style="width:200px; height:200px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                </div>
                <div class="contetn">
                   <div class="info-text">
