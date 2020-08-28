@@ -24,6 +24,10 @@
 		$('section').height(height+"px");
 		
 	})
+	
+	function reviewPop(url){
+				window.open(url,'','width=500,height=600,menubar=no,status=no,toolbar=no')
+	}
 </script>
 <script>
 	var b_box=0;
@@ -320,12 +324,8 @@
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
 					<h1>리뷰(${reviewcnt})</h1>
-					<a href="javascript:reviewPop()"class="btn_st" id="btn-write-review">리뷰쓰기</a>
-					<script>
-						function reviewPop(){
-							window.open('review.shop?classid=${param.classid}','','width=500,height=600,menubar=no,status=no,toolbar=no')
-						}
-					</script>
+					<a href="javascript:reviewPop('review.shop?classid=${param.classid}')"class="btn_st" id="btn-write-review">리뷰쓰기</a>
+					
 					<div class="review_box">
 							<span class="star star_left"></span>
 						    <span class="star star_right"></span>
@@ -369,6 +369,12 @@
 														${re.name}
 													</div>
 												</div>
+												<c:if test="${re.userid == sessionScope.loginUser.userid}">
+												<div class="reviewOption">
+													<a href="javascript:reviewPop('reviewEdit.shop?reviewno=${re.reviewno}')">수정</a> |
+													<a href="reviewDelete.shop?reviewno=${re.reviewno}">삭제</a>
+												</div>
+												</c:if>
 												<div class="review_content">
 													<div class="content">
 														${re.content}
