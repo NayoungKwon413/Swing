@@ -21,6 +21,8 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import util.CipherUtil;
+
 public class Mail {
 	private String recipient;
 	private String title;
@@ -98,6 +100,8 @@ public class Mail {
 		System.out.println(mail);
 		try{
 			String subject="";
+			mail.setRecipient(CipherUtil.decrypt(mail.getRecipient(), CipherUtil.makehash().substring(0,16)));
+			mail.setNaverid(CipherUtil.decrypt(mail.getNaverid(),CipherUtil.makehash().substring(0,16)));
 			String[] ids = mail.getRecipient().split("@");
 			System.out.println(ids);
 			if(mail.type.equals("반려")) {

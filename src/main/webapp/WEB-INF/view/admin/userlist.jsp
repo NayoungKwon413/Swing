@@ -149,7 +149,7 @@ font-size: 14px;
                           </c:if>
                           <c:if test="${user.kbn=='2'}">
                           <td></td>
-                          <td><label class="badge badge-info">튜터</label><br><a href="classlist.shop?get=0&id=${user.userid}" class="text-info">수강목록보기</a></td>
+                          <td><label class="badge badge-info">튜터</label><br><a href="mytutor.shop?id=${user.userid}" class="text-info">수강목록보기</a></td>
                           </c:if>
                           <td>${user.email}</td>
                           <td><button type="button" onclick="location.href='../user/update.shop?id=${user.userid}'">수정</button></td>

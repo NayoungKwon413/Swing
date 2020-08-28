@@ -351,7 +351,8 @@ public class UserEntryController {
 		ModelAndView mav = new ModelAndView();
 		String id="";
 		try{
-			User user = service.getUserByEmail(email);
+			String e = CipherUtil.encrypt(email, CipherUtil.makehash().substring(0,16));
+			User user = service.getUserByEmail(e);
 			id = user.getUserid();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -384,8 +385,7 @@ public class UserEntryController {
 				mail.setNaverid(admin.getEmail());
 				mail.setNaverpw(pass);
 				mail.mailSend(mail);
-				service.userUpdate(user);				
-				mail.mailSend(mail);
+				service.userUpdate(user);	
 		
 			}
 			else {

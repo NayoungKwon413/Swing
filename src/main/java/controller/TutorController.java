@@ -35,6 +35,7 @@ import logic.License;
 import logic.Review;
 import logic.ShopService;
 import logic.User;
+import util.CipherUtil;
 
 @Controller
 @RequestMapping("tutor")
@@ -55,7 +56,15 @@ public class TutorController {
 		logic.Class c = service.getClass(classid);
 		
 		Course date = service.getClassDate(classid,classno);
-		
+	 	for(User u : applylist) {
+	 		try {
+	 			String email = CipherUtil.decrypt(u.getEmail(), CipherUtil.makehash().substring(0,16));
+	 			u.setEmail(email);
+	 			
+	 			}catch (Exception e) {
+	 				e.printStackTrace();
+	 			}	
+	 	}
 		mav.addObject("date",date);
 		mav.addObject("c",c);
 		mav.addObject("applynum",applylist.size());
