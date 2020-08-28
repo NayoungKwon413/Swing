@@ -246,10 +246,6 @@ ModelAndView mav = new ModelAndView();
     public ModelAndView reason1(String id,String classid,String pass,String reason) {
 		ModelAndView mav = new ModelAndView();
 		try{
-
-			System.out.printf("reason01!!!!!!!!!!!");
-			System.out.printf("id:"+id,"classid:"+ classid,"pass:"+ pass);
-
 			User user = service.getUser(id);
 			User admin = service.getUser("admin");
 			Mail mail = new Mail();
@@ -258,6 +254,7 @@ ModelAndView mav = new ModelAndView();
 			mail.setRecipient(user.getEmail());
 			mail.setNaverid(admin.getEmail());
 			mail.setNaverpw(pass);
+			
 			mail.mailSend(mail);
 	
 	        int cid = Integer.parseInt(classid);
@@ -290,8 +287,6 @@ ModelAndView mav = new ModelAndView();
 			e.printStackTrace();
 		}
 
-		System.out.println(list);
-		
 		mav.addObject("list", list);
 		mav.addObject("tutor", tutor);
 		mav.addObject("tutee", tutee); 
@@ -301,26 +296,27 @@ ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 	
+
+	   @RequestMapping("mytutor")
+	   public ModelAndView mytutor(String id, Integer state, HttpSession session) {
+	      ModelAndView mav = new ModelAndView();      
+	      User user = service.getUser(id);
+	      List<logic.Class> classlist = service.getClassList2(user.getUserid(), state);
+	      int classcount = service.classCount2(user.getUserid(), state);
+	      List<Classinfo> classinfolist = service.getClassInfoList(user.getUserid(), state);
+	      Date today = new Date();
+	      for(int i=0; i<classlist.size(); i++) {
+	         logic.Class cl = service.getClass(classlist.get(i).getClassid());
+	         Date classdate = service.getClDate(cl.getClassid());
+	         if(classdate.before(today)) {
+	            service.updateState(user.getUserid(),cl.getClassid());
+	         }
+	      }
+	      mav.addObject("classlist", classlist);
+	      mav.addObject("classinfolist", classinfolist);
+	      mav.addObject("classcount", classcount);
+	      mav.addObject("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+	      return mav;
+	   }
 	
-	@RequestMapping("mytutor")
-	public ModelAndView mytutor(String id, Integer state, HttpSession session) {
-		ModelAndView mav = new ModelAndView();		
-		User user = service.getUser(id);
-		List<logic.Class> classlist = service.getClassList2(user.getUserid(), state);
-		int classcount = service.classCount2(user.getUserid(), state);
-		List<Classinfo> classinfolist = service.getClassInfoList(user.getUserid(), state);
-		Date today = new Date();
-		for(int i=0; i<classlist.size(); i++) {
-			logic.Class cl = service.getClass(classlist.get(i).getClassid());
-			Date classdate = service.getClDate(cl.getClassid());
-			if(classdate.before(today)) {
-				service.updateState(user.getUserid(),cl.getClassid());
-			}
-		}
-		mav.addObject("classlist", classlist);
-		mav.addObject("classinfolist", classinfolist);
-		mav.addObject("classcount", classcount);
-		mav.addObject("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		return mav;
-	}
 }

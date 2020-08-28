@@ -96,7 +96,7 @@
 			<div class="col-lg-3 col-md-3 col-sm-6">
 			<div class="achievement__item">
 			<img src="${path}/assets/img/icon/rev3.png" alt="" class="img-fluid1">
-			<h2 class="achieve-counter"><fmt:formatNumber value="${(list[1]-list[0]) / list[0] * 100}" pattern="#.##" />%</h2>
+			<h2 class="achieve-counter"><fmt:formatNumber value="${(list[1]-pricelist[0]) / pricelist[0] * 100}" pattern="#.##" />%</h2>
 			<p>전월대비 상승률</p>
 			</div>
 			</div>
@@ -167,7 +167,7 @@
                           <c:if test="${t.rank==2}"><img src="${path}/assets/img/icon/icons8-medal-second-place-30.png"></c:if>
                           <c:if test="${t.rank==3}"><img src="${path}/assets/img/icon/icons8-medal-third-place-30.png"></c:if></td>
                           <td>${t.userid}</td>
-                          <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td>
+                          <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td> 
                           <td><a href="mytutor.shop?id=${t.userid}"><label class="badge badge-info">수강목록보기</label></a></td>
                         </tr>
                        </c:forEach>

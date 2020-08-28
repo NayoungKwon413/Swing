@@ -87,6 +87,54 @@ public class ClassController {
 		return mav;
 	}
 	
+	@RequestMapping("reviewEdit")
+	public ModelAndView reviewEditForm(Integer reviewno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Review review = null;
+		try {
+			review = service.getReviewOne(reviewno);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("review",review);
+		System.out.println(review);
+		return mav;
+	}
+	
+	@PostMapping("reviewEdit")
+	public ModelAndView reviewEdit(Review review, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			service.reviewUpdate(review);
+			System.out.println(review);
+			System.out.println("수정완료");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("등록실패");
+		}
+	
+		return mav;
+	}
+	
+	@RequestMapping("reviewDelete")
+	public ModelAndView reviewDelete(Integer reviewno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Review re = service.getReviewOne(reviewno);
+		try {
+			service.reviewDelete(reviewno);
+			
+			System.out.println("리뷰삭제완료");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰삭제실패");
+		}
+		mav.setViewName("redirect:detail.shop?classid="+ re.getClassid());
+		//mav.setViewName("redirect:javascript:Move('review')");
+		return mav;
+	}
+	
+	
 	@GetMapping("detail")
 	public ModelAndView detail(Integer classid, Integer pageNum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -94,6 +142,7 @@ public class ClassController {
 			pageNum=1;
 		}
 		int limit=10;
+		Integer classno=0;
 		try {
 			Class cls = service.getClass(classid);
 			cls.setStaravg(service.getStar(classid));
@@ -105,6 +154,10 @@ public class ClassController {
 				wish.setUserid(user.getUserid());
 				wish.setClassid(classid);
 				cls.setWish(service.checkwish(wish));
+				classno = service.maxclassno(user.getUserid(), classid);
+				if(classno==null) {
+					classno = 0;
+				}
 			}
 			List<Classinfo> clsinfo = service.getClassInfo(classid);
 			List<Classinfo> clscurri = null;
@@ -123,6 +176,8 @@ public class ClassController {
 			int startpage =((int)(pageNum/10.0+0.9)-1)*10+1;
 			int endpage = startpage+9;
 			if(endpage>maxpage) endpage=maxpage;
+			
+			mav.addObject("classno",classno);
 			mav.addObject("reviewcnt",reviewcnt);
 			mav.addObject("pageNum",pageNum);  
 			mav.addObject("maxpage",maxpage);

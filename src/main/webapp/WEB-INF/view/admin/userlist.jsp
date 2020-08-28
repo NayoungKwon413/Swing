@@ -61,7 +61,7 @@
     outline: none;
 }
 .checkwork input[type="submit"]:hover{
-	opacity: 0.8;
+   opacity: 0.8;
 }
 
 span{
@@ -73,19 +73,19 @@ font-size: 14px;
 </head>
 <body>
 <script type="text/javascript">
-	function listdo(page){
-		f = document.sf;
-		f.pageNum.value = page;
-		f.submit();
-	}
+   function listdo(page){
+      f = document.sf;
+      f.pageNum.value = page;
+      f.submit();
+   }
     
-	function allchkbox(allchk){
-      	$(".idchks").prop("checked",allchk.checked)
+   function allchkbox(allchk){
+         $(".idchks").prop("checked",allchk.checked)
     }
 
-	function reasonPop(id){
-			window.open('reason.shop?id='+id+"&type=remove",'','width=500,height=400,menubar=no,status=no,toolbar=no');
-	}
+   function reasonPop(id){
+         window.open('reason.shop?id='+id+"&type=remove",'','width=500,height=400,menubar=no,status=no,toolbar=no');
+   }
 </script>
 <section id="team" class="team">
       <div class="container">
@@ -99,30 +99,30 @@ font-size: 14px;
           <div class="row">
              <div class="search">
              <form action="userlist.shop" method="post" name="sf">
-					<div class="item-center" >
-					<input type="hidden" name="pageNum" value="1">
-						<select name= "column" style="border: none; width: 120px; outline: none;">
-							<option value="">선택하세요</option>
-							<option value="userid">아이디</option>
-							<option value="name">이름</option>
-							<option value="email">이메일</option>
-							<option value="userid,name">아이디+이름</option>
-						</select>
-						<script>document.sf.column.value="${param.column}";</script>
-						<input type="text" name="find" value="${param.find}" style="width:250px;">
-						<input type="submit" value="검색">
-					</div>
-		   </form>
+               <div class="item-center" >
+               <input type="hidden" name="pageNum" value="1">
+                  <select name= "column" style="border: none; width: 120px; outline: none;">
+                     <option value="">선택하세요</option>
+                     <option value="userid">아이디</option>
+                     <option value="name">이름</option>
+                     <option value="email">이메일</option>
+                     <option value="userid,name">아이디+이름</option>
+                  </select>
+                  <script>document.sf.column.value="${param.column}";</script>
+                  <input type="text" name="find" value="${param.find}" style="width:250px;">
+                  <input type="submit" value="검색">
+               </div>
+         </form>
            </div>
            <div class="checkwork" style="width: calc(60% - 15px); text-align: right;">
-	           <input type="submit" value="선택탈퇴">
-	           <input type="submit" value="선택메일">
+              <input type="submit" value="선택탈퇴">
+              <input type="submit" value="선택메일">
            </div>
         </div>
-		<c:if test="${usercount==0}">
-		등록된 회원이 없습니다
-		</c:if>
-		<c:if test="${usercount>0}">
+      <c:if test="${usercount==0}">
+      등록된 회원이 없습니다
+      </c:if>
+      <c:if test="${usercount>0}">
           <table class="table table-hover">
                       <thead>
                         <tr>
@@ -160,17 +160,17 @@ font-size: 14px;
                       </tbody>
                     </table>
                     <div class="row">
-	                     <div class="back-next">
-		                     <c:if test="${pageNum<=1}"><img src="../assets/img/icon/back.png"></c:if> 
-							 <c:if test="${pageNum>1}"><a href="javascript:listdo(${pageNum-1})"><img src="../assets/img/icon/back.png"></a></c:if> 
-							 <c:forEach var="a" begin="${startpage}" end="${endpage}">
-							 <c:if test="${pageNum==a}"><a>${a}</a></c:if>
-							 <c:if test="${pageNum!=a}"><a href="javascript:listdo(${a})">${a}</a></c:if>
-							 </c:forEach> 
-							 <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png"></c:if> 
-							 <c:if test="${pageNum<maxpage}"><a href="javascript:listdo(${pageNum+1})"><img src="../assets/img/icon/next.png"></a></c:if>
-						</div>
-					</div>
+                        <div class="back-next">
+                           <c:if test="${pageNum<=1}"><img src="../assets/img/icon/back.png"></c:if> 
+                      <c:if test="${pageNum>1}"><a href="javascript:listdo(${pageNum-1})"><img src="../assets/img/icon/back.png"></a></c:if> 
+                      <c:forEach var="a" begin="${startpage}" end="${endpage}">
+                      <c:if test="${pageNum==a}"><a>${a}</a></c:if>
+                      <c:if test="${pageNum!=a}"><a href="javascript:listdo(${a})">${a}</a></c:if>
+                      </c:forEach> 
+                      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png"></c:if> 
+                      <c:if test="${pageNum<maxpage}"><a href="javascript:listdo(${pageNum+1})"><img src="../assets/img/icon/next.png"></a></c:if>
+                  </div>
+               </div>
      </c:if>
      </div>
  </section>            

@@ -266,6 +266,7 @@ function vaildation(kbn){
 			document.f.level.focus();
 			return false;
 		}
+		/*
 		if(document.f.title.value==''){
 			alert('회차 제목을 입력하세요');
 			document.f.title.focus();
@@ -275,7 +276,7 @@ function vaildation(kbn){
 			alert('회차 내용을 입력하세요');
 			document.f.curri.focus();
 			return false;
-		}
+		}*/
 	}
 	
 	document.f.action = "classEntry.shop?kbn="+kbn;
