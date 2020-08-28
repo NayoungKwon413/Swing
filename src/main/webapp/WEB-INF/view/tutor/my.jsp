@@ -12,7 +12,7 @@
    position: absolute;
    top: 10px;
    right: 20px;
-}
+} 
 </style>
 <script type="text/javascript">
    function page(src){
@@ -119,8 +119,8 @@
                      			 <c:if test="${cl.type == 2}">다회차 클래스</c:if></p>
                    	 <c:if test="${cl.state == 3}">
                    	 	<div style="float: right;">
-                   	 	<input type="button" value="수정" onclick="location.href='../tutor/register.shop?classid=${cl.classid}'">&nbsp;
-                   	 	<input type="button" value="삭제" onclick="deleteCheck(${cl.classid})">
+                   	 	<input type="button" value="수정" onclick="location.href='../tutor/register.shop?cid=${cl.classid}'">&nbsp;
+                   	 	<input type="button" value="삭제" onclick="deleteCheck(${cl.classid})"> 
                    	 	</div>
                    	 </c:if>
                   </div>

@@ -162,7 +162,7 @@ public class TutorController {
 					Classinfo ciInfo = service.getClassInfoOne(classid, 1, ci.getClassseq()); // 클래스 제목, 커리 정보 가져오기
 					ci.setTitle(ciInfo.getTitle());
 					ci.setCurri(ciInfo.getCurri());
-					if(ci.getClassno()==1 && ciInfo.getDate()==null) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
+					if(ci.getClassno()==1) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
 						service.firstClassinfo(ci);
 					} else{
 						service.registerClassinfo(ci);
@@ -171,6 +171,7 @@ public class TutorController {
 				}
 			}
 		} catch(Exception e) {
+			e.printStackTrace();
 			throw new RegisterException("수업 등록에 실패하였습니다.","my.shop");
 		} 
 		throw new RegisterException("해당 수업 정보가 등록되었습니다.","result.shop");

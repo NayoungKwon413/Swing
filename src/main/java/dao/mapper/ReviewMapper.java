@@ -15,15 +15,15 @@ public interface ReviewMapper {
 	@Select("select ifnull(max(reviewno),0) from review")
 	int maxnum();
 
-	@Insert("insert into review(userid,classid,classno,reviewno,content,star,regdate)"+
-			"values(#{userid},#{classid},#{classno},#{reviewno},#{content},#{star},now())")
+	@Insert("insert into review(userid,classid,classno,content,star,regdate)"+
+			"values(#{userid},#{classid},#{classno},#{content},#{star},now())")
 	void insert(Review review);
 
-	 @Select("SELECT r.userid, r.classid, r.classno, r.reviewno, r.content, r.star, r.regdate, u.name, u.file " + 
-	         "FROM review r, user u " + 
-	         "where r.userid = u.userid " + 
-	         "and r.classid=#{classid} order by r.regdate desc limit #{start},#{limit}")
-	 List<Review> select(Map<String, Object> param);
+	@Select("SELECT r.userid, r.classid, r.classno, r.content, r.star, r.regdate, u.name, u.file " + 
+			"FROM review r, user u " + 
+			"where r.userid = u.userid " + 
+			"and r.classid=#{classid} order by r.regdate desc limit #{start},#{limit}")
+	List<Review> select(Map<String, Object> param);
 
 	@Select("select ifnull(count(reviewno),0) from review where classid=#{classid}")
 	int cnt(Integer classid);
