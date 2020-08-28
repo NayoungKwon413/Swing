@@ -34,7 +34,7 @@ public interface ClassInfoMapper {
 			"VALUES(#{classid},#{classno},#{classseq},#{date},#{starttime},#{endtime},#{place},#{title},#{curri},1) ")
 	void register(Classinfo classinfo);
 	
-	@Select("UPDATE classinfo SET DATE=#{date}, starttime=#{starttime}, endtime=#{endtime}, place=#{place}, seqstate=1" + 
+	@Select("UPDATE classinfo SET DATE=#{date}, starttime=#{starttime}, endtime=#{endtime}, place=#{place}, seqstate=1 " + 
 			"WHERE classid = #{classid} " + 
 			"AND classno = #{classno} " + 
 			"AND classseq = #{classseq} ")
