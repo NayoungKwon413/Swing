@@ -162,8 +162,7 @@ public class TutorController {
 					Classinfo ciInfo = service.getClassInfoOne(classid, 1, ci.getClassseq()); // 클래스 제목, 커리 정보 가져오기
 					ci.setTitle(ciInfo.getTitle());
 					ci.setCurri(ciInfo.getCurri());
-					System.out.println(ci);
-					if(ci.getClassno()==1) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
+					if(ci.getClassno()==1 && ciInfo.getDate()==null) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
 						service.firstClassinfo(ci);
 					} else{
 						service.registerClassinfo(ci);
