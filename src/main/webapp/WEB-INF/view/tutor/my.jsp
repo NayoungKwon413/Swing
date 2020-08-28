@@ -74,7 +74,7 @@
          	</c:otherwise>
           </c:choose>
           <hr>
-          </div>
+          </div> 
          <div class="row">
          <c:if test="${classcount > 0}">
          <c:forEach var="cl" items="${classlist}">
@@ -83,19 +83,19 @@
                 	 onclick="page('<c:if test="${cl.state == 4}">register-class.shop?classid=${cl.classid}</c:if><c:if test="${cl.state == 1}">register.shop</c:if>')">                	 
                	  <c:if test="${cl.state == 1}">
                   	<label class="badge badge-success">등록진행중</label>
-                  	<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  	<img class="img-fluid" style="width:350px; height:350px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 2}">
                   	<label class="badge badge-success">승인대기중</label>
-                  	<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  	<img class="img-fluid" style="width:350px; height:350px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 3}">
                   	<label class="badge badge-danger">반&nbsp;려</label>
-                    <img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                    <img class="img-fluid" style="width:350px; height:350px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 4}">
                   	<label class="badge badge-success">승인완료</label>
-                  	<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  	<img class="img-fluid" style="width:350px; height:350px;" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if> 
                   
                </div>
