@@ -66,6 +66,7 @@
 		ws.onclose = function(event){
 			$("#chatStatus").text("info:connection close");
 		}
+		/*
 		$(window).bind("beforeunload",function(){
 			var obj = {
 					talk:jsonArray
@@ -75,7 +76,8 @@
 					console.log(data);
 				}
 			})
-		});
+		});*/
+		
 		$('#btn_list').click(function(){
 			var obj2 = {
 					talk:jsonArray
@@ -87,6 +89,18 @@
 				}
 			})			
 		})
+		$('#close').click(function(){
+			var obj = {
+					talk:jsonArray
+			}
+			$.ajax("${path}/talk/talkClose.shop?roomno=${param.roomno}&classid=${param.classid}&TotalJson="+encodeURI(JSON.stringify(obj)),{
+				success:function(data){
+					console.log(data);
+					window.close();
+				}
+			})				
+		})
+		
 	})
 </script>  
 </head>
