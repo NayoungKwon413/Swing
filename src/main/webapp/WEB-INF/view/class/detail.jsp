@@ -21,6 +21,7 @@ function delreview(reno) {
 	location.href="reviewDelete.shop?reviewno="+reno
 	alert("리뷰가 삭제되었습니다.");
 }
+
 	$(function(){
 //		var height=$('section').height();
 		var height=$('.class_wrap').height()+50;
