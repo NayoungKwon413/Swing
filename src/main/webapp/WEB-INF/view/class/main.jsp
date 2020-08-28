@@ -115,13 +115,13 @@
       			<ul class="swiper-wrapper">
       				<c:forEach items="${hotlist}" var="cls" varStatus="status">
       					<c:if test="${status.count%3==2}">
-      						<li class="swiper-slide" style="margin-right:50px;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       					<c:if test="${status.count%3==1}">
-      						<li class="swiper-slide" style="margin:0 20px;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       					<c:if test="${status.count%3==0}">
-      						<li class="swiper-slide" style="margin-left:50px; margin-right:0;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       							<a href="detail.shop?classid=${cls.classid}">
       								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}');"></div>
@@ -159,13 +159,13 @@
       			<ul class="swiper-wrapper">
       				<c:forEach items="${latestlist}" var="cls" varStatus="status">
       					<c:if test="${status.count%3==2}">
-      						<li class="swiper-slide" style="margin-right:50px;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       					<c:if test="${status.count%3==1}">
-      						<li class="swiper-slide" style="margin:0 20px;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       					<c:if test="${status.count%3==0}">
-      						<li class="swiper-slide" style="margin-left:50px; margin-right:0;">
+      						<li class="swiper-slide" style="margin:0 23px;">
       					</c:if>
       							<a href="detail.shop?classid=${cls.classid}">
       								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}');"></div>

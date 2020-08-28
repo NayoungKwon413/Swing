@@ -171,6 +171,7 @@ public class TutorController {
 				}
 			}
 		} catch(Exception e) {
+			e.printStackTrace();
 			throw new RegisterException("수업 등록에 실패하였습니다.","my.shop");
 		} 
 		throw new RegisterException("해당 수업 정보가 등록되었습니다.","result.shop");
