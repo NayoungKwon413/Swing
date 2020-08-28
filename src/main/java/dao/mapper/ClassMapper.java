@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.Class;
+import logic.Classinfo;
 import logic.Rank;
 import logic.User;
 
@@ -163,8 +164,6 @@ public interface ClassMapper {
 			"<if test='type==2'>ORDER BY c.regdate desc</if>",
 			"limit 3",
 			"</script>"})
-	List<Class> mainlist(Map<String, Object> param);
-  
-
+	List<Class> mainlist(Map<String, Object> param);	
 	
 }

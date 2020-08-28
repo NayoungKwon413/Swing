@@ -109,14 +109,13 @@
 					<select name= "column" style="border: none; width: 30%; outline: none;">
 							<option value="">2020년</option>
 					</select>
-					<span style="width:70%; margin-right: 10px;">전체보기</span>
 					</h4>
                     <canvas id="chart-barChart" style="height: 204px; display: block; width: 408px;" width="408" height="204" class="chartjs-render-monitor"></canvas>
                     <script type="text/javascript">
                 	var randomColorFactor = function(){
                 		return Math.round(Math.random()*255);
                 	}
-                	//rgb :
+                	//rgb : 
                 	var randomColor = function(opacity){
                 		return "rgba(" + randomColorFactor() + ","
                 					+ randomColorFactor() + ","
@@ -159,7 +158,6 @@
                   <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                      <div style="width: 100%">
 	                     <label class="badge badge-info">튜터 랭킹</label>
-	                     <a href="#" style="float: right; margin-right: 10px; font-size: 12px;">전체보기</a>
                      </div>
                      <table class="table table-hover">
                       <tbody>
@@ -178,7 +176,6 @@
                     <hr>
                     <div style="width: 100%">
 	                    <label class="badge badge-warning">튜티 랭킹</label>
-	                    <a href="#" style="float: right; margin-right: 10px; font-size: 12px;">전체보기</a>
                     </div>
                      <table class="table table-hover">
                       <tbody>

@@ -12,27 +12,78 @@
 	section {
     height: 200em;
 	}
-	.reviewOption {
-	text-align:right;
-	}
 </style>
+<script type="text/javascript">
+	$(function(){
+//		var height=$('section').height();
+		var height=$('.class_wrap').height()+50;
+		var cnt = $('.class_detail').length;
+		for(var i=0; i<cnt; i++){
+			height+=$('.class_detail:eq('+i+')').height();
+		};
+		$('section').height(height+"px");
+		
+	})
+</script>
 <script>
-function reviewPop(url){
-	window.open(url,'','width=500,height=600,menubar=no,status=no,toolbar=no')
-}
+	var b_box=0;
+	var boxheight=0;
+	var cnt=0; 
+	$(function(){
+		$(".option.extra").hide();
+		$(".region2").hide();
+		$(".drop").on("click","img",function(){
+			$('.region2').hide();
+			if($('#region').hasClass('on')){
+				var index = $("img").index(this);
+				var idx = index-1;
+				boxheight=$(".region2:eq("+idx+")").height();
+				b_box=$("#region").height();
+				$("#region").height(b_box-boxheight-40+"px");
+				$("#region").removeClass('on');
+				$(".region2:eq("+idx+")").hide();
+			}else{
+				var index = $("img").index(this);
+				var idx = index-1;
+				boxheight=$(".region2:eq("+idx+")").height()+40;
+				b_box=$("#region").height();
+				$("#region").height(b_box+boxheight+"px");
+				$("#region").addClass('on');
+				$(".region2:eq("+idx+")").show();
+			}
+		})
+		$("#more").click(function(){
+			cnt=$('.option.extra').length;
+			if($(this).hasClass('on')){
+				boxheight=($('.option.extra').height())*cnt;
+				b_box=$("#region").height();
+				$("#region").height(b_box-boxheight-40+"px");
+				$(this).removeClass('on');
+				$(this).html("+ 다른 일정 더보기");
+				$(".option.extra").hide();			
+			}else{
+				boxheight=($('.option.extra').height())*cnt;
+				b_box=$("#region").height();
+				$("#region").height(b_box+boxheight+40+"px");
+				$(this).addClass('on');
+				$(this).html("- 일정 숨기기");
+				$(".option.extra").show();	
+			}
+		})
+	});
 </script>
 </head>
 <body>
 <section>
 	<div class="container">
 		<div class="class_wrap">
-			<div class="class_price" id="class_price" style="position:relative; top:0px;; left:0px;">
-				<div class="regions">
+			<div class="class_price" id="class_price" style="position: fixed;top: 110px;right: 390px;">
+				<div class="regions" style="margin-bottom: 3em;">
 					<div class="title">
 					<c:if test="${cls.type==1}">원데이 클래스</c:if>
 					<c:if test="${cls.type==2}">다회차 수업</c:if>
 					</div>
-					<div class="region" id="region" style="height:20em;">
+					<div class="region" id="region" style="/*height:20em;*/">
 						<c:forEach items="${clsinfo}" var="info" varStatus="status">
 							<c:if test="${status.count<=3}">
 								<div class="option">
@@ -56,33 +107,39 @@ function reviewPop(url){
 										<span class="drop"><img src="${path}/assets/img/icon/drop.png"></span>
 									</div>
 									<div class="region2">
+										<div class="timedetail">
+										<c:if test="${info.list!=null}">									
+											<c:forEach items="${info.list}" var="list">
+											<fmt:parseDate var="infodate2" value="${list.date}" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${infodate2}" var="date2" pattern="MM.dd (E)"/>												
+												<div class="indate">${date2}</div>
+											<fmt:parseDate value="${list.starttime}" var="starttime2" pattern="HH:mm:ss"/>
+											<fmt:formatDate value="${starttime2}" var="start2" pattern="HH:mm"/>
+											<fmt:parseDate value="${list.endtime}" var="endtime2" pattern="HH:mm:ss"/>
+											<fmt:formatDate value="${endtime2}" var="end2" pattern="HH:mm"/>
+											${start2}~${end2}<br>
+											</c:forEach>
+										</c:if>
+										</div>									
 										상세지역:${info.place}
+
 									</div>
 								</div>
 						</c:forEach>
 				</div>
-				<script>
-					$(function(){
-						$(".option.extra").hide();
-						$(".region2").hide();
-						
-						$(".drop").on("click","img",function(){
-							$(".region2").hide();
-							var index = $("img").index(this);
-							var idx = index-1;
-							$(".region2:eq("+idx+")").toggle();
-						})
-						$("#more").click(function(){
-							$(".option.extra").show();
-						})
-					})
-				</script>
+				<c:if test="${fn:length(clsinfo)>3}">
 				<div class="more" id="more">
 					+ 다른 일정 더보기
 				</div>
+				</c:if>
 			</div>
 			<!-- 여기까지 날짜,시간,장소 정보 -->
-			<a onclick="window.open('${path}/talk/newchat.shop?classid=${param.classid}','','width=500,height=650')" class="btn_talk">실시간 톡</a>
+			<a href="javascript:talkPop()" class="btn_talk">실시간 톡</a>
+			<script type="text/javascript">
+				function talkPop(){
+					window.open('${path}/talk/newchat.shop?classid=${param.classid}','','width=500,height=650');
+				}
+			</script>
 			<div class="btn_payment">
 				<a href="check.shop?classid=${param.classid}">
 					<span class="btntxt" id="checkbt">수업 신청하기</span>
@@ -100,7 +157,7 @@ function reviewPop(url){
 			<img src="http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}">
 		</div>
 		<div class="class_d_wrqp">
-			<div id="class_navi" class="class_navi fixedLayer" style="left:0px;">
+			<div id="class_navi" class="class_navi" style="/*left:0px;*/">
 				<ul>
 					<li>
 						<a href="javascript:Move('summary')">요약</a>
@@ -116,27 +173,44 @@ function reviewPop(url){
 					</li>
 				</ul>
 			</div>
-			<script type="text/javascript">
+			<script type="text/javascript">	
 				function Move(section){
 					var offset = $("#"+section).offset();
 					$('html,body').animate({scrollTop:offset.top},400);
-				}
-				
+				};
+				docuwidth=$(window).width/2;
+				$(window).resize(function(){
+					docuwidth = $(window).width/2;
+				});
+				$(window).scroll(function(){
+					if($(window).scrollTop()>500){
+						$('#class_navi').addClass("fixedLayer");
+						$("#class_navi").css("left",docuwidth-600);
+					}else{
+						//$("#class_navi").css("left",0);
+						$("#class_navi").removeClass("fixedLayer");
+					}
+				});
 				$(function(){
 					$('#wishBtn').click(function(){
-						$.ajax("${path}/class/checkwishlist.shop?classid=${param.classid}",{
-							success:function(data){
-								console.log(data);
-								//alert(data);
-								if(data==0){
-									$('#heart').attr("src",'${path}/assets/img/icon/heart_on.png')
-								}else{
-									$('#heart').attr("src",'${path}/assets/img/icon/heart.png')
+						if(${sessionScope.loginUser==null}){
+							alert("로그인 후 이용하세요");
+						}else{
+							$.ajax("${path}/class/checkwishlist.shop?classid=${param.classid}",{
+								success:function(data){
+									console.log(data);
+									//alert(data);
+									if(data==0){
+										$('#heart').attr("src",'${path}/assets/img/icon/heart_on.png')
+									}else{
+										$('#heart').attr("src",'${path}/assets/img/icon/heart.png')
+									}
 								}
-							}
-						})
+							})
+						}
+
 					})
-				})
+				});
 			</script>
 			<div class="class_detail" id="sumary">
 				<div class="class_name">
@@ -207,7 +281,7 @@ function reviewPop(url){
 							<li class="com">${tutor.school}대학교 ${tutor.major}</li>
 							<c:if test="${license!=null}">
 								<c:forEach items="${license}" var="lc">
-									${lc.lctitle}
+									<li class="com">${lc.lctitle}</li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -225,12 +299,33 @@ function reviewPop(url){
 					</div>
 				</div>
 			</div>
+				<c:if test="${clscurri!=null}">
+				<div class="class_detail detail_sec_bor" id="curriculum">
+					<div class="section01">
+					<h1>커리큘럼</h1>
+					<c:forEach items="${clscurri}" var="curri">
+						<div class="curriculum_cont">
+							<h2>${curri.classseq}회차</h2>
+							<dl class="step_cont">
+								<dd>
+								${curri.title}<br><br>
+								${curri.curri}
+								</dd>
+							</dl>
+						</div>
+					</c:forEach>
+					</div>
+				</div>
+				</c:if>
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
-					<h1>리뷰(${fn:length(review)} )</h1>
-					<c:if test="${classno!=0}">
-					<a href="javascript:reviewPop('review.shop?classid=${param.classid}&classno=${classno}')"class="btn_st" id="btn-write-review">리뷰쓰기</a>
-					</c:if>
+					<h1>리뷰(${reviewcnt})</h1>
+					<a href="javascript:reviewPop()"class="btn_st" id="btn-write-review">리뷰쓰기</a>
+					<script>
+						function reviewPop(){
+							window.open('review.shop?classid=${param.classid}','','width=500,height=600,menubar=no,status=no,toolbar=no')
+						}
+					</script>
 					<div class="review_box">
 							<span class="star star_left"></span>
 						    <span class="star star_right"></span>
@@ -261,8 +356,8 @@ function reviewPop(url){
 					<div class="review_list">
 						<ul>
 							<div id="innerReviewDiv">
-								<c:if test="${cls.reviewcnt==0}">등록된 리뷰가 없습니다.</c:if>
-								<c:if test="${cls.reviewcnt!=0}">
+								<c:if test="${reviewcnt==0}">등록된 리뷰가 없습니다.</c:if>
+								<c:if test="${reviewcnt!=0}">
 									<c:forEach items="${review}" var="re" varStatus="status">
 										<li>
 											<div class="review">
@@ -274,12 +369,6 @@ function reviewPop(url){
 														${re.name}
 													</div>
 												</div>
-											<c:if test="${re.userid == sessionScope.loginUser.userid}">
-												<div class="reviewOption">
-													<a href="javascript:reviewPop('reviewEdit.shop?reviewno=${re.reviewno}')">수정</a> |
-													<a href="reviewDelete.shop?reviewno=${re.reviewno}">삭제</a>
-												</div>
-											</c:if>
 												<div class="review_content">
 													<div class="content">
 														${re.content}
@@ -290,10 +379,31 @@ function reviewPop(url){
 											</div>
 										</li>
 									</c:forEach>
+								<div class="paging">
+								  <c:if test="${pageNum<=1}"><img src="../assets/img/icon/back.png"></c:if> 
+							      <c:if test="${pageNum>1}">
+							      	<a href="detail.shop?classid=${param.classid}&pageNum=${pageNum-1}">
+							      	<img src="../assets/img/icon/back.png"></a></c:if>    
+							      <c:forEach var="a" begin="${startpage}" end="${endpage}">
+							      <c:if test="${pageNum==a}"><a>${a}</a></c:if>
+							      <c:if test="${pageNum!=a}">
+							      	<a href="detail.shop?classid=${param.classid}&pageNum=${a}">${a}</a></c:if>
+							      </c:forEach> 
+							      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></c:if> 
+							      <c:if test="${pageNum<maxpage}"><a href="detail.shop?classid=${param.classid}&pageNum=${pageNum+1}">
+							      <img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></a></c:if>
+								</div>
 								</c:if>
-							</div>
+							</div> 
 						</ul>
 					</div>
+					<script> 
+						$(function(){
+							var cnt =$('#innerReviewDiv li').length;
+							var boxheight = ($('#innerReviewDiv li').height()+60)*cnt;
+							$('.review_list').height(boxheight+40+"px");
+						})
+					</script>
 				</div>
 			</div>
 		</div>

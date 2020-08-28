@@ -35,7 +35,7 @@
     border: 0;
     background: none;
     font-size: 16px;
-    padding: 0 20px;
+    padding: 0 20px; 
     background: #49b5e7;
     color: #fff;
     transition: 0.3s;

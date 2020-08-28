@@ -15,10 +15,11 @@
 <body>
 	<div id="pop_qna">
 		<div class="top">
-		로고<span>
+		<img alt="" src="/swing/assets/img/icon/ci3.png">
+		<span>
 			실시간으로 간편하게 문의하세요
 			<span>
-				<div class="close">x</div>
+				<div class="close" id="close">x</div> 
 			</span>
 		    </span>
 		</div>

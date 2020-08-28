@@ -26,10 +26,12 @@ public class ReviewDao {
 		template.getMapper(ReviewMapper.class).insert(review);
 	}
 
-	public List<Review> select(Integer classid) {
+	public List<Review> select(Integer classid, Integer pageNum, int limit) {
 		param.clear();
 		param.put("classid", classid);
-		return template.getMapper(ReviewMapper.class).select(classid);
+		param.put("start", (pageNum-1)*limit);
+		param.put("limit", limit);
+		return template.getMapper(ReviewMapper.class).select(param);
 	}
 
 	public int cnt(Integer classid) {

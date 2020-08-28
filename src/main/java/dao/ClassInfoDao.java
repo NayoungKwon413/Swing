@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.ClassInfoMapper;
+import dao.mapper.ClassMapper;
 import logic.Classinfo;
 import logic.Course;
 
@@ -89,5 +90,18 @@ public class ClassInfoDao {
 		param.put("classid",classid);
 		param.put("classno",classno);
 		return template.getMapper(ClassInfoMapper.class).enddate(param);
+	}
+	public List<Classinfo> getClassCurri(Integer classid, int totaltime) {
+		param.clear();
+		param.put("classid", classid);
+		param.put("totaltime", totaltime);
+		return template.getMapper(ClassInfoMapper.class).classCurri(param);
+	}
+
+	public List<Classinfo> getClassSeq(int classid, int classno) {
+		param.clear();
+		param.put("classid", classid);
+		param.put("classno", classno);
+		return template.getMapper(ClassInfoMapper.class).classSeq(param);
 	}
 }

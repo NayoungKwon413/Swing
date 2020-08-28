@@ -63,6 +63,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		pr.put("exception.LoginException", "exception");
 		pr.put("exception.RegisterException", "exception");
 		pr.put("exception.ReviewException", "exceptionClose");
+		pr.put("exception.TalkException", "exceptionClose");
 		ser.setExceptionMappings(pr);
 		return ser;
 		

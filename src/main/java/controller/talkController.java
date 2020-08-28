@@ -37,18 +37,20 @@ public class talkController {
 		return mav;
 	}
 	@RequestMapping("mainTutee")
-	public ModelAndView mainTutee(String userid) {
+	public ModelAndView loginCheckmainTutee(String userid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int cnt=0;
+		int tuteecnt=0;
 		int type=0;
 		try {
 			List<Chatting> chat = service.getchat(userid,type);
 			for(Chatting ch : chat) {
-				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
-				cnt+=ch.getNewtalk();
+				ch.setNewtalk(service.tuteenewtalk(ch.getRoomno(),userid));
+				tuteecnt+=ch.getNewtalk();
 			}
+			int tutorcnt=service.tutornewtalk(0,userid);
 			mav.addObject("chat",chat);
-			mav.addObject("cnt",cnt);
+			mav.addObject("tutorcnt",tutorcnt);
+			mav.addObject("tuteecnt",tuteecnt);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -58,16 +60,18 @@ public class talkController {
 	@RequestMapping("mainTutor")
 	public ModelAndView mainTutor(String userid) {
 		ModelAndView mav = new ModelAndView();
-		int cnt=0;
+		int tutorcnt=0;
 		int type=1;
 		try {
 			List<Chatting> chat = service.getchat(userid,type);
 			for(Chatting ch : chat) {
-				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
-				cnt+=ch.getNewtalk();
+				ch.setNewtalk(service.tutornewtalk(ch.getRoomno(),userid));
+				tutorcnt+=ch.getNewtalk();
 			}
+			int tuteecnt=service.tuteenewtalk(0, userid);
 			mav.addObject("chat",chat);
-			mav.addObject("cnt",cnt);
+			mav.addObject("tutorcnt",tutorcnt);
+			mav.addObject("tuteecnt",tuteecnt);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -126,7 +130,7 @@ public class talkController {
 	}
 	  
 	@RequestMapping("newchat")
-	public ModelAndView newchat(String classid,HttpSession session) {
+	public ModelAndView loginChecknewchat(String classid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User)session.getAttribute("loginUser");
 		int roomno = 0;
@@ -142,11 +146,13 @@ public class talkController {
 		mav.setViewName("redirect:detail.shop?roomno="+roomno+"&classid="+classid);
 		return mav;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="check")
 	public String check(String userid) {
-		int check = service.newtalk(0,userid);
-		return check+"";
+		int tuteecnt = service.tuteenewtalk(0,userid);
+		int tutorcnt = service.tutornewtalk(0, userid);
+		return tuteecnt+","+tutorcnt;
 	}  
 	
 }

@@ -195,8 +195,8 @@ public class ShopService {
 		return classinfoDao.select(classid);
 	}
 
-	public List<Review> getReview(Integer classid) {
-		return reviewDao.select(classid);
+	public List<Review> getReview(Integer classid, Integer pageNum, int limit) {
+		return reviewDao.select(classid,pageNum,limit);
 	}
 
 
@@ -448,15 +448,27 @@ public class ShopService {
 		return classinfoDao.enddate(classid,classno);
 	}
 
-	public void reviewUpdate(Review review) {
-		reviewDao.update(review);
+
+	public List<Classinfo> getClassCurri(Integer classid, int totaltime) {
+		return classinfoDao.getClassCurri(classid,totaltime);
 	}
 
-	public void reviewDelete(Integer reviewno) {
-		reviewDao.delete(reviewno);
+	public List<Classinfo> getClassSeq(int classid, int classno) {
+		return classinfoDao.getClassSeq(classid, classno);
 	}
 
-	public Review getReviewOne(Integer reviewno) {
-		return reviewDao.selectOne(reviewno);
+	public int tutornewtalk(int roomno, String userid) {
+		return chattingDao.tutornewtalk(roomno,userid);
+	}
+	public List<Classinfo> getClassCurri(Integer classid, int totaltime) {
+		return classinfoDao.getClassCurri(classid,totaltime);
+	}
+
+	public List<Classinfo> getClassSeq(int classid, int classno) {
+		return classinfoDao.getClassSeq(classid, classno);
+	}
+
+	public int tutornewtalk(int roomno, String userid) {
+		return chattingDao.tutornewtalk(roomno,userid);
 	}
 }

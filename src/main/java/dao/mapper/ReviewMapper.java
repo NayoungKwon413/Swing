@@ -22,8 +22,8 @@ public interface ReviewMapper {
 	@Select("SELECT r.userid, r.classid, r.classno, r.content, r.star, r.regdate, u.name, u.file " + 
 			"FROM review r, user u " + 
 			"where r.userid = u.userid " + 
-			"and r.classid=#{classid}")
-	List<Review> select(Integer classid);
+			"and r.classid=#{classid} limit #{start},#{limit}")
+	List<Review> select(Map<String, Object> param);
 
 	@Select("select ifnull(count(reviewno),0) from review where classid=#{classid}")
 	int cnt(Integer classid);

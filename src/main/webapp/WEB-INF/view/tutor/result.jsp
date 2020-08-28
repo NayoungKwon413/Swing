@@ -129,10 +129,10 @@ $(function(){
          <div class="col-lg-12 col-md-12 col-xs-12">            
          <c:forEach items="${classlist}" var="cl" varStatus="stat">
          <input type="hidden" name="classid" value="${cl.classid}">
-            <div class="classbody team-item wow fadeInRight animated" data-wow-delay="0.2s" 
+            <div class="classbody team-item wow fadeInRight animated" data-wow-delay="0.2s"  
             	style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s; cursor:pointer;">
                <div class="team-img">
-                  <img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  <img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                </div>
                <div class="contetn">
                   <div class="info-text">

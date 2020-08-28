@@ -69,7 +69,7 @@ public class TutorController {
 		User loginUser = (User)session.getAttribute("loginUser");
 		List<logic.Class> classlist = service.getClassList(loginUser.getUserid(), state);
 		int classcount = service.classCount(loginUser.getUserid(), state);
-		System.out.println(classcount);
+//		System.out.println(classcount);
 		mav.addObject("classlist", classlist);
 		mav.addObject("classcount", classcount);
 		return mav;

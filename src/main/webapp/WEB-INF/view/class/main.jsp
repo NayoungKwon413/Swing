@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript">
       			var index=0;
       			$(function(){
@@ -15,6 +16,9 @@
 				})
 				
 				function wish(classid){
+      				if(${sessionScope.loginUser==null}){
+      					alert("로그인 후 이용하세요");
+      				}else{
 						$.ajax("${path}/class/checkwishlist.shop?classid="+classid,{
 							success:function(data){
 								console.log(data);
@@ -26,6 +30,8 @@
 								}
 							}
 						})
+      				}
+
 					}
 </script>
 </head>

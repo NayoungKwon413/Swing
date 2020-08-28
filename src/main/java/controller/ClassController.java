@@ -135,38 +135,52 @@ public class ClassController {
 	
 	
 	@GetMapping("detail")
-	public ModelAndView detail(Integer classid, HttpSession session) {
+	public ModelAndView detail(Integer classid, Integer pageNum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		if(pageNum==null||pageNum.toString().equals("")) {
+			pageNum=1;
+		}
+		int limit=10;
 		try {
 			Class cls = service.getClass(classid);
 			cls.setStaravg(service.getStar(classid));
 //			System.out.println(cls.getStaravg());
 			cls.setReviewcnt(service.getReviewcnt(classid));
 			User user = (User)session.getAttribute("loginUser");
-			Integer classno=0;
-			
 			if(user!=null) {
 				WishList wish = new WishList();
 				wish.setUserid(user.getUserid());
 				wish.setClassid(classid);
 				cls.setWish(service.checkwish(wish));
-				classno = service.maxclassno(user.getUserid(),classid);
-				if(classno == null) {
-					classno=0;
+			}
+			List<Classinfo> clsinfo = service.getClassInfo(classid);
+			List<Classinfo> clscurri = null;
+			if(cls.getType()==2) {
+				clscurri = service.getClassCurri(classid,cls.getTotaltime());
+				for(Classinfo info : clsinfo) {
+					info.setList(service.getClassSeq(info.getClassid(),info.getClassno()));
 				}
 			}
 			User tutor = service.getUser(cls.getUserid());
-			List<Classinfo> clsinfo = service.getClassInfo(classid);
-			List<Review> review = service.getReview(classid);
+			List<Review> review = service.getReview(classid,pageNum,limit);
 			List<License> license = service.getLicense(cls.getUserid());
-			
 //			double sum = 0;
+			int reviewcnt = cls.getReviewcnt();
+			int maxpage = (int)((double)reviewcnt/limit+0.95);
+			int startpage =((int)(pageNum/10.0+0.9)-1)*10+1;
+			int endpage = startpage+9;
+			if(endpage>maxpage) endpage=maxpage;
+			mav.addObject("reviewcnt",reviewcnt);
+			mav.addObject("pageNum",pageNum);  
+			mav.addObject("maxpage",maxpage);
+			mav.addObject("startpage",startpage);
+			mav.addObject("endpage",endpage);
+			mav.addObject("clscurri",clscurri);
 			mav.addObject("cls",cls);
 			mav.addObject("tutor",tutor);
 			mav.addObject("clsinfo", clsinfo);
 			mav.addObject("review",review);
 			mav.addObject("license",license);
-			mav.addObject("classno",classno);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -174,12 +188,17 @@ public class ClassController {
 	}
 	
 	@RequestMapping("check")
-	public ModelAndView check(Integer classid) {
+	public ModelAndView loginCheckcheck(Integer classid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Class cls = service.getClass(classid);
 			User tutor = service.getUser(cls.getUserid());			
 			List<Classinfo> clsinfo = service.getClassInfo(classid);
+			if(cls.getType()==2) {
+				for(Classinfo info : clsinfo) {
+					info.setList(service.getClassSeq(info.getClassid(),info.getClassno()));
+				}
+			}
 			mav.addObject("cls",cls);
 			mav.addObject("tutor",tutor);
 			mav.addObject("clsinfo", clsinfo);			
