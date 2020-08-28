@@ -57,4 +57,10 @@ public interface ClassInfoMapper {
 			"AND a.classid = #{classid} " + 
 			"AND a.classno = #{classno} ")
 	Date enddate(Map<String, Object> param);
+	
+	@Select("select * from classinfo where classid=#{classid} limit #{totaltime}")
+	List<Classinfo> classCurri(Map<String, Object> param);
+
+	@Select("select * from classinfo where classid=#{classid} and classno=#{classno} and classseq!=1")
+	List<Classinfo> classSeq(Map<String, Object> param);
 }

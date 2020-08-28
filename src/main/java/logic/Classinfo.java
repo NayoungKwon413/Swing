@@ -12,7 +12,7 @@ public class Classinfo {
 	private String place;
 	private String title;
 	private String curri;
-
+	private List<Classinfo> list;
 	//setter, getter
 
 	private List<String> titlelist;
@@ -85,6 +85,12 @@ public class Classinfo {
 	}
 	public void setCurrilist(List<String> currilist) {
 		this.currilist = currilist;
+	}
+	public List<Classinfo> getList() {
+		return list;
+	}
+	public void setList(List<Classinfo> list) {
+		this.list = list;
 	}
 	@Override
 	public String toString() {

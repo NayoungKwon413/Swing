@@ -34,7 +34,7 @@ public interface ChattingMapper {
 			"<if test='roomno==0'> and roomno IN (SELECT roomno FROM chatting WHERE userid=#{userid}) </if>",
 			"<if test='roomno!=0'> and roomno=#{roomno}</if>",
 			"</script>"}) 
-	int newtalk(Map<String, Object> param);
+	int tuteenewtalk(Map<String, Object> param);
 
 	@Select("SELECT c.roomno, c.userid, c.classid, c.chat, c.chatdate, c.readcheck, u.file, u.name " + 
 			"FROM chatting c, user u " + 
@@ -60,7 +60,15 @@ public interface ChattingMapper {
 			"<if test='type==0'>(SELECT roomno FROM chatting WHERE userid=#{userid}) AND c1.classid=c.classid AND " + 
 			"c.userid = u.userid AND c.userid!=#{userid}</if>",
 			"<if test='type==1'>(SELECT distinct(ch.roomno) FROM chatting ch JOIN class c ON ch.classid = c.classid WHERE c.userid=#{userid}) AND " + 
-			"u.userid = c1.userid</if>",
+			"u.userid = (SELECT userid FROM chatting WHERE roomno=c1.roomno LIMIT 1) GROUP BY c1.roomno</if>",
 			"</script>"})
 	List<Chatting> getchat(Map<String, Object> param);
+
+	@Select({"<script>",
+		"select ifnull(count(*),0) from chatting "+
+		"where userid!=#{userid} and readcheck=1 ",
+		"<if test='roomno==0'> and roomno IN (SELECT ch.roomno FROM chatting ch JOIN class c ON ch.classid=c.classid WHERE c.userid=#{userid}) </if>",
+		"<if test='roomno!=0'> and roomno=#{roomno}</if>",
+		"</script>"}) 
+	int tutornewtalk(Map<String, Object> param);
 }
