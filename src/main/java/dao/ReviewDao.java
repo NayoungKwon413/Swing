@@ -45,5 +45,17 @@ public class ReviewDao {
 		param.put("classno", classno);
 		return template.getMapper(ReviewMapper.class).already(param);
 	}
+
+	public void update(Review review) {
+		template.getMapper(ReviewMapper.class).update(review);
+	}
+
+	public void delete(Integer reviewno) {
+		template.getMapper(ReviewMapper.class).delete(reviewno);
+	}
+
+	public Review selectOne(Integer reviewno) {
+		return template.getMapper(ReviewMapper.class).selectOne(reviewno);
+	}
 	
 }

@@ -447,4 +447,16 @@ public class ShopService {
 	public Date enddate(Integer classid, Integer classno) {
 		return classinfoDao.enddate(classid,classno);
 	}
+
+	public void reviewUpdate(Review review) {
+		reviewDao.update(review);
+	}
+
+	public void reviewDelete(Integer reviewno) {
+		reviewDao.delete(reviewno);
+	}
+
+	public Review getReviewOne(Integer reviewno) {
+		return reviewDao.selectOne(reviewno);
+	}
 }

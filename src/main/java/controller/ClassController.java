@@ -87,6 +87,53 @@ public class ClassController {
 		return mav;
 	}
 	
+	@GetMapping("reviewEdit")
+	public ModelAndView reviewEditForm(Integer reviewno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Review review = null;
+		try {
+			review = service.getReviewOne(reviewno);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("review",review);
+		return mav;
+	}
+	
+	@PostMapping("reviewEdit")
+	public ModelAndView reviewEdit(Review review, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			service.reviewUpdate(review);
+			System.out.println(review);
+			System.out.println("수정완료");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("등록실패");
+		}
+	
+		return mav;
+	}
+	
+	@RequestMapping("reviewDelete")
+	public ModelAndView reviewDelete(Integer reviewno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Review re = service.getReviewOne(reviewno);
+		try {
+			service.reviewDelete(reviewno);
+			
+			System.out.println("리뷰삭제완료");
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰삭제실패");
+		}
+		mav.setViewName("redirect:datail.shop?classid="+ re.getClassid());
+		//mav.setViewName("redirect:javascript:Move('review')");
+		return mav;
+	}
+	
+	
 	@GetMapping("detail")
 	public ModelAndView detail(Integer classid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
