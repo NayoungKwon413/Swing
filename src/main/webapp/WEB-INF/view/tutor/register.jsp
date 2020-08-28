@@ -87,7 +87,39 @@ $(document).ready(function(){
 		$("#numtutee").hide();
 		$("#num").hide();
 	}
-	
+	if(${clas.location2 != null}) {
+		var area = "${clas.location1}";
+		console.log(area);
+		if(area=='서울'){
+			msg = "<select id='location2'>"+
+				"<option value='강남'>강남</option>"+
+				"<option value='건대'>건대</option>"+
+				"<option value='잠실'>잠실</option>"+
+				"<option value='종로'>종로</option>"+
+				"<option value='홍대'>홍대</option>"+
+				"</select>";
+		}else if(area=='경기'){
+			msg = "<select id='location2'>"+
+			"<option value='분당'>분당</option>"+
+			"<option value='부천'>부천</option>"+
+			"<option value='수원'>수원</option>"+
+			"<option value='안산'>안산</option>"+
+			"<option value='안양'>안양</option>"+
+			"<option value='일산'>일산</option>"+
+			"</select>";
+		}else if(area=='인천'){
+			msg = "<select id='location2'>"+
+			"<option value='부평'>부평</option>"+
+			"<option value='송도'>송도</option>"+
+			"</select>"
+		}else{
+			msg="<select id='area'>"+
+				"<option value=''>지역을 선택하세요</option>"+
+				"</select>";
+		}
+		$("#location2").html(msg);
+		$("#location2").val('${clas.location2}').prop("selected",true);
+	}
 	$("#numclass").hide();
 	
 	$('input[name="maxtutee"]').change(function() {
@@ -209,6 +241,11 @@ function vaildation(kbn){
 		if(document.f.maxtutee.value==''){
 			alert('참여인원을 설정하세요.');
 			document.f.maxtutee.focus();
+			return false;
+		}
+		if(document.f.numtutee.value>8){
+			alert('참여인원은 최대 8명까지 가능합니다.');
+			document.f.numtutee.focus();
 			return false;
 		}
 		if(document.f.subject.value==''){
