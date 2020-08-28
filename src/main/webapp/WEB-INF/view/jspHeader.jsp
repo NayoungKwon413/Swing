@@ -6,4 +6,4 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="port" value="${pageContext.request.localPort}" />
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="imgpath" value="192.168.0.171" />
+<c:set var="server" value="192.168.0.171" />

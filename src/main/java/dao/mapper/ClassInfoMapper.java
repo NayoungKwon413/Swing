@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +30,11 @@ public interface ClassInfoMapper {
 			"WHERE classid=#{classid}")
 	int maxnum(Integer classid);
 
-	@Select("INSERT INTO classinfo(classid,classno,classseq,date,starttime,endtime,place,title,curri,seqstate) " + 
-			"VALUES(#{classid},#{classno},#{classseq},#{date},#{starttime},#{endtime},#{place},#{title},#{curri},1) ")
+	@Select("INSERT INTO classinfo(classid,classno,classseq,date,starttime,endtime,place,title,curri) " + 
+			"VALUES(#{classid},#{classno},#{classseq},#{date},#{starttime},#{endtime},#{place},#{title},#{curri}) ")
 	void register(Classinfo classinfo);
 	
-	@Select("UPDATE classinfo SET DATE=#{date}, starttime=#{starttime}, endtime=#{endtime}, place=#{place}, seqstate=1 " + 
+	@Select("UPDATE classinfo SET DATE=#{date}, starttime=#{starttime}, endtime=#{endtime}, place=#{place}" + 
 			"WHERE classid = #{classid} " + 
 			"AND classno = #{classno} " + 
 			"AND classseq = #{classseq} ")
@@ -49,4 +50,11 @@ public interface ClassInfoMapper {
 	@Select("select * from classinfo where classid=#{classid}")
 	List<Classinfo> selectall(Map<String, Object> param);
 
+	@Select("SELECT max(CONCAT(DATE,' ',ci.endtime)) 'enddate' " + 
+			"FROM classinfo ci, applylist a " + 
+			"WHERE ci.classid = a.classid  "+ 
+			"AND ci.classno = a.classno " + 
+			"AND a.classid = #{classid} " + 
+			"AND a.classno = #{classno} ")
+	Date enddate(Map<String, Object> param);
 }

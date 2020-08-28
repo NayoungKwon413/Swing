@@ -151,7 +151,7 @@ public interface ClassMapper {
 
 	@Select({"<script>",
 			"SELECT c.classid, c.userid , c.location2 , c.subject , c.coverimg  , max(ci.date) DATE , u.file , u.name ,"+
-			" COUNT(distinct(a.userid) ) totaltutee,  AVG(r.star) staravg , COUNT(DISTINCT(r.reviewno)) reviewcnt " + 
+			" COUNT(distinct(a.userid) ) totaltutee,  AVG(r.star) staravg , COUNT(*) reviewcnt " + 
 			"FROM class c " + 
 			"left outer JOIN classinfo ci ON c.classid = ci.classid " + 
 			"left outer JOIN user u ON c.userid = u.userid " + 
@@ -164,7 +164,7 @@ public interface ClassMapper {
 			"limit 3",
 			"</script>"})
 	List<Class> mainlist(Map<String, Object> param);
-
+  
 
 	
 }

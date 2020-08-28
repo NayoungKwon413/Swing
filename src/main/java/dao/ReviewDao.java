@@ -37,4 +37,13 @@ public class ReviewDao {
 		param.put("classid", classid);
 		return template.getMapper(ReviewMapper.class).cnt(classid);
 	}
+
+	public Integer alreadyReview(String userid, Integer classid, Integer classno) {
+		param.clear();
+		param.put("userid", userid);
+		param.put("classid", classid);
+		param.put("classno", classno);
+		return template.getMapper(ReviewMapper.class).already(param);
+	}
+	
 }

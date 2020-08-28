@@ -71,7 +71,12 @@ body {
             <div class="team-item wow fadeInRight animated" data-wow-delay="0.2s" style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
                <div class="team-img">
                   <!-- <img class="img-fluid" src="../class/save/${c.userid}_${c.coverimg}" alt=""> -->
-                  <img class="img-fluid" src="${path}/assets/img/team/team-3.jpg" alt="">
+                  <c:if test="${c.coverimg!=null && !c.coverimg.equals('')}">
+                  		<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${c.classid}_${c.coverimg}" alt="">
+                  </c:if>
+                  <c:if test="${c.coverimg==null || c.coverimg.equals('')}">
+                  		<img class="img-fluid" src="../assets/img/portfolio/portfolio-7.jpg" alt="">
+                  </c:if>
                </div>
                <div class="contetn">
                   <div class="info-text" onclick="location.href ='../class/detail.shop?classid=${c.classid}'" style="cursor:pointer;">

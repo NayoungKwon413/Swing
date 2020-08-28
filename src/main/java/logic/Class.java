@@ -22,7 +22,6 @@ public class Class {
 	private String tutorintro;
 	private String classintro;
 	private int level;
-	private int readcnt;
 	private double state;
 	private Date regdate;
 	//참여인원수
@@ -30,7 +29,6 @@ public class Class {
 	//클래스 리뷰 평점, 갯수
 	private double staravg;
 	private int reviewcnt;
-	
 	// tutor my.jsp 에 join을 통해 가져온 정보
 	private String nickname;
 	private String name;
@@ -139,12 +137,6 @@ public class Class {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public int getReadcnt() {
-		return readcnt;
-	}
-	public void setReadcnt(int readcnt) {
-		this.readcnt = readcnt;
-	}
 	public double getState() {
 		return state;
 	}
@@ -222,7 +214,7 @@ public class Class {
 				+ location2 + ", category=" + category + ", type=" + type + ", maxtutee=" + maxtutee + ", subject="
 				+ subject + ", coverimg=" + coverimg + ", price=" + price + ", time=" + time + ", totaltime="
 				+ totaltime + ", totalprice=" + totalprice + ", tutorintro=" + tutorintro + ", classintro=" + classintro
-				+ ", level=" + level + ", readcnt=" + readcnt + ", state=" + state + ", regdate=" + regdate
+				+ ", level=" + level + ", state=" + state + ", regdate=" + regdate
 				+ ", nickname=" + nickname + ", name=" + name + ", date=" + date + "]";
 	}
 	

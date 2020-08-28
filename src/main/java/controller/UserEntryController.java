@@ -90,31 +90,39 @@ public class UserEntryController {
 			
 			user.setEmail(email);
 			
-		    if(user.getFileurl().length()>0) {
+			try {
+
 				String path = request.getServletContext().getRealPath("/")+"user/save/";
-				try {
-					    File f = new File(path);
-					    if(!f.exists()){
-					    	f.mkdirs(); //폴더 생성됨
-					    }
-					String str = user.getFileurl();
+				
+				File f = new File(path);
+			    if(!f.exists()){
+			    	f.mkdirs(); //폴더 생성됨
+			    }
+			    
+			    BufferedImage bi = null;
+			    
+			    if(user.getFileurl().length()>0) {
+			    	String str = user.getFileurl();
 					byte[] imagedata = java.util.Base64.getDecoder().decode(str.substring(str.indexOf(",") + 1));
-					BufferedImage bi = ImageIO.read(new ByteArrayInputStream(imagedata));
-					
-					int width = bi.getWidth();
-					int height = bi.getHeight();
-					BufferedImage thumb = new BufferedImage
-							(width,height,BufferedImage.TYPE_INT_RGB);
-					Graphics2D g = thumb.createGraphics();
-					g.drawImage(bi,0,0,width,height,null);
-					f = new File(path+user.getUserid()+"_"+user.getFile());
-					ImageIO.write(thumb,"png",f);
-					user.setFileurl("");
-					
-				}catch(IOException e) {
-					e.printStackTrace();
-				}
-			}			
+					bi = ImageIO.read(new ByteArrayInputStream(imagedata));
+			    }else {
+			    	bi = ImageIO.read(new File("../assets/img/icon/back.png"));
+			    }
+			    		
+				int width = bi.getWidth();
+				int height = bi.getHeight();
+				BufferedImage thumb = new BufferedImage
+						(width,height,BufferedImage.TYPE_INT_RGB);
+				Graphics2D g = thumb.createGraphics();
+				g.drawImage(bi,0,0,width,height,null);
+				f = new File(path+user.getUserid()+"_"+user.getFile());
+				ImageIO.write(thumb,"png",f);
+				user.setFileurl("");
+			    
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		    
 			service.userInsert(user);
 			
 		}catch(Exception e) {
@@ -157,8 +165,12 @@ public class UserEntryController {
 			throw new LoginException("오류가 발생했습니다. 전산부로 문의해주세요","password.shop?id="+userid);
 		}
 
-		mav.addObject("userid",userid);
-		 return mav;
+		//mav.addObject("userid",userid);
+
+		mav.setViewName("/alert");
+		mav.addObject("msg",userid+"님의 비밀번호가 변경 되었습니다.");
+		mav.addObject("url","/swing/user/password.shop?id="+userid);
+     	return mav;
 	}
 	
 	@PostMapping("login")
@@ -351,7 +363,7 @@ public class UserEntryController {
 
 	
 	@PostMapping("findpw")
-	public ModelAndView findpw(String id,String email,HttpServletRequest request,HttpSession session){
+	public ModelAndView findpw(String id,String email,String pass,HttpServletRequest request,HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		try{
 			if(id.equals("")||id.equals(null)||email.equals("")||email.equals(null)) {
@@ -370,9 +382,11 @@ public class UserEntryController {
 				mail.setReason(randompass);
 				mail.setRecipient(user.getEmail());
 				mail.setNaverid(admin.getEmail());
-				mail.setNaverpw("");
+				mail.setNaverpw(pass);
 				mail.mailSend(mail);
-				service.userUpdate(user);
+				service.userUpdate(user);				
+				mail.mailSend(mail);
+		
 			}
 			else {
 				//에러처리

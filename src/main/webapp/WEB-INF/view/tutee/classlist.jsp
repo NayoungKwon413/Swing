@@ -89,10 +89,10 @@ a:hover {
 						<fmt:formatNumber value="${course.totalprice}" type="currency"/>
 					</div>
 					<div class="btn-box">
-					<a href="javascript:reviewPop(${course.classid})"class="btn tp1" id="btn-write-review">리뷰쓰기</a>
+					<a href="javascript:reviewPop(${course.classid},${course.classno})"class="btn tp1" id="btn-write-review">리뷰쓰기</a>
 					<script>
-						function reviewPop(classid){
-							window.open('${path}/class/review.shop?classid='+classid,'','width=500,height=600,menubar=no,status=no,toolbar=no')
+						function reviewPop(classid,classno){
+							window.open('${path}/class/review.shop?classid='+classid+'&classno='+classno,'','width=500,height=600,menubar=no,status=no,toolbar=no')
 						}
 					</script>
 					</div>

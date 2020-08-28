@@ -66,11 +66,11 @@ public class ChattingDao {
 		return template.getMapper(ChattingMapper.class).roomno(param);
 	}
 
-	public List<Chatting> getchat(String userid, String type) {
+	public List<Chatting> getchat(String userid, int type) {
 		param.clear();
 		param.put("userid", userid);
 		param.put("type", type);
 		return template.getMapper(ChattingMapper.class).getchat(param);
 	}
-
+  
 }

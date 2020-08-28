@@ -40,28 +40,37 @@ public class talkController {
 	public ModelAndView mainTutee(String userid) {
 		ModelAndView mav = new ModelAndView();
 		int cnt=0;
-		String type="tutee";
-		List<Chatting> chat = service.getchat(userid,type);
-		for(Chatting ch : chat) {
-			ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
-			cnt+=ch.getNewtalk();
+		int type=0;
+		try {
+			List<Chatting> chat = service.getchat(userid,type);
+			for(Chatting ch : chat) {
+				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
+				cnt+=ch.getNewtalk();
+			}
+			mav.addObject("chat",chat);
+			mav.addObject("cnt",cnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		mav.addObject("chat",chat);
-		mav.addObject("cnt",cnt);
+
 		return mav;
 	}
 	@RequestMapping("mainTutor")
 	public ModelAndView mainTutor(String userid) {
 		ModelAndView mav = new ModelAndView();
 		int cnt=0;
-		String type="tutor";
-		List<Chatting> chat = service.getchat(userid,type);
-		for(Chatting ch : chat) {
-			ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
-			cnt+=ch.getNewtalk();
+		int type=1;
+		try {
+			List<Chatting> chat = service.getchat(userid,type);
+			for(Chatting ch : chat) {
+				ch.setNewtalk(service.newtalk(ch.getRoomno(),userid));
+				cnt+=ch.getNewtalk();
+			}
+			mav.addObject("chat",chat);
+			mav.addObject("cnt",cnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		mav.addObject("chat",chat);
-		mav.addObject("cnt",cnt);
 		return mav;
 	}
 	@RequestMapping("detail")
@@ -138,6 +147,6 @@ public class talkController {
 	public String check(String userid) {
 		int check = service.newtalk(0,userid);
 		return check+"";
-	}
+	}  
 	
 }

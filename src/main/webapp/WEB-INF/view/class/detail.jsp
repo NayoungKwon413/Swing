@@ -89,7 +89,7 @@
 		</div>
 		<!-- 상단 이미지 부분 -->
 		<div class="class_img">
-			<img src="${path}/assets/img/${cls.coverimg}">
+			<img src="http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}">
 		</div>
 		<div class="class_d_wrqp">
 			<div id="class_navi" class="class_navi fixedLayer" style="left:0px;">
@@ -220,10 +220,12 @@
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
 					<h1>리뷰(${fn:length(review)} )</h1>
+					<c:if test="${classno!=0}">
 					<a href="javascript:reviewPop()"class="btn_st" id="btn-write-review">리뷰쓰기</a>
+					</c:if>
 					<script>
 						function reviewPop(){
-							window.open('review.shop?classid=${param.classid}','','width=500,height=600,menubar=no,status=no,toolbar=no')
+							window.open('review.shop?classid=${param.classid}&classno=${classno}','','width=500,height=600,menubar=no,status=no,toolbar=no')
 						}
 					</script>
 					<div class="review_box">

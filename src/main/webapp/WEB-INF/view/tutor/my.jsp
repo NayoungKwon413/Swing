@@ -78,26 +78,26 @@
          <div class="row">
          <c:if test="${classcount > 0}">
          <c:forEach var="cl" items="${classlist}">
-      	      	
          <div class="col-lg-4" style="cursor:pointer;">
                 <div class="team-img" 
                 	 onclick="page('<c:if test="${cl.state == 4}">register-class.shop?classid=${cl.classid}</c:if><c:if test="${cl.state == 1}">register.shop</c:if>')">                	 
                	  <c:if test="${cl.state == 1}">
                   	<label class="badge badge-success">등록진행중</label>
-                  	<img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-3.jpg" alt="">
+                  	<img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 2}">
                   	<label class="badge badge-success">승인대기중</label>
-                  	<img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-1.jpg" alt="">
+                  	<img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 3}">
                   	<label class="badge badge-danger">반&nbsp;려</label>
-                  	<img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-5.jpg" alt="">
+                    <img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
                   </c:if>
                   <c:if test="${cl.state == 4}">
                   	<label class="badge badge-success">승인완료</label>
-                  	<img class="img-fluid" src="${path}/assets/img/portfolio/portfolio-2.jpg" alt="">
-                  </c:if>
+                  	<img class="img-fluid" src="http://${imgpath}:${port}${path}/class/coverimg/${cl.classid}_${cl.coverimg}" alt="">
+                  </c:if> 
+                  
                </div>
                <div class="contetn">
                   <div class="info-text">                

@@ -41,6 +41,33 @@
     transition: 0.3s;
     border-radius: 0 4px 4px 0;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+.checkwork input[type="submit"]{
+    border: none;
+    /* background-color: aquamarine; */
+    /* position: absolute; */
+    top: 0;
+    right: -2px;
+    bottom: 0;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    padding: 5px 20px;
+    background: #c2baba;
+    color: #fff;
+    transition: 0.3s;
+    border-radius: 4px 4px 4px 4px;
+    outline: none;
+}
+.checkwork input[type="submit"]:hover{
+	opacity: 0.8;
+}
+
+span{
+margin: 0px 10px;
+color: #706c6c;
+font-size: 14px;
 }
 </style>
 </head>
@@ -64,9 +91,9 @@
       <div class="container">
           <div style="text-align: right;">
           <a href="#info1"><h2>회원 목록</h2></a>
-          <a href="#info1" class="select">전체(${usercount})</a>&nbsp;|
-          <a href="#info2">튜터(${tutorcnt})</a>&nbsp;|
-          <a href="#info3">튜티(${tuteecnt})</a>
+          <span>전체 회원 ${usercount}명</span>
+          <span>튜터 ${tutorcnt}명</span>
+          <span>튜티 ${tuteecnt}명</span>
           <hr style="margin-top: 15px;">
           </div>
           <div class="row">
@@ -87,7 +114,7 @@
 					</div>
 		   </form>
            </div>
-           <div style="width: calc(60% - 15px); text-align: right;">
+           <div class="checkwork" style="width: calc(60% - 15px); text-align: right;">
 	           <input type="submit" value="선택탈퇴">
 	           <input type="submit" value="선택메일">
            </div>
@@ -111,8 +138,8 @@
                       <tbody>
                       <c:forEach items="${list}" var="user">
                         <tr>
-                          <td><c:if test="${user.file!=null}">
-                          <img style="width:64px; height: 64px; border-radius: 30px 30px 30px 30px;"src="http://${imgpath}:${port}${path}/user/save/${user.userid}_${user.file}">
+                          <td><c:if test="${user.file!=null && !user.file.equals('')}">
+                          <img style="width:64px; height: 64px; border-radius: 30px 30px 30px 30px;"src="http://${server}:${port}${path}/user/save/${user.userid}_${user.file}">
                           </c:if></td>
                           <td>${user.userid}</td>
                           <td>${user.name}</td>

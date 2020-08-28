@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,5 +82,12 @@ public class ClassInfoDao {
 		param.clear();
 		param.put("classid",classid);
 		return template.getMapper(ClassInfoMapper.class).selectall(param);
+	}
+
+	public Date enddate(Integer classid, Integer classno) {
+		param.clear();
+		param.put("classid",classid);
+		param.put("classno",classno);
+		return template.getMapper(ClassInfoMapper.class).enddate(param);
 	}
 }

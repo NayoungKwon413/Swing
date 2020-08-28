@@ -118,7 +118,7 @@
       						<li class="swiper-slide" style="margin-left:50px; margin-right:0;">
       					</c:if>
       							<a href="detail.shop?classid=${cls.classid}">
-      								<div class="img" style="background-image:url('${path}/assets/img/${cls.coverimg}');"></div>
+      								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}');"></div>
       								<p class="t1">${cls.subject}</p>
       								<div class="t2">
       									<span class="profile">
@@ -160,7 +160,7 @@
       						<li class="swiper-slide" style="margin-left:50px; margin-right:0;">
       					</c:if>
       							<a href="detail.shop?classid=${cls.classid}">
-      								<div class="img" style="background-image:url('${path}/assets/img/${cls.coverimg}');"></div>
+      								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}');"></div>
       								<p class="t1">${cls.subject}</p>
       								<div class="t2">
       									<span class="profile">
@@ -173,7 +173,7 @@
       								</div>
       							</a> 
       							<div class="t3">
-      								<span class="num">${cls.totaltutee}</span>
+      								<span class="num">${cls.totaltutee}명 참여</span>
       								<fmt:formatNumber value="${cls.staravg}" var="staravg" pattern=".0"/>
       								<span class="score">${staravg}(${cls.reviewcnt})</span>
       								<%--<button class="btn_wish" type="button" onclick="javascript:wish(${cls.classid})"></button>--%>

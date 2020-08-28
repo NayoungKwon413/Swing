@@ -11,17 +11,19 @@
 <link href="${path}/assets/css/talk.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 </head>
-<body>
+<body>  
 <input type="hidden" id="cnt" value="${cnt}">
 	<div id="pop_qna">
 		<div class="q_tab">
 			<ul>
 				<li><a href="mainTutee.shop?userid=${param.userid}">수강생</a>
+				</li>
+				<li><a href="#">튜터</a>
 					<c:if test="${cnt>0}">
 						<div class="newtalk" style="position: relative; right: 4em; margin: 0;">N</div>
 					</c:if>
 				</li>
-				<li><a href="#">튜터</a></li>
+
 			</ul>
 		</div>
 		<!-- 리스트 시작 -->

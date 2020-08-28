@@ -62,7 +62,12 @@ body {
          <div class="col-lg-6 col-md-12 col-xs-12" onclick="location.href ='../class/detail.shop?classid=${c.classid}'" style="cursor:pointer;">
             <div class="team-item wow fadeInRight animated" data-wow-delay="0.2s" style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
                <div class="team-img">
-                  <img class="img-fluid" src="${path}/assets/img/team/team-2.jpg" alt="">
+               <c:if test="${c.coverimg!=null && !c.coverimg.equals('')}">
+                  		<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${c.classid}_${c.coverimg}" alt="">
+                  </c:if>
+                  <c:if test="${c.coverimg==null || c.coverimg.equals('')}">
+                  		<img class="img-fluid" src="../assets/img/portfolio/portfolio-7.jpg" alt="">
+                  </c:if>
                </div>
                <div class="contetn">
                   <div class="info-text">

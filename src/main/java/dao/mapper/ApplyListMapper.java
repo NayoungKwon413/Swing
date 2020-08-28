@@ -34,7 +34,7 @@ public interface ApplyListMapper {
 			"and a.classno=#{classno}")
 	int curseq(Map<String, Object> param);
 	
-	@Select("select ifnull(max(applyno),0) from applylist")
+	@Select("select ifnull(max(*),0) from applylist")
 	int maxnum();
 
 	@Insert("insert into applylist(userid, classid, classno,applydate) values(#{userid}, #{classid}, #{classno},now())")
@@ -47,7 +47,12 @@ public interface ApplyListMapper {
 			"AND a.classno = #{classno}")
 	List<User> select(Map<String, Object> param);
 
-	@Select("select * from applylist where userid=#{userid} and classid=#{classid}")
+	@Select("select * from applylist where userid=#{userid} and classid=#{classid} and classno=#{classno}")
 	ApplyList selectOne(Map<String, Object> param);
+
+	@Select("SELECT MAX(classno) classno FROM applylist " + 
+			"WHERE userid=#{userid} " + 
+			"AND classid=#{classid}")
+	Integer maxclassno(Map<String, Object> param);
 	
 }

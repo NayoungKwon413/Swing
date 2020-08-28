@@ -88,7 +88,7 @@ hr{
 		    	<div class="title">프로필-</div>
 				<div style="margin: 30px 0">
 					<img class="upf_b button"  src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
-	                <div class="upf" id="picture-cover"  style="background-image:url('')">
+	                <div class="upf" id="picture-cover"  style="background-image:url('../assets/img/user.png')">
 	                    <form:input path="" type="file"  style="width:150px;height:130px;opacity:0;" accept="image/*" onchange="setThumbnail(event);" value=""/>
 	                    <form:input path="file" type="hidden" id="file1" name="file1" value=""/>
                         <form:input path="fileurl" type="hidden" id="fileurl" name="fileurl"/>
@@ -126,12 +126,12 @@ hr{
 	        </div>
 	        <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>비밀번호-</div>
-	                <form:input path="pass" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
+	                <form:input path="pass" type="password" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
 	                <font color="red"><form:errors path="pass"/></font>
 	        </div>
 	        <div class="form-group">
 				<div class="title"><span style="color:#f21616;">*</span>비밀번호 확인-</div>
-	                <form:input path="pass1" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 한번 더 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
+	                <form:input path="pass1" type="password" class="form-cont" name="subject" id="subject" placeholder="비밀번호를 한번 더 입력해주세요" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject"/>
 	                <font color="red"><form:errors path="pass1"/></font>
 	        </div>
 	        <div class="form-group">

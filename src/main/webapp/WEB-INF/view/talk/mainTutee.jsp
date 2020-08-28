@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!-- width:500 height:650 설정 -->
 <!DOCTYPE html>
-<html>
+<html>  
 <head>
 <meta charset="UTF-8">
 <title>실시간톡메인_튜터</title>

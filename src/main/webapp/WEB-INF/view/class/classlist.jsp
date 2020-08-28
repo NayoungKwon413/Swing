@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 				    }			     
 			})
 		})
-		
+		/*
 		function listdo(page){
 		      var pageNum = page;
 		      var location1 = ${param.locion1};
@@ -28,6 +28,7 @@
 		      location.href = "classlist.shop?location1="+location1+"&lcoation2="+location2+"&type="+type+
 		      				"&maxtutee="+maxtutee+"&pageNum="+pageNum;
 		     }
+    */
 </script>
 </head>
 <body>
@@ -188,8 +189,10 @@
 		<div class="filter_head" style="margin-top:0px;">
 			<div class="sorted">
 				<ul id="sorted">
-					<li><a href="classlist.shop?sorted=1">최신 등록순</a></li>
-					<li><a href="classlist.shop?sorted=2">별점순</a></li>
+					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=1">최신 등록순</a></li>
+					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=2">별점순</a></li>
 				</ul>
 			</div>
 			<div class="num_class">
@@ -277,10 +280,9 @@
 		      <c:forEach var="a" begin="${startpage}" end="${endpage}">
 		      <c:if test="${pageNum==a}"><a>${a}</a></c:if>
 		      <c:if test="${pageNum!=a}">
-		      	<a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
-		      				&maxtutee=${param.maxtutee}&pageNum=${a}">${a}</a></c:if>
+		      	<a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${a}">${a}</a></c:if>
 		      </c:forEach> 
-		      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png"></c:if> 
+		      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></c:if> 
 		      <c:if test="${pageNum<maxpage}"><a href="javascript:listdo('${pageNum+1}')">
 		      <img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></a></c:if>
 		</div>
