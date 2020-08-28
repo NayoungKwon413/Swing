@@ -72,11 +72,11 @@ public interface TutorMapper {
 	@Select("SELECT ifnull(sum(c.totalprice),0) tot1 FROM class c, applylist a" + 
 			"	WHERE c.classid = a.classid AND c.userid=#{userid}" + 
 			"	AND YEAR(a.applydate)=YEAR(NOW()) AND MONTH(a.applydate)=MONTH(NOW())-1" + 
-			"	union" + 
+			"	union all " + 
 			"	SELECT ifnull(sum(c.totalprice),0) tot2 FROM class c, applylist a" + 
 			"	WHERE c.classid = a.classid AND c.userid=#{userid}" + 
 			"	AND YEAR(a.applydate)=YEAR(NOW()) AND MONTH(a.applydate)=MONTH(NOW())" + 
-			"	union" + 
+			"	union all " + 
 			"	SELECT ifnull(SUM(c.totalprice),0) tot3 FROM class c, applylist a" + 
 			"	WHERE c.classid = a.classid AND c.userid=#{userid}")
 	List<Integer> selectTotPrice(String userid);
@@ -88,18 +88,4 @@ public interface TutorMapper {
 			+ " limit 0,4")
 	List<Review> getAvgStar(Map<String, Object> param);
 
-	
-//	@Select({"<script>",
-//		"SELECT c.classid, max(i.classno), max(i.classseq), c.userid, c.subject, i.date, c.coverimg, c.location1, c.location2, c.regdate, c.state",
-//		" FROM classinfo i JOIN class c ON i.classid=c.classid JOIN user u ON c.userid=u.userid",
-//		" WHERE u.userid=#{userid} AND c.state>4",
-//		" GROUP BY c.classid",
-//		"</script>"})
-//	List<Class> selectforConfirm(Map<String, Object> param);
-
-	
-	
-	
-
-	
 }

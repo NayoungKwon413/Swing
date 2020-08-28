@@ -296,4 +296,27 @@ ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 	
+
+	   @RequestMapping("mytutor")
+	   public ModelAndView mytutor(String id, Integer state, HttpSession session) {
+	      ModelAndView mav = new ModelAndView();      
+	      User user = service.getUser(id);
+	      List<logic.Class> classlist = service.getClassList2(user.getUserid(), state);
+	      int classcount = service.classCount2(user.getUserid(), state);
+	      List<Classinfo> classinfolist = service.getClassInfoList(user.getUserid(), state);
+	      Date today = new Date();
+	      for(int i=0; i<classlist.size(); i++) {
+	         logic.Class cl = service.getClass(classlist.get(i).getClassid());
+	         Date classdate = service.getClDate(cl.getClassid());
+	         if(classdate.before(today)) {
+	            service.updateState(user.getUserid(),cl.getClassid());
+	         }
+	      }
+	      mav.addObject("classlist", classlist);
+	      mav.addObject("classinfolist", classinfolist);
+	      mav.addObject("classcount", classcount);
+	      mav.addObject("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+	      return mav;
+	   }
+	
 }

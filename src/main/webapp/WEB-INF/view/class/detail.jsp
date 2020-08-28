@@ -12,8 +12,16 @@
 	section {
     height: 200em;
 	}
+	.reviewOption {
+	text-align:right;
+	}
 </style>
 <script type="text/javascript">
+function delreview(reno) {
+	location.href="reviewDelete.shop?reviewno="+reno
+	alert("리뷰가 삭제되었습니다.");
+}
+
 	$(function(){
 //		var height=$('section').height();
 		var height=$('.class_wrap').height()+50;
@@ -24,6 +32,10 @@
 		$('section').height(height+"px");
 		
 	})
+	
+	function reviewPop(url){
+				window.open(url,'','width=500,height=600,menubar=no,status=no,toolbar=no')
+	}
 </script>
 <script>
 	var b_box=0;
@@ -215,7 +227,7 @@
 			<div class="class_detail" id="sumary">
 				<div class="class_name">
 					<div class="tutor_img">
-						<img alt="" src="${path}/assets/img/${tutor.file}">
+						<img alt="" src="http://${server}:${port}${path}/user/save/${cls.userid}_${tutor.file}">
 					</div>
 					<div class="name">${tutor.name}</div>
 				</div>
@@ -320,12 +332,9 @@
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
 					<h1>리뷰(${reviewcnt})</h1>
-					<a href="javascript:reviewPop()"class="btn_st" id="btn-write-review">리뷰쓰기</a>
-					<script>
-						function reviewPop(){
-							window.open('review.shop?classid=${param.classid}','','width=500,height=600,menubar=no,status=no,toolbar=no')
-						}
-					</script>
+					<c:if test="${classno!=0}">
+					<a href="javascript:reviewPop('review.shop?classid=${param.classid}&classno=${classno}')"class="btn_st" id="btn-write-review">리뷰쓰기</a>
+					</c:if>
 					<div class="review_box">
 							<span class="star star_left"></span>
 						    <span class="star star_right"></span>
@@ -369,6 +378,12 @@
 														${re.name}
 													</div>
 												</div>
+												<c:if test="${re.userid == sessionScope.loginUser.userid}">
+												<div class="reviewOption">
+													<a href="javascript:reviewPop('reviewEdit.shop?reviewno=${re.reviewno}')">수정</a> |
+													<a onclick="delreview(${re.reviewno})">삭제</a>
+												</div>
+												</c:if>
 												<div class="review_content">
 													<div class="content">
 														${re.content}

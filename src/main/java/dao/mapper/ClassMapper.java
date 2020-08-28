@@ -117,11 +117,11 @@ public interface ClassMapper {
 	@Select("	SELECT sum(c.totalprice) tot1 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid " + 
 			"	AND YEAR(u.applydate)=YEAR(NOW()) AND MONTH(u.applydate)=MONTH(NOW())-1 " + 
-			"	union " + 
+			"	union all" + 
 			"	SELECT sum(c.totalprice) tot2 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid " + 
 			"	AND YEAR(u.applydate)=YEAR(NOW()) AND MONTH(u.applydate)=MONTH(NOW()) " + 
-			"	union " + 
+			"	union all" + 
 			"	SELECT SUM(c.totalprice) tot3 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid ")
 	List<Integer> selectPrice();

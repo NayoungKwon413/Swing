@@ -49,11 +49,13 @@ function input(f,n){
      }
    }
 }
+
 function timechange(i){
   	date = new Date('2020-01-01 ' +$('#starttime'+i).val());
-  	date.setHours(date.getHours()+ ${c.time});
+  	date.setHours(date.getHours()+ ${c.time} );
    	$('#endtime'+i).val(date.getHours()+":"+date.getMinutes());
 }
+
 function goPopup(i){
 	var pop = window.open("../popup/jusoPopup.shop?num="+i,"pop","width=570, height=420, scrollbars=yes, resizable=yes");
 }
@@ -78,7 +80,7 @@ function jusoCallBack(num,roadFullAddr){
          </div>
          <div class="apply">
             <div class="profile_box">
-               <div class="profile" style="background-image:url('${path}/assets/img/${tutorimg}')"></div>
+               <div class="profile" style="background-image:url('http://${server}:${port}${path}/user/save/${c.userid}_${tutorimg}')"></div>
                <p class="triangle-border top gray" style="margin-top:50px">
                   곧 수업이 등록됩니다!<br>
                   <span>장소,날짜,시간</span>을 선책해주세요.
@@ -127,7 +129,7 @@ function jusoCallBack(num,roadFullAddr){
                         <div class="top">
                            <div class="text">
                               시간: <form:input type="time" path="classinfos[0].starttime" id="starttime0" onchange="timechange(0)"/>
-                              ~ <form:input type="time" path="classinfos[0].endtime" id="endtime0" readonly="true"/>                              
+                              ~ <form:input type="time" path="classinfos[0].endtime" id="endtime0"/>                              
                            </div>
                         </div>
                      </div>
@@ -145,7 +147,7 @@ function jusoCallBack(num,roadFullAddr){
                 					</div></td></tr>
                 			  <tr><td class="section">날짜 : <form:input type="date" path="classinfos[${i}].date" id="date${i}"/></td>
                               	  <td class="section">시간 : <form:input type="time" path="classinfos[${i}].starttime" id="starttime${i}" onchange="timechange(${i})" />
-                              	  ~<form:input type="time" path="classinfos[${i}].endtime" id="endtime${i}" readonly="true" /></td>
+                              	  ~<form:input type="time" path="classinfos[${i}].endtime" id="endtime${i}" /></td>
                               </tr>
                 		  </c:forEach>
                         </table>

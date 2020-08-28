@@ -8,8 +8,8 @@
 <title>튜티의 위시리스트</title>
 <link href="${path}/assets/css/tutee.css" rel="stylesheet">
 <script type="text/javascript">
-function delwish(userid,classid) {
-	location.href="wishDelete.shop?userid="+userid+"&classid="+classid
+function delwish(classid) {
+	location.href="wishDelete.shop?classid="+classid
 	alert("위시리스트에서 삭제되었습니다.");
 }
 
@@ -34,7 +34,7 @@ $(function(){
 		<c:forEach var="wish" items="${wishlist}" varStatus="status">
 			<div class="class-box">
 			<!-- ${path}/class/save/${wish.coverimg} -->
-				<div class="image" style="background-image:url('${path}/assets/img/${wish.coverimg}')"></div>
+				<div class="image" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${wish.classid}_${wish.coverimg}')"></div>
 				<div class="information-box">
 					<h3><a href="${path}/class/detail.shop?classid=${wish.classid}">${wish.subject}</a></h3>
 					<div class="start-box">
@@ -71,7 +71,7 @@ $(function(){
 					</div>
 					<div class="btn-box">
 						<a class="btn tp1" href="${path}/class/check.shop?classid=${wish.classid}">신청</a>
-						<a class="btn tp1" onclick="delwish('test',${wish.classid})">삭제</a>
+						<a class="btn tp1" onclick="delwish(${wish.classid})">삭제</a>
 					</div>
 				</div>
 			</div>

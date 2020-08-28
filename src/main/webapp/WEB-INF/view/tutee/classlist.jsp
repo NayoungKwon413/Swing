@@ -43,7 +43,7 @@ a:hover {
 		<c:forEach var="course" items="${classlist}" varStatus="status">
 			<div class="class-box">
 				<div class="profile_box">
-					<div class="profile" style="background-image: url('${path}/assets/img/${course.tutorimg}')"></div>
+					<div class="profile" style="background-image: url('http://${server}:${port}${path}/user/save/${course.userid}_${course.tutorimg}')"></div>
 					<div class="name">${course.tutor} 튜터</div>
 				</div>
 				<div class="information-box">

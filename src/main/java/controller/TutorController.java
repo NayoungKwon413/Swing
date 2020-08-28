@@ -35,6 +35,7 @@ import logic.License;
 import logic.Review;
 import logic.ShopService;
 import logic.User;
+import util.CipherUtil;
 
 @Controller
 @RequestMapping("tutor")
@@ -55,7 +56,15 @@ public class TutorController {
 		logic.Class c = service.getClass(classid);
 		
 		Course date = service.getClassDate(classid,classno);
-		
+		for(User u : applylist) {
+	          try {
+	             String email = CipherUtil.decrypt(u.getEmail(), CipherUtil.makehash().substring(0,16));
+	             u.setEmail(email);
+	             
+	             }catch (Exception e) {
+	                e.printStackTrace();
+	             }   
+	       }
 		mav.addObject("date",date);
 		mav.addObject("c",c);
 		mav.addObject("applynum",applylist.size());
@@ -126,13 +135,14 @@ public class TutorController {
 			Class c = service.getClass(classid);
 			User tutor = service.getUser(c.getUserid());
 			String tutorimg = tutor.getFile();
-			int classno = service.maxClassno(classid); 
+			int classno = service.maxClassno(classid);
 			Classinfo ci = service.getClassInfoOne(classid,classno,1);
 			// 현재 클래스 정보 classno가 1이고 해당 클래스의 첫 클래스 정보의 날짜가 null이면 classno 그대로 
 			// 아니면 classno 증가
-			if(!(classno==1 && ci.getDate()==null)) { 
+			if(!(classno==1 && ci.getPlace()==null)) { 
 				classno++;
 			} 
+			System.out.println(classno);
 			mav.addObject("c",c);
 			mav.addObject("tutorimg",tutorimg);
 			mav.addObject("classinfoList",classinfoList);
@@ -152,7 +162,7 @@ public class TutorController {
 					Classinfo ciInfo = service.getClassInfoOne(classid, 1, ci.getClassseq()); // 클래스 제목, 커리 정보 가져오기
 					ci.setTitle(ciInfo.getTitle());
 					ci.setCurri(ciInfo.getCurri());
-					if(ci.getClassno()==1 && ciInfo.getDate()==null) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
+					if(ci.getClassno()==1) { // 현재 클래스 정보 classno가 1이면 첫등록-> update
 						service.firstClassinfo(ci);
 					} else{
 						service.registerClassinfo(ci);
@@ -161,6 +171,7 @@ public class TutorController {
 				}
 			}
 		} catch(Exception e) {
+			e.printStackTrace();
 			throw new RegisterException("수업 등록에 실패하였습니다.","my.shop");
 		} 
 		throw new RegisterException("해당 수업 정보가 등록되었습니다.","result.shop");

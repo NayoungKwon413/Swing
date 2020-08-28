@@ -12,7 +12,7 @@ import logic.User;
 
 public interface ApplyListMapper {
 	
-	@Select("SELECT u.nickname 'tutor', u.file 'tutorimg', a.classid, a.classno, " + 
+	@Select("SELECT u.nickname 'tutor',u.userid, u.file 'tutorimg', a.classid, a.classno, " + 
 			"c.subject, c.location1, ci.place, c.type, c.totaltime, c.totalprice, " +
 			"concat(MIN(ci.DATE),' ',MIN(ci.starttime)) 'startdate', concat(MAX(ci.date),' ',MAX(ci.endtime)) 'enddate' " + 
 			"FROM user u, class c, classinfo ci, applylist a " +  
