@@ -12,7 +12,7 @@
    position: absolute;
    top: 10px;
    right: 20px;
-}
+} 
 </style>
 <script type="text/javascript">
    function page(src){
