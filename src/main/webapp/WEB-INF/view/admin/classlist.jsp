@@ -63,10 +63,10 @@ body {
             <div class="team-item wow fadeInRight animated" data-wow-delay="0.2s" style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
                <div class="team-img">
                <c:if test="${c.coverimg!=null && !c.coverimg.equals('')}">
-                  		<img class="img-fluid" src="http://${server}:${port}${path}/class/coverimg/${c.classid}_${c.coverimg}" alt="">
+                  		<img class="img-fluid"  style="width:200px; height:200px;"  src="http://${server}:${port}${path}/class/coverimg/${c.classid}_${c.coverimg}" alt="">
                   </c:if>
                   <c:if test="${c.coverimg==null || c.coverimg.equals('')}">
-                  		<img class="img-fluid" src="../assets/img/portfolio/portfolio-7.jpg" alt="">
+                  		<img class="img-fluid"  style="width:200px; height:200px;" src="../assets/img/portfolio/portfolio-7.jpg" alt="">
                   </c:if>
                </div>
                <div class="contetn">
