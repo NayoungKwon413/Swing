@@ -243,30 +243,49 @@ ModelAndView mav = new ModelAndView();
 	
 	
 	@PostMapping("reason01")
-    public ModelAndView reason1(String id,String classid,String pass,String reason) {
+    public ModelAndView reason1(String id,String classid,String pass1,String reason) {
 		ModelAndView mav = new ModelAndView();
 		try{
+			
 			User user = service.getUser(id);
 			User admin = service.getUser("admin");
 			Mail mail = new Mail();
-			mail.setType("반려");
 			mail.setReason(reason);
 			mail.setRecipient(user.getEmail());
 			mail.setNaverid(admin.getEmail());
-			mail.setNaverpw(pass);
-			
+			mail.setNaverpw(pass1);
+			mail.setType("반려");
+		    int cid = Integer.parseInt(classid);
+		    service.updateState(cid,3);
 			mail.mailSend(mail);
-	
-	        int cid = Integer.parseInt(classid);
-	        service.updateState(cid,3);  
+	        mav.addObject("data","성공");
+	          
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		mav.setViewName("redirect:reason.shop");
 		return mav;
     }
-		
+	@PostMapping("reason02")
+    public ModelAndView reason02(String id,String pass1,String reason) {
+		ModelAndView mav = new ModelAndView();
+		try{
+			
+			User user = service.getUser(id);
+			User admin = service.getUser("admin");
+			Mail mail = new Mail();
+			mail.setReason(reason);
+			mail.setRecipient(user.getEmail());
+			mail.setNaverid(admin.getEmail());
+			mail.setNaverpw(pass1);
+			mail.setType("탈퇴");
+			service.deleteUser(user.getUserid());
+			mail.mailSend(mail);
+	        mav.addObject("data","성공");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+    }
 
 	@RequestMapping("chart")
 	public ModelAndView chartList(HttpServletRequest request,HttpSession session) {

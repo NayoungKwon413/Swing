@@ -135,9 +135,23 @@ hr{
 	                <font color="red"><form:errors path="email"/></font>
 	        </div>
 			<hr> 
-            <button type="submit">수정완료</button>
+            <button type="submit" style="border: none; */
+    background-color: ##49b5e7;
+    padding: 12px;
+    background-color: #49b5e7;
+    border-radius: 5px 5px 5px 5px;
+    font: #ffffff;
+    color: #ffffff;
+    margin: 0px 10px;">수정완료</button>
           	<c:if test="${sessionScope.loginUser.userid!='admin'}">
-            <a href="delete.shop?id=${user.userid}">회원탈퇴</a>
+            <a href="delete.shop?id=${user.userid}" style="border: none; */
+    background-color: ##49b5e7;
+    padding: 12px;
+    background-color: #49b5e7;
+    border-radius: 5px 5px 5px 5px;
+    font: #ffffff;
+    color: #ffffff;
+    margin: 0px 10px;">회원탈퇴</a>
             </c:if>
 	       </div>
 	</div>

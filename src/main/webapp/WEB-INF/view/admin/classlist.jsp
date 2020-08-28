@@ -99,7 +99,7 @@ body {
       </div>
       <div class="row">
      <div class="back-next">
-     <form action="applylist.shop" method="post" name="sf">
+     <form action="classlist.shop" method="post" name="sf">
       <input type="hidden" name="pageNum" value="1">
       <input type="hidden" name="get" value="0">
       <input type="hidden" name="id" value="">

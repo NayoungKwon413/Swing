@@ -139,7 +139,7 @@ public class Mail {
 				}
 			}
 
-			send(mail);
+			//send(mail);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

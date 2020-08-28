@@ -9,6 +9,7 @@
 	</decorator>
 	<excludes>
 		<pattern>/admin/reason*</pattern>
+		<pattern>/admin/deletePop*</pattern>
 		<pattern>/board/imgupload*</pattern>
 		<pattern>/ajax/*</pattern>
 		<pattern>/class/review*</pattern>

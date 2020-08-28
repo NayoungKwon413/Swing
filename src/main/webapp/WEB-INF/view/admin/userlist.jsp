@@ -84,7 +84,7 @@ font-size: 14px;
     }
 
    function reasonPop(id){
-         window.open('reason.shop?id='+id+"&type=remove",'','width=500,height=400,menubar=no,status=no,toolbar=no');
+         window.open('deletePop.shop?id='+id,'','width=500,height=400,menubar=no,status=no,toolbar=no');
    }
 </script>
 <section id="team" class="team">
