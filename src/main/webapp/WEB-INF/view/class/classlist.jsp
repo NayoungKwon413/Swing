@@ -189,9 +189,9 @@
 		<div class="filter_head" style="margin-top:0px;">
 			<div class="sorted">
 				<ul id="sorted">
-					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+					<li><a href="classlist.shop?cate=${param.cate}&location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
 		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=1">최신 등록순</a></li>
-					<li><a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
+					<li><a href="classlist.shop?cate=${param.cate}&location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}
 		      				&maxtutee=${param.maxtutee}&pageNum=${a}&sorted=2">별점순</a></li>
 				</ul>
 			</div>
@@ -275,15 +275,16 @@
 			</div>
 		      <c:if test="${pageNum<=1}"><img src="../assets/img/icon/back.png"></c:if> 
 		      <c:if test="${pageNum>1}">
-		      	<a href="javascript:listdo('${pageNum-1}')">
+		      	<a href="classlist.shop?cate=${param.cate}&location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${pageNum-1}">
 		      	<img src="../assets/img/icon/back.png"></a></c:if>    
 		      <c:forEach var="a" begin="${startpage}" end="${endpage}">
 		      <c:if test="${pageNum==a}"><a>${a}</a></c:if>
 		      <c:if test="${pageNum!=a}">
-		      	<a href="classlist.shop?location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${a}">${a}</a></c:if>
+		      	<a href="classlist.shop?cate=${param.cate}&location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${a}">${a}</a></c:if>
 		      </c:forEach> 
 		      <c:if test="${pageNum>=maxpage}"><img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></c:if> 
-		      <c:if test="${pageNum<maxpage}"><a href="javascript:listdo('${pageNum+1}')">
+		      <c:if test="${pageNum<maxpage}">
+		      <a href="classlist.shop?cate=${param.cate}&location1=${param.location1}&lcoation2=${param.location2}&type=${param.type}&maxtutee=${param.maxtutee}&pageNum=${pageNum+1}">
 		      <img src="../assets/img/icon/next.png" style="width: 48px;height: 48px;"></a></c:if>
 		</div>
 	</div>

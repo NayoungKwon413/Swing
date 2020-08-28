@@ -3,17 +3,20 @@
     width: 100%;
 }
 #pop_qna .top {
-    height: 80px;
+    height: 70px;
     background:#49b5e7;
     padding: 25px 0 0 30px;
     color: #fff;
+}
+#pop_qna .top img{
+    width:6em
 }
 #pop_qna .top * {
     vertical-align: top;
 }
 #pop_qna .top span {
     display: inline-block;
-    padding: 5px 0 0 10px;
+    padding: 15px 0 0 10px;
     /* margin-bottom: 30px; */
 }
 #pop_qna .top .close {
@@ -30,10 +33,11 @@
 }
 #pop_qna .q_tab ul {
     overflow: hidden;
-    /* height: 30px; */
+    height: 30px;
     list-style: none;
     /* margin-block-start: 0; */
     padding: 0;
+    margin: 0.5em 0;
 }
 #pop_qna .q_tab ul li {
     height: 40px;
@@ -235,6 +239,13 @@
     background: #f0f2f4;
     overflow: hidden;
     bottom: 0;
+}
+.q_write a{
+    text-decoration: none;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bolder;
+    color: #49b5e7;
 }
  .q_write textarea {
     float: left;
