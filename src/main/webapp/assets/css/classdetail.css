@@ -5,16 +5,23 @@
     /* background: #ffffff !important; */
     /* z-index: 100 !important; */
 }
+.fixedLayer {
+    position: fixed !important;
+    top: 82px !important;
+    background: #ffffff !important;
+    z-index: 100 !important;
+}
 .class_wrap {
     padding-top: 5%;
     position: relative;
 }
 .class_wrap .class_price {
-    width: 25%;
+    width: 14.6%;
     float: right;
     background: #fff;
     padding: 20px 20px 10px 20px;
     /* height: 1000px; */
+    display: inline-block;
 }
 .class_price .regions .title {
     color: #333;
@@ -160,7 +167,7 @@
     background: #fff;
     color: #000;
     /* position: absolute; */
-    left: 0;
+    /* left: 0; */
     top: 0;
     z-index: 1;
     border-bottom: 1px solid #999;

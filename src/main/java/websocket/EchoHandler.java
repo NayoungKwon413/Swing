@@ -1,9 +1,11 @@
 package websocket;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.SimpleFormatter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,11 +52,16 @@ public class EchoHandler extends TextWebSocketHandler implements InitializingBea
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj = (JSONObject)jsonParser.parse((String)message.getPayload());
 //		JSONObject jsonObj = new JSONObject(); 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = format.parse(jsonObj.get("date").toString());
+		String strdate = format2.format(date);
 		String loadMessage = (String)message.getPayload();
+		jsonObj.replace("date", strdate);
 		jsonObj.put("sessionid", user.getUserid());
 //		jsonObj.put("message", loadMessage);
 		jsonObj.put("profile", user.getFile());
-//		jsonObj.put("date", ""+new Date());
+//		jsonObj.put("date", strdate);
 		jsonObj.put("name", user.getName());
 		String json = jsonObj.toJSONString();
 //		System.out.println(user.getUserid()+":"+loadMessage);

@@ -77,7 +77,7 @@
 <section>
 	<div class="container">
 		<div class="class_wrap">
-			<div class="class_price" id="class_price" style="position:relative; top:0px;; left:0px;">
+			<div class="class_price" id="class_price" style="position: fixed;top: 110px;right: 390px;">
 				<div class="regions" style="margin-bottom: 3em;">
 					<div class="title">
 					<c:if test="${cls.type==1}">원데이 클래스</c:if>
@@ -134,7 +134,12 @@
 				</c:if>
 			</div>
 			<!-- 여기까지 날짜,시간,장소 정보 -->
-			<a onclick="window.open('${path}/talk/newchat.shop?classid=${param.classid}','','width=500,height=650')" class="btn_talk">실시간 톡</a>
+			<a href="javascript:talkPop()" class="btn_talk">실시간 톡</a>
+			<script type="text/javascript">
+				function talkPop(){
+					window.open('${path}/talk/newchat.shop?classid=${param.classid}','','width=500,height=650');
+				}
+			</script>
 			<div class="btn_payment">
 				<a href="check.shop?classid=${param.classid}">
 					<span class="btntxt" id="checkbt">수업 신청하기</span>
@@ -152,7 +157,7 @@
 			<img src="http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}">
 		</div>
 		<div class="class_d_wrqp">
-			<div id="class_navi" class="class_navi fixedLayer" style="left:0px;">
+			<div id="class_navi" class="class_navi" style="/*left:0px;*/">
 				<ul>
 					<li>
 						<a href="javascript:Move('summary')">요약</a>
@@ -168,12 +173,24 @@
 					</li>
 				</ul>
 			</div>
-			<script type="text/javascript">
+			<script type="text/javascript">	
 				function Move(section){
 					var offset = $("#"+section).offset();
 					$('html,body').animate({scrollTop:offset.top},400);
-				}
-				
+				};
+				docuwidth=$(window).width/2;
+				$(window).resize(function(){
+					docuwidth = $(window).width/2;
+				});
+				$(window).scroll(function(){
+					if($(window).scrollTop()>500){
+						$('#class_navi').addClass("fixedLayer");
+						$("#class_navi").css("left",docuwidth-600);
+					}else{
+						//$("#class_navi").css("left",0);
+						$("#class_navi").removeClass("fixedLayer");
+					}
+				});
 				$(function(){
 					$('#wishBtn').click(function(){
 						if(${sessionScope.loginUser==null}){
@@ -193,7 +210,7 @@
 						}
 
 					})
-				})
+				});
 			</script>
 			<div class="class_detail" id="sumary">
 				<div class="class_name">
@@ -264,7 +281,7 @@
 							<li class="com">${tutor.school}대학교 ${tutor.major}</li>
 							<c:if test="${license!=null}">
 								<c:forEach items="${license}" var="lc">
-									${lc.lctitle}
+									<li class="com">${lc.lctitle}</li>
 								</c:forEach>
 							</c:if>
 						</ul>

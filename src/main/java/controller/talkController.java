@@ -37,7 +37,7 @@ public class talkController {
 		return mav;
 	}
 	@RequestMapping("mainTutee")
-	public ModelAndView mainTutee(String userid) {
+	public ModelAndView loginCheckmainTutee(String userid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int tuteecnt=0;
 		int type=0;
@@ -130,7 +130,7 @@ public class talkController {
 	}
 	  
 	@RequestMapping("newchat")
-	public ModelAndView newchat(String classid,HttpSession session) {
+	public ModelAndView loginChecknewchat(String classid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User)session.getAttribute("loginUser");
 		int roomno = 0;
