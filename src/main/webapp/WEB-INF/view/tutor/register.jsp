@@ -72,14 +72,20 @@ button:hover {
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-// 각 입력칸 자료형에 맞는 유효성 검증 필요
-// numclass, numtutee : 다회차, 그룹일 떄 2이상 입력 유효성 검증 필요 , 최대 수 얼마?
-// 코드 더 줄일 수 있는지 검색
-
 $(document).ready(function(){
-	var price = 0;
-	var time = 0;
-	var totaltime = 0;
+	var price;
+	var time;
+	var totaltime;
+	var totalprice;
+	if(${clas.price != null}) { price = ${clas.price}}
+	else { price = 0;}
+	if(${clas.time != null}) { time = ${clas.time}}
+	else { time = 0;}
+	if(${clas.totaltime != null}) { totaltime = ${clas.totaltime}}
+	else { totaltime = 0;}
+
+	/* 임시저장된 값들 불러오기 */
+	// 참여인원
 	if(${clas.maxtutee > 1}) {
 		$("#numtutee").val(${clas.maxtutee})
 		$("#numtutee").show();
@@ -87,6 +93,7 @@ $(document).ready(function(){
 		$("#numtutee").hide();
 		$("#num").hide();
 	}
+	// 지역2
 	if(${clas.location2 != null}) {
 		var area = "${clas.location1}";
 		console.log(area);
@@ -120,16 +127,13 @@ $(document).ready(function(){
 		$("#location2").html(msg);
 		$("#location2").val('${clas.location2}').prop("selected",true);
 	}
-	$("#numclass").hide();
-	
+
+	/* 참여인원 변화 시  */
 	$('input[name="maxtutee"]').change(function() {
 	    // 모든 radio를 순회한다.
 	    $('input[name="maxtutee"]').each(function() {
 	        var value = $(this).val();            
 	        var checked = $(this).prop('checked');  
-	        // jQuery 1.6 이상 (jQuery 1.6 미만에는 prop()가 없음, checked, selected, disabled는 꼭 prop()를 써야함)
-	        // jQuery 1.6 미만 (jQuery 1.6 이상에서는 checked, undefined로 return됨)
-	 
 	        if(value==1){
 	        	if(checked){
 	        		$("#numtutee").hide();
@@ -147,50 +151,59 @@ $(document).ready(function(){
 	    });
 	});	
 	
+	/* 원데이클래스 or 다회차 변화 시 */
 	$('input[name="type"]').change(function() {
 	    // 모든 radio를 순회한다.
 	    $('input[name="type"]').each(function() {
 	        var value = $(this).val();            
 	        var checked = $(this).prop('checked');  
-	        // jQuery 1.6 이상 (jQuery 1.6 미만에는 prop()가 없음, checked, selected, disabled는 꼭 prop()를 써야함)
-	        // jQuery 1.6 미만 (jQuery 1.6 이상에서는 checked, undefined로 return됨)
-	 
-	        if(value==1){
-	        	if(checked){
+	        if(value==1){ // 원데이 클래스
+	        	if(checked){ // 체크
 		        	$("#totaltime").val(1);
 			 		$("#totaltime").attr('readonly',true)
-			 		document.getElementById("cal").textContent = price + "원 X " + time + "시간 X 1회";
+			 		totaltime = 1;
+			 		console.log(price+"/"+time+"/"+totaltime);
+			 		calcul(price,time,totaltime);
+			 		//document.getElementById("cal").textContent = price + "원 X " + time + "시간 X 1회";
 			 		$('#seqlist').empty();
 			 		var form = "<p>1회차</p>"
 	    	    	+ "<input type='text' class='form-cont' name='title' id='title1' placeholder='회차 제목' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>"
 	    	        + "<input type='text' class='form-cont' name='curri' id='curri1' placeholder='회차 상세 내용' data-rule='minlen:4' data-msg='Please enter at least 8 chars of subject'>";
 	    	    	$("<div>").attr("id","seq1").html(form).appendTo("#seqlist");
-	    	    	$("typevalue").val("원데이 클래스");
+	    	    	$("#typevalue").val("원데이 클래스");
 	        	}
-	        }else if(value==2){
-				if(checked){
+	        }else if(value==2){ // 다회차
+				if(checked){ // 체크
 					$("#totaltime").attr('readonly',false);
-					$("typevalue").val("다회차 수업");
+					$("#typevalue").val("다회차 수업");
 	        	}
 	        }
 	    });
 	});
-	
+	/* 가격 변화 시 */
 	$("#price").on("propertychange change keyup paste input", function() {
     	price = $(this).val();
-    	cal(price,time,totaltime);
+    	calcul(price,time,totaltime);
 	});
 	
 	$("#time").on("propertychange change keyup paste input", function() {
     	time = $(this).val();
-    	cal(price,time,totaltime);
+    	calcul(price,time,totaltime);
 	});
 	
 	$("#totaltime").on("propertychange change keyup paste input", function() {
     	totaltime = $(this).val();
-    	cal(price,time,totaltime);
+    	calcul(price,time,totaltime);
 	});
-	
+	function calcul(price,time,totaltime) {
+		console.log(price+"/"+time+"/"+totaltime);
+		document.getElementById("cal").textContent = price + "원 X " + time + "시간 X " + totaltime + "회";
+		if(price!=0 && time!=0 && totaltime!=0) {
+			var temp = price * time * totaltime;
+			document.getElementById("cal2").textContent = "총 " + temp + "원";
+		}
+	}
+	/* 수업횟수 변화 시 회차 정보 폼 변화 */
 	$("#totaltime").on("change", function() {
 		var classeq = $(this).val();
 		var max = ++classeq
@@ -207,15 +220,23 @@ $(document).ready(function(){
 	
 });
 
-function cal(price, time, totaltime){
-	document.getElementById("cal").textContent = price + "원 X " + time + "시간 X " + totaltime + "회";
-	if(price!=0 && time!=0 && totaltime!=0) {
-		var totalprice = price * time * totaltime;
-		document.getElementById("cal2").textContent = "총 " + totalprice + "원";
-	}
-	
+/* 사진 업로드 */
+function setThumbnail(event, num) { 
+	var reader = new FileReader(); 
+	reader.onload = function(event) {
+		if(num==1){
+			document.getElementById("picture-cover").style.backgroundImage="url("+reader.result+")";
+			document.getElementById("imgurl1").value = reader.result;
+		}else if(num==2){
+			document.getElementById("coverimg").src = reader.result;
+			document.getElementById("imgurl2").value = reader.result;
+		}
+	}; 
+	reader.readAsDataURL(event.target.files[0]); 
+	var fname =event.target.files[0].name;
 }
 
+/* 유효성 검증 */
 function vaildation(kbn){
 	if(kbn==2){
 		if(document.f.nickname.value==''){
@@ -315,7 +336,6 @@ function vaildation(kbn){
 			return false;
 		}*/
 	}
-	
 	document.f.action = "classEntry.shop?kbn="+kbn;
 	document.f.submit();
 }
@@ -357,18 +377,7 @@ function vaildation(kbn){
 				<input type="hidden" id="imgurl1" value="http://${server}:${port}${path}/user/save/${user.userid}_${user.file}"/>
 				<img class="upf_b button"  src="https://front-img.taling.me/Content/Images/tutor/Images/btn_pfimg.png">
                 <div class="upf" id="picture-cover" style="background-image: url('http://${server}:${port}${path}/user/save/${user.userid}_${user.file}')">
-	                <input type="file" id="fileurl2" name="fileurl2" style="width:150px;height:130px;opacity:0;" onchange="setThumbnail(event);" value=""/>  
-                    <script> 
-		   			 function setThumbnail(event) { 
-						var reader = new FileReader(); 
-						reader.onload = function(event) {
-						document.getElementById("picture-cover").style.backgroundImage="url("+reader.result+")";
-						document.getElementById("imgurl1").value = reader.result;
-	            	}; 
-	            	reader.readAsDataURL(event.target.files[0]); 
-	            	var fname =event.target.files[0].name;
-            		}
-	        		</script>    
+	                <input type="file" id="fileurl2" name="fileurl2" style="width:150px;height:130px;opacity:0;" onchange="setThumbnail(event,1);" value=""/>      
                 </div>
             </div>
 			<div class="title">별명-</div>
@@ -531,22 +540,8 @@ function vaildation(kbn){
 			<div class="title">커버이미지-</div>
 				<input type="hidden" id="imgurl2" value="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}" />
 				<img id="coverimg" style="width:400px; height:250px; border: 1px c7c7c7; border-radius: 7px; -moz-border-radius: 7px; -khtml-border-radius: 7px; -webkit-border-radius: 7px;" src="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}">
-                <input type="file" name="coverimgurl" id="coverimgurl" accept="image/*" onchange="setThumbnail2(event);" style="display: none;"/>
+                <input type="file" name="coverimgurl" id="coverimgurl" accept="image/*" onchange="setThumbnail(event,2);" style="display: none;"/>
                 <button type="button" onclick="document.all.coverimgurl.click()">업로드</button>
-			<script> 
-		    function setThumbnail2(event) { 
-		    	console.log("이벤트실행")
-				var reader = new FileReader(); 
-				reader.onload = function(event) {
-					console.log("reader");
-					document.getElementById("coverimg").src = reader.result;
-					document.getElementById("imgurl2").value = reader.result;
-	            }; 
-	            reader.readAsDataURL(event.target.files[0]); 
-	            var fname =event.target.files[0].name;
-	            console.log(fname);
-            }
-	        </script>
 		</div>
 		<hr> 
        </div>  
@@ -592,8 +587,8 @@ function vaildation(kbn){
 			<div class="title">총 가격-</div>
                 <div class="costbox">
                 <div style="padding: 30px;">
-                	<p id="cal">0원 X 0시간 X 0회</p>
-                	<p id="cal2" style="text-align: right;">총 0원</p>
+                	<p id="cal">${clas.price}원 X ${clas.time}시간 X ${clas.totaltime}회</p>
+                	<p id="cal2" style="text-align: right;">총 ${clas.totalprice}원</p>
 				</div>
 				</div>
 		</div>
