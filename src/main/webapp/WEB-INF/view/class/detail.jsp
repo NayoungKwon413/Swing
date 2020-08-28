@@ -12,6 +12,9 @@
 	section {
     height: 200em;
 	}
+	.reviewOption {
+	text-align:right;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -219,7 +222,7 @@
 			<div class="class_detail" id="sumary">
 				<div class="class_name">
 					<div class="tutor_img">
-						<img alt="" src="${path}/assets/img/${tutor.file}">
+						<img alt="" src="http://${server}:${port}${path}/user/save/${cls.userid}_${tutor.file}">
 					</div>
 					<div class="name">${tutor.name}</div>
 				</div>
@@ -324,8 +327,9 @@
 			<div class="class_detail detail_sec_bor" id="review">
 				<div class="section01">
 					<h1>리뷰(${reviewcnt})</h1>
-					<a href="javascript:reviewPop('review.shop?classid=${param.classid}')"class="btn_st" id="btn-write-review">리뷰쓰기</a>
-					
+					<c:if test="${classno!=0}">
+					<a href="javascript:reviewPop('review.shop?classid=${param.classid}&classno=${classno}')"class="btn_st" id="btn-write-review">리뷰쓰기</a>
+					</c:if>
 					<div class="review_box">
 							<span class="star star_left"></span>
 						    <span class="star star_right"></span>

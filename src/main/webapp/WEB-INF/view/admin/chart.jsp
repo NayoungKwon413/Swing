@@ -167,8 +167,8 @@
                           <c:if test="${t.rank==2}"><img src="${path}/assets/img/icon/icons8-medal-second-place-30.png"></c:if>
                           <c:if test="${t.rank==3}"><img src="${path}/assets/img/icon/icons8-medal-third-place-30.png"></c:if></td>
                           <td>${t.userid}</td>
-                          <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td>
-                          <td><a href="../tutee/classlist.shop?userid=${t.userid}&state=1"><label class="badge badge-info">수강목록보기</label></a></td>
+                          <td><fmt:formatNumber value="${t.totalprice}" pattern="#,###"/>원</td> 
+                          <td><a href="mytutor.shop?id=${t.userid}"><label class="badge badge-info">수강목록보기</label></a></td>
                         </tr>
                        </c:forEach>
                       </tbody>

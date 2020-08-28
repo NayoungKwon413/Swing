@@ -12,7 +12,7 @@
 			$('.starbox').each(function(i,item) {
 				var idx = $('.avg').eq(i).val()/0.5;
 					var star = $('.starbox').eq(i);
-					for(var j=0; j<=idx; j++){
+					for(var j=0; j<idx; j++){
 				       $(this).children(".star").eq(j).addClass("on");
 				    }			     
 			})
@@ -219,7 +219,7 @@
 						<div class="class_list" style="margin-right:0; margin-left:20px;">
 					</c:if>
 							<a href="detail.shop?classid=${cls.classid}">
-							<div class="img" style="background-image:url('${path}/assets/img/${cls.coverimg}')">
+							<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}')">
 								<div class="d_day">${cls.totaltutee}명 참여</div>
 								<div class="level">
 									<c:if test="${cls.level==1}">입문자용</c:if>
@@ -228,7 +228,7 @@
 								</div>
 							</div>
 							<div class="profile_box">
-								<div class="profile" style="background-image:url('${tutor[i].file}')"></div>
+								<div class="profile" style="background-image:url('http://${server}:${port}${path}/user/save/${tutor[i].userid}_${tutor[i].file}')"></div>
 								<div class="name">${tutor[i].name}</div>
 							</div>
 							<div class="title">

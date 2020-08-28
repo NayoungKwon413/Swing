@@ -79,11 +79,12 @@ public class TuteeController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			List<Course> list = service.getCourselist(userid);
+			System.out.println(list);
 			Date now = new Date();
 			List<Course> classlist = new ArrayList<Course>();
 			for (Course c : list) {
 				c.setStar(service.getStar(c.getClassid()));
-				c.setreviewnum(service.getReviewcnt(c.getClassid()));
+				c.setReviewnum(service.getReviewcnt(c.getClassid()));
 				if (state == 1) {
 					c.setClassseq(service.getCurseq(userid,c.getClassid(),c.getClassno()));
 					if (c.getEnddate().after(now)) {
@@ -95,6 +96,7 @@ public class TuteeController {
 					}
 				}
 			}
+			
 			int classnum = classlist.size();
 			mav.addObject("state", state);
 			mav.addObject("userid", userid);

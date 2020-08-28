@@ -128,7 +128,7 @@
       								<p class="t1">${cls.subject}</p>
       								<div class="t2">
       									<span class="profile">
-      										<img class="roundImg" src="${path}/assets/img/${cls.file}" style="width: 24px; height: 24px;">
+      										<img class="roundImg" src="http://${server}:${port}${path}/user/save/${cls.userid}_${cls.file}" style="width: 24px; height: 24px;">
       									</span>
       									<span class="name">${cls.name}</span>
       									<fmt:formatDate value="${cls.date}" var="date" pattern="MM월dd일"/>
@@ -139,7 +139,9 @@
       							<div class="t3">
       								<span class="num">${cls.totaltutee}명 참여</span>
       								 <fmt:formatNumber value="${cls.staravg}" var="staravg" pattern=".0"/>
-      								<span class="score">${staravg}(${cls.reviewcnt})</span>
+      								<span class="score">
+                                 	<img alt="" src="/swing/assets/img/icon/star_on.png" style="width:15px;">
+                              		${staravg}(${cls.reviewcnt})</span>
       								<a href="javascript:wish(${cls.classid})" class="btn_wish">
       								<c:if test="${cls.wish==0}">
       									<img id="heart" class="heart" src="${path}/assets/img/icon/heart.png" style="width: 25px;"></a>
@@ -166,11 +168,11 @@
       						<li class="swiper-slide" style="margin-left:50px; margin-right:0;">
       					</c:if>
       							<a href="detail.shop?classid=${cls.classid}">
-      								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}');"></div>
+      								<div class="img" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${cls.classid}_${cls.coverimg}');"></div>
       								<p class="t1">${cls.subject}</p>
       								<div class="t2">
       									<span class="profile">
-      										<img class="roundImg" src="${path}/assets/img/${cls.file}" style="width: 24px; height: 24px;">
+      										<img class="roundImg" src="http://${server}:${port}${path}/user/save/${cls.userid}_${cls.file}" style="width: 24px; height: 24px;">
       									</span>
       									<span class="name">${cls.name}</span>
       									<fmt:formatDate value="${cls.date}" var="date" pattern="MM월dd일"/>
@@ -181,7 +183,9 @@
       							<div class="t3">
       								<span class="num">${cls.totaltutee}명 참여</span>
       								<fmt:formatNumber value="${cls.staravg}" var="staravg" pattern=".0"/>
-      								<span class="score">${staravg}(${cls.reviewcnt})</span>
+      								<span class="score">
+                                 	<img alt="" src="/swing/assets/img/icon/star_on.png" style="width:15px;">
+                              		${staravg}(${cls.reviewcnt})</span>
       								<%--<button class="btn_wish" type="button" onclick="javascript:wish(${cls.classid})"></button>--%>
       								<a href="javascript:wish(${cls.classid})" class="btn_wish">
       								<c:if test="${cls.wish==0}">

@@ -5,6 +5,7 @@ import java.util.Date;
 /* 조회용 객체 */
 public class Course {
 	private String tutor;
+	private String userid;
 	private String tutorimg;
 	private int classid;
 	private int classno;
@@ -19,12 +20,17 @@ public class Course {
 	private Date enddate;
 	private int reviewnum;
 	private double star;
-	 
 	public String getTutor() {
 		return tutor;
 	}
 	public void setTutor(String tutor) {
 		this.tutor = tutor;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	public String getTutorimg() {
 		return tutorimg;
@@ -98,10 +104,10 @@ public class Course {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}
-	public int getreviewnum() {
+	public int getReviewnum() {
 		return reviewnum;
 	}
-	public void setreviewnum(int reviewnum) {
+	public void setReviewnum(int reviewnum) {
 		this.reviewnum = reviewnum;
 	}
 	public double getStar() {
@@ -112,10 +118,11 @@ public class Course {
 	}
 	@Override
 	public String toString() {
-		return "Course [tutor=" + tutor + ", tutorimg=" + tutorimg + ", classid=" + classid
+		return "Course [tutor=" + tutor + ", userid=" + userid + ", tutorimg=" + tutorimg + ", classid=" + classid
 				+ ", classno=" + classno + ", classseq=" + classseq + ", subject=" + subject + ", location1="
 				+ location1 + ", place=" + place + ", type=" + type + ", totaltime=" + totaltime + ", totalprice="
 				+ totalprice + ", startdate=" + startdate + ", enddate=" + enddate + ", reviewnum=" + reviewnum
 				+ ", star=" + star + "]";
 	}
+	 
 }

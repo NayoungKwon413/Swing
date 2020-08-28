@@ -34,7 +34,7 @@ $(function(){
 		<c:forEach var="wish" items="${wishlist}" varStatus="status">
 			<div class="class-box">
 			<!-- ${path}/class/save/${wish.coverimg} -->
-				<div class="image" style="background-image:url('${path}/assets/img/${wish.coverimg}')"></div>
+				<div class="image" style="background-image:url('http://${server}:${port}${path}/class/coverimg/${wish.classid}_${wish.coverimg}')"></div>
 				<div class="information-box">
 					<h3><a href="${path}/class/detail.shop?classid=${wish.classid}">${wish.subject}</a></h3>
 					<div class="start-box">

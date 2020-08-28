@@ -117,11 +117,11 @@ public interface ClassMapper {
 	@Select("	SELECT sum(c.totalprice) tot1 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid " + 
 			"	AND YEAR(u.applydate)=YEAR(NOW()) AND MONTH(u.applydate)=MONTH(NOW())-1 " + 
-			"	union " + 
+			"	union all" + 
 			"	SELECT sum(c.totalprice) tot2 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid " + 
 			"	AND YEAR(u.applydate)=YEAR(NOW()) AND MONTH(u.applydate)=MONTH(NOW()) " + 
-			"	union " + 
+			"	union all" + 
 			"	SELECT SUM(c.totalprice) tot3 FROM class c, applylist u " + 
 			"	WHERE c.classid = u.classid ")
 	List<Integer> selectPrice();
@@ -152,7 +152,7 @@ public interface ClassMapper {
 
 	@Select({"<script>",
 			"SELECT c.classid, c.userid , c.location2 , c.subject , c.coverimg  , max(ci.date) DATE , u.file , u.name ,"+
-			" COUNT(distinct(a.userid) ) totaltutee,  AVG(r.star) staravg , COUNT(*) reviewcnt " + 
+			" COUNT(distinct(a.userid) ) totaltutee,  AVG(r.star) staravg , COUNT(distinct(r.reviewno)) reviewcnt " + 
 			"FROM class c " + 
 			"left outer JOIN classinfo ci ON c.classid = ci.classid " + 
 			"left outer JOIN user u ON c.userid = u.userid " + 

@@ -71,6 +71,7 @@ $(function(){
 	<input type="hidden" id="star" name="star" value="">
 	<form:hidden path="classid" id="classid" name="classid" />
 	<form:hidden path="classno" id="classno" name="classno" />
+	<form:hidden path="reviewno" id="reviewno" name="reviewno" />
 	<div class="input">
 		<form:textarea path="content" class="input_content" 
 		cols="1" rows="1" maxlength="150"/>
