@@ -33,11 +33,11 @@ public class ChattingDao {
 		return template.getMapper(ChattingMapper.class).tutee(param);
 	}
 
-	public int newtalk(int roomno, String userid) {
+	public int tuteenewtalk(int roomno, String userid) {
 		param.clear();
 		param.put("roomno", roomno);
 		param.put("userid", userid);
-		return template.getMapper(ChattingMapper.class).newtalk(param);
+		return template.getMapper(ChattingMapper.class).tuteenewtalk(param);
 	}
 
 	public List<Chatting> chatlist(Integer roomno) {
@@ -71,6 +71,13 @@ public class ChattingDao {
 		param.put("userid", userid);
 		param.put("type", type);
 		return template.getMapper(ChattingMapper.class).getchat(param);
+	}
+
+	public int tutornewtalk(int roomno, String userid) {
+		param.clear();
+		param.put("roomno", roomno);
+		param.put("userid", userid);
+		return template.getMapper(ChattingMapper.class).tutornewtalk(param);
 	}
   
 }

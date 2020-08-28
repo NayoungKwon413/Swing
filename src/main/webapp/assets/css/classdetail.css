@@ -46,6 +46,12 @@
     text-align: center;
     font-size: 0.7em;
 }
+.class_price .regions .region .region2{
+    background-color:#f1f1f1;
+    padding: 1em;
+    font-size: 14px;
+
+}
 .class_price .regions .region .option .top .drop {
     cursor: pointer;
 }
@@ -57,7 +63,7 @@
     letter-spacing: -0.7px;
     display: inline-block;
 }
-.class_price .regions .region .option .top .timedetail .indate {
+.class_price .regions .region .option .timedetail .indate {
     width: 5em;
     display: inline-block;
     color: #555;
@@ -292,6 +298,26 @@
     line-height: 180%;
     clear: both;
 }
+.class_wrap .class_detail .section01 .curriculum_cont {
+    /* background: url(https://front-img.taling.me/Content/Images/class/bg_step_cont.png) left top repeat-y; */
+    margin-left: -50px;
+}
+.class_wrap .class_detail .section01 .curriculum_cont h2 {
+    background: url('/swing/assets/img/icon/step.png') no-repeat;
+    font-size: 24px;
+    color: #49b5e7;
+    line-height: 100%;
+    padding-left: 50px;
+    margin: 80px 0 30px 0;
+}
+.class_wrap .class_detail .section01 .curriculum_cont .step_cont {
+    padding-left: 50px;
+}
+.class_wrap .class_detail .section01 .curriculum_cont .step_cont dd {
+    font-size: 16px;
+    color: #666;
+    line-height: 180%;
+}
 /*리뷰*/
 .class_detail .section01 .btn_st {
     position: absolute;
@@ -362,7 +388,11 @@
 .class_wrap .class_detail .section01 .review_list .review_content .date {
     color: #ccc;
 }
-
+/*paging*/
+.class_wrap .class_detail .section01 .review_list .paging {
+    text-align: center;
+    margin: 1.5em 0;
+}
 /*리뷰 팝업창*/
 .pop_review .top {
 	background-color: #49b5e7;color: white;padding: 0.5em 1em;font-weight: 600;
@@ -468,4 +498,5 @@
 .info .starimg .star.on{
   background-image: url('/swing/assets/img/icon/star_on.png');
 }
+
 

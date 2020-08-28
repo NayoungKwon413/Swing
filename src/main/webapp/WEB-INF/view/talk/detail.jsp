@@ -113,7 +113,10 @@
 							</dt>
 							<dd class="blo">
 								${ch.chat}
-								<span class="date">${ch.chatdate}</span>
+								<span class="date">
+									<fmt:formatDate value="${ch.chatdate}" var="chatdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									${chatdate}
+								</span>
 							</dd>
 						</dl>
 					</c:if>
@@ -126,7 +129,10 @@
 							</dt>
 							<dd class="blo">
 								${ch.chat}
-								<span class="date">${ch.chatdate}</span>
+								<span class="date">
+									<fmt:formatDate value="${ch.chatdate}" var="chatdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									${chatdate}
+								</span>
 							</dd>			
 						</dl>
 					</c:if>
