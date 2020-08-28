@@ -492,7 +492,7 @@ function vaildation(kbn){
 		<div class="form-group">
 			<div class="title">커버이미지-</div>
 				<input type="hidden" id="imgurl2" value="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}" />
-				<img id="coverimg" style="width:400px; height:250px; border: 1px c7c7c7; border-radius: 7px; -moz-border-radius: 7px; -khtml-border-radius: 7px; -webkit-border-radius: 7px;" src="http://${imgpath}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}">
+				<img id="coverimg" style="width:400px; height:250px; border: 1px c7c7c7; border-radius: 7px; -moz-border-radius: 7px; -khtml-border-radius: 7px; -webkit-border-radius: 7px;" src="http://${server}:${port}${path}/class/coverimg/${clas.classid}_${clas.coverimg}">
                 <input type="file" name="coverimgurl" id="coverimgurl" accept="image/*" onchange="setThumbnail2(event);" style="display: none;"/>
                 <button type="button" onclick="document.all.coverimgurl.click()">업로드</button>
 			<script> 
