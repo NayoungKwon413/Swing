@@ -35,7 +35,7 @@ $(function(){
 <div class="pop_review">
 	<div class="top">내 리뷰 등록</div>
 	<div class="star_box">
-		<div class="title">클래스 이름</div>
+		<div class="title">${subject}</div>
 		<div class="input_star">
 			<div class="review_point">
 				<span class="star star_left"></span>

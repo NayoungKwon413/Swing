@@ -65,9 +65,12 @@ public class ClassController {
 	}
 	
 	@GetMapping("review")
-	public String reviewform(Model model,Integer classid, Integer classno,HttpSession session) {
+	public ModelAndView reviewform(Model model,Integer classid, Integer classno,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Class c = service.getClass(classid);
 		model.addAttribute(new Review());
-		return null;
+		mav.addObject("subject",c.getSubject());
+		return mav;
 	}
 	
 	@PostMapping("review")
@@ -91,12 +94,15 @@ public class ClassController {
 	public ModelAndView reviewEditForm(Integer reviewno, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Review review = null;
+		Class c = null;
 		try {
 			review = service.getReviewOne(reviewno);
+			c = service.getClass(review.getClassid());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+	
+		mav.addObject("subject",c.getSubject());
 		mav.addObject("review",review);
 		System.out.println(review);
 		return mav;

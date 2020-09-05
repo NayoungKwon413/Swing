@@ -49,7 +49,7 @@ a:hover {
 				<div class="information-box">
 					<h3><a href="${path}/class/detail.shop?classid=${course.classid}">${course.subject}</a></h3>
 					<div class="start-box">
-						<font>${course.location1} ${course.place}</font>						
+						<font>${course.place}</font>						
 					</div>
 					<div class="start-box">
 						<font class="class-type">
